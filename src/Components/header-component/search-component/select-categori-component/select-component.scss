@@ -1,0 +1,20 @@
+#dropdown__menu{
+    height: 35px;
+    display: flex;
+    background-color: #f2f3f5;
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    align-items: center;
+    padding: 0 10px 0 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    h1{
+        color: #808d9a;
+        display: flex;
+        font-size: 13px;
+    }
+}

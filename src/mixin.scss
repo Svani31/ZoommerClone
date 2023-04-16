@@ -1,0 +1,45 @@
+// fonts 'FiraGO', sans-serif 
+// font mo
+@mixin primary-text-color(){
+    color: #0a3251;
+    
+};
+@mixin secondary-text-color(){
+    color: #99a8b4;
+}
+@mixin secondary-text-hover{
+    color: #688093;
+}
+@mixin product-old-color(){
+    color: #7b838e;
+}
+@mixin primary-text-hover(){
+    color: #ff5000;
+}
+
+@mixin primary-text-font(){
+    font-family: 'FiraGO', sans-serif ;
+}
+
+@mixin secondary-text-font(){
+    font-family: 'Montserrat', sans-serif;
+}
+
+@mixin zoomper-price-color(){
+    color: #e97d2f;
+}
+
+@mixin button-color(){
+    background-color: #ff5000;
+}
+
+@mixin background-color(){
+    background-color: #f5f5f5;
+};
+
+@mixin content__inner(){
+    width: 1400px;
+    margin:  auto;
+    display: flex;
+    justify-content: space-between;
+}
