@@ -16,6 +16,9 @@
 @mixin primary-text-hover(){
     color: #ff5000;
 }
+@mixin primary-button-hover(){
+    background-color: #ff5000;
+}
 
 @mixin primary-text-font(){
     font-family: 'FiraGO', sans-serif ;

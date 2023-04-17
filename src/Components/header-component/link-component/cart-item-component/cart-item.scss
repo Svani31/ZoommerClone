@@ -1,0 +1,80 @@
+@import "../../../../mixin.scss";
+
+
+.header__cartitem {
+    display: flex;
+    font-weight: 500;
+    gap: 12px;
+    position: relative;
+    .cartitem__link {
+        display: flex;
+        align-items: flex-end;
+        @include primary-text-color;
+        text-decoration: none;
+        text-align: center;
+        font-family: 'FiraGO', bold;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .cartitem__dropdown{
+        position: absolute;
+        top: 50px;
+        right: 6px;
+        z-index: 1000;
+        visibility: hidden;
+        transition: 0.4s ease-in;
+        .cartitem__inner{
+            border-radius: 15px;
+            width: 270px;
+            background-color: #fff;
+            border: 1px solid #f5f5f5;
+            padding: 27px 0;
+            display: flex;
+            flex-direction: column;
+            h5{
+                float: left;
+                display: flex;
+                font-size: 15px;
+                padding-left: 25px;
+                margin-bottom: 20px;
+                @include primary-text-color;
+                font-weight: 600;
+                user-select: none
+            }
+            h4{
+                @include primary-text-font;
+                color: #688093;
+                font-size: 12px;
+                margin-bottom: 23px;
+                padding: 0 25px;
+                user-select: none;
+                text-align: right;
+                span{
+                    @include primary-text-color;
+                    font-size: 14px;
+                }
+            }
+            button{
+                width: 221px;
+                margin: 0 auto;
+                height: 45px;
+                border-radius: 5px;
+                border: none;
+                font-size: 13px;
+                text-align: center;
+                background-color: #0a3251;
+                color: white;
+                @include primary-text-font;
+                font-weight: 500;
+                cursor: pointer;
+                user-select: none;
+            }
+            button:hover{
+                @include primary-button-hover;
+            }
+        }
+    }
+}
+.header__cartitem:hover>.cartitem__dropdown{
+    visibility: visible;
+}
