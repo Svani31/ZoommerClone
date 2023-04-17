@@ -1,0 +1,14 @@
+@import "../../../../mixin.scss";
+
+.header__registration {
+    display: flex;
+    font-weight: 500;
+    gap: 12px;
+    align-items: center;
+    @include primary-text-color;
+    span {
+        font-family: 'FiraGO', bold;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}

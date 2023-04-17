@@ -18,6 +18,9 @@
         width: 100%;
         padding-left: 18px;
         cursor: pointer;
+        span{
+            user-select: none;
+        }
     }
     .language__option {
         position: absolute;
@@ -34,6 +37,11 @@
         visibility: hidden;
         z-index: 999;
         transition: all .2s ease-in;
+        user-select: none;
+        cursor: pointer;
+            span:hover{
+                @include secondary-text-hover
+            }
         &_inner{
             display: flex;
             padding: 20px;

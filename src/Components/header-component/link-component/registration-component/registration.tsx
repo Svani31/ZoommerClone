@@ -1,8 +1,12 @@
-
+import "./registration.scss"
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const Registration = () =>{
     return(
-        <h1>dfgd</h1>
+        <div className="header__registration">
+            <AccountCircleOutlinedIcon/>
+            <span>პროფილი</span>
+        </div>
     )
 }
 

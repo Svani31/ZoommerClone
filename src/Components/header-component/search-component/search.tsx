@@ -14,6 +14,7 @@ const Search = () =>{
                 placeholder={word}
                 />
                 <SelectComponentMenu/>
+                <button type="submit">
                 <SearchIcon
                 sx={{
                     height:"50px",
@@ -22,6 +23,7 @@ const Search = () =>{
                 fontSize="large"
                 id="header__icone"
                 />
+                </button>
             </form>
         </div>
         )

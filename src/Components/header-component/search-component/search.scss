@@ -3,17 +3,20 @@
     border-radius: 6px;
     width: 785px;
     border: solid 1px #eff0f2;
+    button{
+        border: none;
+        background-color: transparent;
+    }
     #header__search {
         font-size: 20px;
         display: flex;
         input {
             border: none;
-            height: 100%;
             outline: none;
             font-size: 16px;
             padding: 0 196px 0 25px;
             height: 50px;
-            width: 100%;
+            width: 94%;
         }
     }
 }
