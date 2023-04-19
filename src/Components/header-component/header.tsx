@@ -1,16 +1,36 @@
+import { useEffect, useState } from "react"
 import "./header.scss"
 import phoneImage from "../../Images/phone.jpeg"
-import { Link } from "react-router-dom"
-import {Typography} from "@mui/material"
 
+// library
+import {Typography} from "@mui/material"
+import { Link, useSearchParams } from "react-router-dom"
+import {getRedirectResult} from "firebase/auth"
+import {signInWithgoogleRedirect,createUserDocumentFromoAuth,auth} from "../../util/firebase/firebase"
+
+// Components
 import Logo from "../../Images/logo.jpg"
 import Lanuage from "./language/language"
 import Search from "./search-component/search"
 import LinkComponent from "./link-component/link-component"
 
 const Header = () =>{
+    
+    const [user,setUser] = useState<any>("")
+
+    useEffect(() =>{
+        const getResultFromRedirect = async () =>{
+            const respons = await getRedirectResult(auth)
+            console.log(respons?.user.displayName)
+            setUser(respons?.user.displayName)
+        }
+        getResultFromRedirect()
+    },[])
+
+
     return(
         <div>
+            {user}
             <div className="header__top">
                 <div className="content__inner">
                 <div className="header__left_padding">

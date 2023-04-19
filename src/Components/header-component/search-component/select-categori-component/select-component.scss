@@ -16,5 +16,10 @@
         color: #808d9a;
         display: flex;
         font-size: 13px;
+        align-items: center;
+        font-weight: 300;
     }
+}
+#dropdown__menu:hover .dropdown__arrow {
+    rotate: 180deg;
 }
