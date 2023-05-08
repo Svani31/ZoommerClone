@@ -1,14 +1,101 @@
 @import "../../../../mixin.scss";
 
 .header__registration {
-    display: flex;
-    font-weight: 500;
-    gap: 12px;
-    align-items: center;
     @include primary-text-color;
+    position: relative;
+    user-select: none;
+    z-index: 999;
+    .loggin__onclicked {
+        display: flex;
+        font-weight: 500;
+        gap: 12px;
+        align-items: center;
+        color: #0a3251;
+        user-select: none;
+        cursor: pointer;
+    }
     span {
         font-family: 'FiraGO', bold;
         font-size: 14px;
         font-weight: bold;
     }
+    .loggin__dropdown {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+        border-radius: 5px;
+        border: solid 1px #eff0f2;
+        top: 49px;
+        right: -95px;
+        z-index: 999;
+        background-color:white;
+        @include primary-text-font;
+        span {
+            float: left;
+        }
+        #loggin__form {
+            padding: 20px;
+            .loggin__button {
+                @include primary-button-hover;
+                @include primary-text-font;
+            }
+            .login__button {
+                color: #0a3251;
+                @include primary-text-font;
+            }
+            .loggin__button:hover {
+                background-color: #eb733c;
+            }
+            .login__button:hover {
+                @include primary-text-hover;
+            }
+        }
+        .google__span {
+            border-bottom: solid 2px #bed1f6;
+        }
+    }
+    .registration {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+        border-radius: 5px;
+        border: solid 1px #eff0f2;
+        width: 274px;
+        top: 49px;
+        right: -105px;
+        background-color:white;
+        @include primary-text-font;
+        #registration__form {
+            padding: 20px;
+            span {
+                float: left;
+                font-size: 15px;
+                @include primary-text-color;
+                margin-left: 15px;
+            }
+            .registration__text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                float: left;
+                cursor: pointer;
+            }
+        }
+        .registration__button{
+            @include primary-button-hover;
+            margin-top: 15px;
+            float: left;
+            transform: translateX();
+        }
+    }
+    .transform__onclick{
+        opacity: 1;
+    }
+    .hidden{
+        visibility: hidden;
+    }
 }
+
+// we are making at thsi moment transition but using left and right

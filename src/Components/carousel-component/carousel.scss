@@ -1,0 +1,52 @@
+@import "../../mixin.scss";
+.slider__img {
+  width: 100%;
+  background-repeat: no-repeat !important;
+  background-position-x: center !important;
+  background-position-y: center !important;
+  max-height: 400px !important;
+}
+// position: absolute;
+// left: 60%;
+// transform: translate(-50%,-50%);
+// top: 50%;
+// gap: 562px;
+// display: flex;
+.carousel__button {
+  @include content__inner;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  justify-content: space-around;
+  .prev__btn {
+    background: rgba(0, 0, 0, 0.4) ;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    align-items: center;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    transition: 0.2s ease-in;
+  }
+  .next__btn {
+    background: rgba(0, 0, 0, 0.4) ;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    align-items: center;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    transition: 0.2s ease-in;
+  }
+  .next__btn:hover{
+      @include primary-button-hover ;
+  }
+  .prev__btn:hover{
+      @include primary-button-hover ;
+  }
+}

@@ -1,14 +1,25 @@
+import { useEffect, useState } from "react"
 import "./header.scss"
 import phoneImage from "../../Images/phone.jpeg"
-import { Link } from "react-router-dom"
-import {Typography} from "@mui/material"
 
+// library
+import {Typography} from "@mui/material"
+import { Link, useSearchParams } from "react-router-dom"
+
+
+// Components
 import Logo from "../../Images/logo.jpg"
 import Lanuage from "./language/language"
 import Search from "./search-component/search"
 import LinkComponent from "./link-component/link-component"
 
+// import carousel 
+import AppSlider from "../carousel-component/carousel"
+
+
 const Header = () =>{
+    
+
     return(
         <div>
             <div className="header__top">
@@ -50,6 +61,7 @@ const Header = () =>{
                         <LinkComponent/>
                 </div>
             </div>
+            <AppSlider/>
         </div>
     )
 }

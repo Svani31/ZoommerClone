@@ -1,0 +1,60 @@
+@import "./../../../mixin.scss";
+.title__image{
+  // transform: translate3d(10px, 10px, 10px);
+}
+.product__title {
+  float: left;
+  @include primary-text-font;
+  color: #093251;
+  line-height: 42px;
+}
+.products__container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  @include secondary-text-font;
+  h4 {
+    font-family: Montserrat, BPGMrgvlovani;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    @include primary-text-color;
+    margin-bottom: 10px;
+    height: 35px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+  }
+  .product__price {
+    margin-bottom: 5px;
+    height: 45px;
+    text-align: center;
+    h3 {
+      color: #fe5f55;
+      font-size: 18px;
+      font-weight: bold;
+      display: inline-block;
+      span {
+        text-decoration: line-through;
+        font-size: 12px;
+        font-weight: 600;
+        color: #7b838e;
+        display: inline-block;
+      }
+    }
+    h5 {
+      color: #fe5f55;
+      span {
+        text-decoration: line-through;
+        font-size: 12px;
+        font-weight: 600;
+        color: #7b838e;
+        display: inline-block;
+      }
+    }
+  }
+}
+.products__container h4:hover {
+  @include primary-text-hover;
+  text-decoration: underline;
+}

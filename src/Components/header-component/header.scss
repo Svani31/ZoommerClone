@@ -99,3 +99,11 @@
         }
     }
 }
+
+.container__inner{
+    // width: 1400px;
+    // padding: 0 13px;
+    // line-height: 60px;
+    // height: 60px;
+    @include content__inner
+}
