@@ -15,4 +15,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
-// api,env,carousel
