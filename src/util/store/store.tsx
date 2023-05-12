@@ -12,9 +12,18 @@ export const useStore = () => useContext(StoreContext);
 
 const StoreProvider = ({ children }) => {
   
+<<<<<<< HEAD
   
 
   const store = {
+=======
+  const consoleLog = () =>{
+    console.log("dfgd")
+  }
+
+  const store = {
+   
+>>>>>>> refs/remotes/origin/main
   };
 
   return (
