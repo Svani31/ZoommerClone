@@ -7,10 +7,11 @@ const LinkComponent = () =>{
     return(
         <Box sx={{
             display:"flex",
-            width:"350px",
-            justifyContent:"space-around",
+            width:"250px",
+            justifyContent:"space-between",
             textAlign:"center",
             alignItems:"center"
+            
         }}>
             <Registration/>
             <CartItem/>

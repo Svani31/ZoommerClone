@@ -1,26 +1,39 @@
 // @ts-nocheck
-import { createContext, useContext, useState, useMemo } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 
-type storeContextProps = {
-    
-}
+type StoreContextProps = {
+  addProductHandler: (e: string) => null;
+  productId: string;
+};
 
-export const StoreContext = createContext({} as storeContextProps);
+export const StoreContext = createContext<StoreContextProps>({
+  addProductHandler: () => {},
+  productId: '',
+});
 
-export const useStore = () => useContext(StoreContext);
+export const useStore = (): StoreContextProps => useContext(StoreContext);
 
-const StoreProvider = ({ children }) => {
-  
-  
+type StoreProps = {
+  children: React.ReactNode;
+};
+
+const StoreProvider = ({ children }: StoreProps) => {
+  const [productId, setProductId] = useState('');
+
+  const addProductHandler = (e: string) => {
+    setProductId(e);
+  };
 
   const store = {
+    addProductHandler,
+    productId,
   };
 
   return (
     <StoreContext.Provider value={store}>
-        <CssBaseline />
-        {children}
+      <CssBaseline />
+      {children}
     </StoreContext.Provider>
   );
 };

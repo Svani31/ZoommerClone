@@ -8,13 +8,32 @@
     position: relative;
     .cartitem__link {
         display: flex;
-        align-items: flex-end;
+        // align-items: flex-end;
         @include primary-text-color;
         text-decoration: none;
         text-align: center;
         font-family: 'FiraGO', bold;
         font-size: 14px;
         font-weight: bold;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+        @include secondary-text-font;
+        span{
+            font-size: 16px;
+            .cartitem__length{
+                width: 24px;
+                height: 15px;
+                background-color: #ff5400;
+                border-radius: 8px;
+                color: #fff;
+                font-family: firago-medium;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
     .cartitem__dropdown{
         position: absolute;
@@ -31,6 +50,54 @@
             padding: 27px 0;
             display: flex;
             flex-direction: column;
+            .cart__items{
+                // display: flex;
+                // justify-content: space-between;
+                // background-color: #0a3251;
+                cursor: pointer;
+                margin: 0 12px;
+                img{
+                    width: 47px;
+                    height: 47px;
+                    margin-left: 12px;
+                }
+                .cart__item_inner{
+                    display: flex;
+                    justify-content: space-around;
+                    border-bottom: 1px solid #f5f5f5;
+                    user-select: none;
+                    .cart__item_left{
+                        align-items: center;
+                        display: flex;
+                        span{
+                            color: #688093;
+                        }
+                    }
+                    .cart__item_right{
+                        display: flex;
+                        flex-direction: column;
+                        .cart__item_description{
+                            font-size: 11px !important;
+                            @include primary-text-color;
+                            @include secondary-text-font
+                        }
+                        .quantity{
+                            display: flex;
+                            justify-content: space-around;
+                            text-align: center;
+                            align-items: center;
+                            line-height: 15px;
+                            margin: 10px 0;
+                            color: #688093;
+                            .quantity__buttons{
+                                // background-color: red;
+                                border: 1px solid #f5f5f5;
+                                padding: 1px;
+                            }
+                        }
+                    }
+                }
+            }
             h5{
                 float: left;
                 display: flex;
