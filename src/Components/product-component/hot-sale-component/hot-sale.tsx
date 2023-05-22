@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 // improting Mui Components
 import { Box, Paper, Typography } from "@mui/material";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
@@ -26,12 +26,40 @@ import { useStore } from "../../../util/store/store";
 
 // improt store
 
+type ProductProps = {
+  id:string
+}
+
+type ProductState = {
+  productEl:ProductProps
+}
+
+const initalState:ProductState = {productEl:{id:""}}
+
+const enum REDUCER_ACTION_TYPES {
+  ADD_PRODUCT_ID
+}
+
+type REDUCER_ACTION_PROPS = {
+  type:REDUCER_ACTION_TYPES,
+  id:ProductProps
+}
+
+const reducer = (state:ProductState,action:REDUCER_ACTION_PROPS) =>{
+  switch(action.type){
+    case REDUCER_ACTION_TYPES.ADD_PRODUCT_ID:
+      return {...state,productEl:action.id}
+  }
+}
+
 
 const HotSale = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  const {addProductHandler}:any = useStore()
+  // const {addProductHandler}:any = useStore()
+
+  const [state,dispatch] = useReducer(reducer,initalState)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,8 +72,11 @@ const HotSale = () => {
     };
     fetchData();
   }, []);
-
   
+  const addProductHandler = (id:ProductProps) =>{
+    dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
+  }
+  console.log(state.productEl)
   return (
     <div
       style={{
@@ -100,7 +131,7 @@ const HotSale = () => {
                     {productEl.images.map((imageEl: any) => {
                       return (
                         <>
-                          <Slide key={imageEl} index={productEl.id}>
+                          <Slide key={productEl.id} index={productEl.id}>
                             <img className="slider__img" src={imageEl} alt="" />
                           </Slide>
                         </>

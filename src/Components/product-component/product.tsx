@@ -1,6 +1,9 @@
 import Brand from "./brand-component/brand";
 import HotSale from "./hot-sale-component/hot-sale";
 import NewModel from "./new-model-component/new-model";
+import Popular from "./popular-component/popular";
+import VisitedProduct from "./seen-product-component/seen-product";
+import TopProduct from "./top-product-component/top-product";
 
 const Product = () => {
   return (
@@ -12,6 +15,10 @@ const Product = () => {
         <HotSale />
         <NewModel />
         <Brand />
+        <NewModel/>
+        <Popular/>
+        <VisitedProduct/>
+        <TopProduct/>
       </div>
     </div>
     </div>
