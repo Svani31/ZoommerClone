@@ -22,44 +22,17 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+
+// import context API
 import { useStore } from "../../../util/store/store";
-
-// improt store
-
-type ProductProps = {
-  id:string
-}
-
-type ProductState = {
-  productEl:ProductProps
-}
-
-const initalState:ProductState = {productEl:{id:""}}
-
-const enum REDUCER_ACTION_TYPES {
-  ADD_PRODUCT_ID
-}
-
-type REDUCER_ACTION_PROPS = {
-  type:REDUCER_ACTION_TYPES,
-  id:ProductProps
-}
-
-const reducer = (state:ProductState,action:REDUCER_ACTION_PROPS) =>{
-  switch(action.type){
-    case REDUCER_ACTION_TYPES.ADD_PRODUCT_ID:
-      return {...state,productEl:action.id}
-  }
-}
+import {REDUCER_ACTION_TYPES} from "../../../util/store/action"
 
 
 const HotSale = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  // const {addProductHandler}:any = useStore()
-
-  const [state,dispatch] = useReducer(reducer,initalState)
+  const {cartItem,dispatch} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,10 +46,13 @@ const HotSale = () => {
     fetchData();
   }, []);
   
-  const addProductHandler = (id:ProductProps) =>{
-    dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
+  // console.log(productEl)
+  const addProductHandler = async (id:string) =>{
+    const {data} = await ajax.get(`product/${id}`)
+    dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,cartItem:data})
   }
-  console.log(state.productEl)
+  console.log(cartItem,"this is car Item")
+
   return (
     <div
       style={{
@@ -128,10 +104,10 @@ const HotSale = () => {
                   // dragEnabled={false}
                 >
                   <Slider>
-                    {productEl.images.map((imageEl: any) => {
+                    {productEl.images.map((imageEl:string) => {
                       return (
                         <>
-                          <Slide key={productEl.id} index={productEl.id}>
+                          <Slide key={imageEl.length} index={productEl.id}>
                             <img className="slider__img" src={imageEl} alt="" />
                           </Slide>
                         </>

@@ -1,26 +1,19 @@
-type ProductProps = {
-  id: string;
-};
+import { ProductState } from "../../@types/general";
 
-type ProductState = {
-  productEl: ProductProps;
-};
+import {REDUCER_ACTION_PROPS,REDUCER_ACTION_TYPES} from "./action"
 
-export const initalState: ProductState = { productEl: { id: "" } };
+export const initalState: ProductState = {cartItem:[] };
 
-const enum REDUCER_ACTION_TYPES {
-  ADD_PRODUCT_ID,
-}
-
-type REDUCER_ACTION_PROPS = {
-  type: REDUCER_ACTION_TYPES;
-  id: ProductProps;
-};
 
 const reducer = (state: ProductState, action: REDUCER_ACTION_PROPS) => {
   switch (action.type) {
     case REDUCER_ACTION_TYPES.ADD_PRODUCT_ID:
-      return { ...state, productEl: action.id };
+      const newCartItem = [...state.cartItem]
+      return { ...state, cartItem:[...state.cartItem,action.cartItem] };
+      case REDUCER_ACTION_TYPES.REMOVE_PRODUCT:
+        {console.log(state)}
+        const newItem = [...state.cartItem].filter(element => element.id !== action.id)
+      return {...state,cartItem:newItem}
   }
 };
 

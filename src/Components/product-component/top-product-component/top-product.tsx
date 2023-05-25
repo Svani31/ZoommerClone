@@ -57,9 +57,8 @@ const TopProduct = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  // const {addProductHandler}:any = useStore()
 
-  const [state,dispatch] = useReducer(reducer,initalState)
+  const {productEl,dispatch} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +75,7 @@ const TopProduct = () => {
   const addProductHandler = (id:ProductProps) =>{
     dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
   }
-  console.log(state.productEl)
+
   return (
     <div
       style={{

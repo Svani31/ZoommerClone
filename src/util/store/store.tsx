@@ -1,17 +1,17 @@
 // @ts-nocheck
 import { createContext, useContext, useReducer, useState } from 'react';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
-import reducer, { initalState } from './redux';
+import reducer, { initalState,REDUCER_ACTION_TYPES } from './redux';
+import { BanckEndItem } from '../../@types/general';
+
 
 type StoreContextProps = {
-  addProductHandler: (e: string) => null;
-  productId: string;
+  cartItem: BanckEndItem[];
+  dispatch:REDUCER_ACTION_TYPES
 };
 
-export const StoreContext = createContext<StoreContextProps>({
-  addProductHandler: () => {},
-  productId: '',
-});
+
+export const StoreContext = createContext({} as StoreContextProps);
 
 export const useStore = (): StoreContextProps => useContext(StoreContext);
 
@@ -21,20 +21,13 @@ type StoreProps = {
 
 const StoreProvider = ({ children }: StoreProps) => {
 
-  const [productId, setProductId] = useState('');
 
   const [state,dispatch] = useReducer(reducer,initalState)
 
-  const addProductHandler = (e: string) => {
-    setProductId(e);
-  };
-
 
   const store = {
-    addProductHandler,
-    productId,
-    // ...state,
-    // dispatch,
+    ...state,
+    dispatch,
   };
 
   return (

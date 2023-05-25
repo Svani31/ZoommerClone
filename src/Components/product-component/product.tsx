@@ -15,9 +15,8 @@ const Product = () => {
         <HotSale />
         <NewModel />
         <Brand />
-        <NewModel/>
         <Popular/>
-        <VisitedProduct/>
+        {/* <VisitedProduct/> */}
         <TopProduct/>
       </div>
     </div>

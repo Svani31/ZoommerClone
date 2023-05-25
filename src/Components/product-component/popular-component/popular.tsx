@@ -22,44 +22,19 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+
+
+// import context API
 import { useStore } from "../../../util/store/store";
+import {REDUCER_ACTION_TYPES} from "../../../util/store/action"
 
-// improt store
-
-type ProductProps = {
-  id:string
-}
-
-type ProductState = {
-  productEl:ProductProps
-}
-
-const initalState:ProductState = {productEl:{id:""}}
-
-const enum REDUCER_ACTION_TYPES {
-  ADD_PRODUCT_ID
-}
-
-type REDUCER_ACTION_PROPS = {
-  type:REDUCER_ACTION_TYPES,
-  id:ProductProps
-}
-
-const reducer = (state:ProductState,action:REDUCER_ACTION_PROPS) =>{
-  switch(action.type){
-    case REDUCER_ACTION_TYPES.ADD_PRODUCT_ID:
-      return {...state,productEl:action.id}
-  }
-}
 
 
 const Popular = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  // const {addProductHandler}:any = useStore()
-
-  const [state,dispatch] = useReducer(reducer,initalState)
+  const {productEl,dispatch} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,10 +48,10 @@ const Popular = () => {
     fetchData();
   }, []);
   
-  const addProductHandler = (id:ProductProps) =>{
+   const addProductHandler = (id:string) =>{
     dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
   }
-  console.log(state.productEl)
+
   return (
     <div
       style={{

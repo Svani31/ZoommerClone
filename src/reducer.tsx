@@ -1,69 +1,123 @@
-import { Box, Button, Typography } from "@mui/material"
-import { useEffect, useReducer, useState } from "react"
-import ajax from "./util/service/ajax"
+import { useEffect, useReducer, useState } from "react";
+import ajax from "./util/service/ajax";
+import { Box, Paper, Typography, Button } from "@mui/material";
+import { BanckEndItem, itemProps } from "./@types/general";
+import { confirmPasswordReset } from "firebase/auth";
 
-type Product = {
-    title:string
+type ItemProps = {
+  item: BanckEndItem[];
+};
+
+const stateValue: ItemProps = { item: [] };
+
+enum ACTION_TYPE {
+  ADD_CART,
+  REMOVER_FROM_CART,
 }
 
-type ProductProps = {
-    cartItem:Product[]
-}
+type ACTION_PROPS = {
+  type: ACTION_TYPE;
+  id: any;
+};
 
-const initalValue:ProductProps = {cartItem:[]}
+const reducer = (state = stateValue, action: ACTION_PROPS) => {
+  switch (action.type) {
+    case ACTION_TYPE.ADD_CART:
+      return { ...state, item: [...state.item, action.id] };
+    case ACTION_TYPE.REMOVER_FROM_CART:
+      const newItem = [...state.item].filter(
+        (itemEl) => itemEl.id !== action.id
+      );
+      return { ...state, item: newItem };
+  }
+};
 
-enum REDUCER_ACTION_TYPES {
-    ADD_CART
-}
+const Create = () => {
+  const [products, setProducts] = useState<BanckEndItem[]>([]);
+  const [quantity, setQuantity] = useState(0);
 
-type REDUCER_ACTION_PROPS = {
-    type:REDUCER_ACTION_TYPES
-    item:Product
-}
+  const [state, dispatch] = useReducer(reducer, stateValue);
+  useEffect(() => {
+    const fetchApi = async () => {
+      const { data } = await ajax.post("products", {
+        keyword: "",
+        page_size: 5,
+        page_number: 0,
+      });
+      setProducts(data.products);
+    };
+    fetchApi();
+    
+}, []);
 
-const reducer = (state=initalValue,action:REDUCER_ACTION_PROPS) =>{
-    switch(action.type){
-        case REDUCER_ACTION_TYPES.ADD_CART:
-            return {...state,cartItem:[...state.cartItem,action.item]}
-    }
-}
+  const addCartHandler = async (item: string) => {
+    const { data } = await ajax.get(`product/${item}`);
+    dispatch({ type: ACTION_TYPE.ADD_CART, id: data });
+};
+ 
 
-const Tester = () =>{
+  const removeHandler = (id: string) => {
+    dispatch({ type: ACTION_TYPE.REMOVER_FROM_CART, id: id });
+  };
 
-    const [products,setProducts] = useState([])
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      <Typography variant="h4">This is title</Typography>
+      <Box>
+        <Paper>
+          {products.map((productEl) => {
+            return (
+              <Box key={productEl.id}>
+                <Paper>
+                  <Typography variant="subtitle2">
+                    Number {productEl.id}
+                  </Typography>
+                  <Typography variant="h6">{productEl.title}</Typography>
+                  <Typography variant="h6">{productEl.price}</Typography>
+                  <h4 onClick={() =>setQuantity(prev => prev + 1)}>+</h4>
+                  <h4>{quantity}</h4>
+                  <h4 onClick={() =>setQuantity(prev => prev - 1)}>-</h4>
+                  <Button
+                    onClick={(e) => addCartHandler(productEl.id)}
+                    variant="contained"
+                    color="success"
+                  >
+                    Add To Cart
+                  </Button>
+                </Paper>
+              </Box>
+            );
+          })}
+        </Paper>
+      </Box>
+      <Box>
+        <Typography variant="h6">this is cart</Typography>
+        {state?.item.map((itemEl: BanckEndItem) => {
+          return (
+            <Box>
+              <Typography variant="h5">{itemEl.title}</Typography>
+              <Typography variant="h5">{itemEl.brand}</Typography>
+              <Button
+                onClick={(e) => removeHandler(itemEl.id)}
+                variant="contained"
+                color="error"
+              >
+                Remove From Cart
+              </Button>
+            </Box>
+          );
+        })}
+      </Box>
+    </Box>
+  );
+};
 
-    const [state,dispatch] = useReducer(reducer,initalValue)
-
-    useEffect(()=>{
-        const postProducts = async () =>{
-            const {data} = await ajax.post("products",{
-                page_number:0,
-                page_size:10,
-                keyword:""
-            })
-            setProducts(data.products)
-        }
-        postProducts()
-    },[])
-
-    const addHandler = (product:Product) =>{
-        dispatch({type:REDUCER_ACTION_TYPES.ADD_CART,item:product})
-    }
-    console.log(state.cartItem)
-    return(
-        <Box>
-            <Typography variant="h4">this is Title</Typography>
-            {products.map((productEl:Product)=>{
-                return(
-                    <Box>
-                        <h1>this is title {productEl.title}</h1>
-                        <Button variant="contained" color="success" onClick={()=> addHandler(productEl)}>Add </Button>
-                    </Box>
-                )
-            })}
-        </Box>
-    )
-}
-
-
-export default Tester
+export default Create;
