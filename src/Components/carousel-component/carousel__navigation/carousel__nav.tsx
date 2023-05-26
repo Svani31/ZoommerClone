@@ -10,9 +10,10 @@ import ScreenLockPortraitOutlinedIcon from '@mui/icons-material/ScreenLockPortra
 import HdrStrongOutlinedIcon from '@mui/icons-material/HdrStrongOutlined';
 import AudiotrackOutlinedIcon from '@mui/icons-material/AudiotrackOutlined';
 import PersonalVideoOutlinedIcon from '@mui/icons-material/PersonalVideoOutlined';
+import { useState } from "react";
 
 const CarouselNav = () => {
-
+      
   return (
     <Box className="content__inner">
       <Box className="carousel__nav">

@@ -25,14 +25,12 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 // import context API
 import { useStore } from "../../../util/store/store";
-import {REDUCER_ACTION_TYPES} from "../../../util/store/action"
-
 
 const HotSale = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  const {cartItem,dispatch} = useStore()
+  const {cartItem,dispatch,addProductHandler} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,12 +44,8 @@ const HotSale = () => {
     fetchData();
   }, []);
   
-  // console.log(productEl)
-  const addProductHandler = async (id:string) =>{
-    const {data} = await ajax.get(`product/${id}`)
-    dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,cartItem:data})
-  }
-  console.log(cartItem,"this is car Item")
+
+  
 
   return (
     <div

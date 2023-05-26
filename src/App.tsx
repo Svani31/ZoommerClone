@@ -8,19 +8,20 @@ import './App.css'
 
 import Header from './Components/header-component/header'
 import Product from './Components/product-component/product'
+import { Box } from '@mui/material'
 
 
 function App() {
     {console.log(window.innerWidth)}
 
 return (
-<>
+<Box>
     <Header/>
     <Routes>
       
     </Routes>
       <Product/>
-</>
+</Box>
   )
 }
 

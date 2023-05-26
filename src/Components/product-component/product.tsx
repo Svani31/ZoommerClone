@@ -4,23 +4,25 @@ import NewModel from "./new-model-component/new-model";
 import Popular from "./popular-component/popular";
 import VisitedProduct from "./seen-product-component/seen-product";
 import TopProduct from "./top-product-component/top-product";
+import { Box } from "@mui/material";
+
 
 const Product = () => {
   return (
-    <div style={{
+    <Box sx={{
         backgroundColor:"#f5f5f5"
     }}>
-    <div className="content__inner">
-      <div>
+    <Box className="content__inner">
+      <Box>
         <HotSale />
         <NewModel />
         <Brand />
         <Popular/>
         {/* <VisitedProduct/> */}
         <TopProduct/>
-      </div>
-    </div>
-    </div>
+      </Box>
+    </Box>
+    </Box>
   );
 };
 

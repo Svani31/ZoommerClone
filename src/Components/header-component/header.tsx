@@ -3,7 +3,7 @@ import "./header.scss"
 import phoneImage from "../../Images/phone.jpeg"
 
 // library
-import {Typography} from "@mui/material"
+import {Box, Typography} from "@mui/material"
 import { Link, useSearchParams } from "react-router-dom"
 
 
@@ -21,20 +21,20 @@ const Header = () =>{
     
 
     return(
-        <div>
-            <div className="header__top">
-                <div className="content__inner">
-                <div className="header__left_padding">
-                    <div>
+        <Box>
+            <Box className="header__top">
+                <Box className="content__inner">
+                <Box className="header__left_padding">
+                    <Box>
                         <img src={phoneImage} alt="phoneImage"/>
-                    </div>
-                    <div>
+                    </Box>
+                    <Box>
                          <span>ცხელი ხაზი</span>
                          <a href="*7007 / +995 (32) 2 60 30 60">*7007 / +995 (32) 2 60 30 60</a>
-                    </div>
-                </div>
-                <div className="header__right_padding">
-                    <div className="header__top_helper">
+                    </Box>
+                </Box>
+                <Box className="header__right_padding">
+                    <Box className="header__top_helper">
                     <Link className="helper__link" to={"/online__installments"}>
                         <li>ონლაინ განვადება</li>
                     </Link>
@@ -44,25 +44,25 @@ const Header = () =>{
                     <Link className="helper__link" to={"/all__promotions"}>
                     <li className="active">ყველა აქცისა</li>
                     </Link>
-                    </div>
+                    </Box>
                            <Lanuage/>              
-                </div>
-                </div>
-            </div>
-            <div className="header__bottom">
-                <div className="content__inner">
-                    <div className="header__logo">
+                </Box>
+                </Box>
+            </Box>
+            <Box className="header__bottom">
+                <Box className="content__inner">
+                    <Box className="header__logo">
                         <Link className="logo__link" to={"/"}>
                             <img src={Logo} alt="Logo" />
                             <span className="zoomer">ზუმერი</span>
                         </Link>
-                    </div>
+                    </Box>
                         <Search/>
                         <LinkComponent/>
-                </div>
-            </div>
+                </Box>
+            </Box>
             <AppSlider/>
-        </div>
+        </Box>
     )
 }
 

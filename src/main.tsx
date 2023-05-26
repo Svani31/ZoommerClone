@@ -21,3 +21,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </React.StrictMode>,
 )
+
+// search engine Working,BackgroundBlure,cartItem Delete 

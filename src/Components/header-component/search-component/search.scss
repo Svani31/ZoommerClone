@@ -1,3 +1,5 @@
+@import "../../../mixin.scss";
+
 .search__container {
     position: relative;
     border-radius: 6px;
@@ -17,6 +19,67 @@
             padding: 0 196px 0 25px;
             height: 50px;
             width: 94%;
+        }
+    }
+}
+.search__dropdown{
+    position: absolute;
+    top: 50px;
+    z-index: 9;
+    background-color: white;
+    width: 100%;
+    border-radius: 4px;
+    height: 350px;
+    padding: 30px;
+    .search__items_inner{
+        display: flex;
+        font-size: 14px;
+        // background-color: red;
+        .search__categorys{
+            width: 35%;
+            .category__text{
+                @include primary-text-font;
+                font-size: 14px;
+                font-weight: 500;
+                margin-top: 10px;
+                @include secondary-text-hover;
+            }
+        }
+        .search__item{
+            @include primary-text-font;
+            font-size: 13px;
+            font-weight: 500;
+            @include secondary-text-hover;
+            border-left:solid 1px #f5f5f5;
+            width: 100%;
+            .item__inner{
+                margin-left: 15px;
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: 13px;
+                // margin-bottom: 11px;
+                border-bottom: solid 1px #f5f5f5;
+                // text-align: center;
+                align-items: center;
+                .item__title{
+                    height: 60px;
+                    overflow: hidden;
+                    text-align: center;
+                    justify-content: flex-start;
+                    align-items: center;
+                    display: flex;
+                    width: 260px;
+                }
+                .item__price{
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    flex-direction: column;
+                }
+                img{
+                    width: 60px;
+                }
+            }
         }
     }
 }

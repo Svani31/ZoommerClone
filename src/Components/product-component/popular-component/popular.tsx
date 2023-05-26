@@ -34,7 +34,7 @@ const Popular = () => {
   
   const [products, setProducts] = useState<string[]>([]);
 
-  const {productEl,dispatch} = useStore()
+  const {addProductHandler} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +48,7 @@ const Popular = () => {
     fetchData();
   }, []);
   
-   const addProductHandler = (id:string) =>{
-    dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
-  }
-
+   
   return (
     <div
       style={{

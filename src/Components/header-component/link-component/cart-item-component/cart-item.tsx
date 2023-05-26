@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -12,26 +12,34 @@ import { BanckEndItem } from "../../../../@types/general";
 import "./cart-item.scss";
 import { REDUCER_ACTION_TYPES } from "../../../../util/store/action";
 
-
-
-
 const CartItemSection = () => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [price, setPrice] = useState(0);
 
+  const { cartItem, dispatch } = useStore();
 
+  const removeItemHandler = (id: string) => {
+    dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_PRODUCT, id: id });
+  };
 
-  const {cartItem,dispatch} = useStore()
-  
-  const removeItemHandler = (id:string) =>{
-    dispatch({type:REDUCER_ACTION_TYPES.REMOVE_PRODUCT,id:id})
-  }
- 
+  useEffect(() => {
+    const number = cartItem.map((cartEl: BanckEndItem) => {
+    return Number(cartEl.price);
+    });
+    if (number.length > 0) {
+      const calculateTotal = number.reduce((price: number, item: number) => price + item);
+      setPrice(calculateTotal);
+    }
+    }, [cartItem]);
+
+    
   return (
     <Box className="header__cartitem">
       <Link className="cartitem__link" to={"/cart"}>
         <ShoppingCartOutlinedIcon />
         <span>
-          <span className="cartitem__length">{cartItem?.length}</span> ლ
+          <span className="cartitem__length">{cartItem?.length}</span>
+          {Math.floor(price)} ლ
         </span>
       </Link>
       <Box className="cartitem__dropdown">
@@ -39,7 +47,7 @@ const CartItemSection = () => {
           <h5>კალათა</h5>
           <Box className="cart__items">
             {/* cart item on dropdown Map here */}
-            {cartItem?.map((cartItemEl:BanckEndItem) => (
+            {cartItem?.map((cartItemEl: BanckEndItem) => (
               <Box key={cartItemEl.id} className="cart__item_inner">
                 <Box className="cart__item_left">
                   <span>

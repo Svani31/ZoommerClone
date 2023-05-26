@@ -33,7 +33,7 @@ const NewModel = () => {
   const [products, setProducts] = useState<string[]>([]);
 
 
-  const {productEl,dispatch} = useStore()
+  const {addProductHandler} = useStore()
 
 
   useEffect(() => {
@@ -48,10 +48,7 @@ const NewModel = () => {
     fetchData();
   }, []);
   
-    // console.log(productEl)
-    const addProductHandler = (id:string) =>{
-      dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,id:id})
-    }
+   
   
   return (
     <div
