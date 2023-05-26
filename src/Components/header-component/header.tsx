@@ -5,12 +5,6 @@ import phoneImage from "../../Images/phone.jpeg"
 // library
 import {Box, Typography} from "@mui/material"
 import { Link, useSearchParams } from "react-router-dom"
-<<<<<<< HEAD
-
-=======
-import {getRedirectResult} from "firebase/auth"
-import {signInWithgoogleRedirect,createUserDocumentFromoAuth,auth} from "../../util/firebase/firebase"
->>>>>>> refs/remotes/origin/main
 
 // Components
 import Logo from "../../Images/logo.jpg"
@@ -24,36 +18,13 @@ import AppSlider from "../carousel-component/carousel"
 
 const Header = () =>{
     
-<<<<<<< HEAD
-=======
-    const [user,setUser] = useState<any>("")
-
-    useEffect(() =>{
-        const getResultFromRedirect = async () =>{
-            const respons = await getRedirectResult(auth)
-            console.log(respons?.user.displayName)
-            setUser(respons?.user.displayName)
-        }
-        getResultFromRedirect()
-    },[])
-
->>>>>>> refs/remotes/origin/main
 
     return(
-<<<<<<< HEAD
         <Box>
             <Box className="header__top">
                 <Box className="content__inner">
                 <Box className="header__left_padding">
                     <Box>
-=======
-        <div>
-            {user}
-            <div className="header__top">
-                <div className="content__inner">
-                <div className="header__left_padding">
-                    <div>
->>>>>>> main
                         <img src={phoneImage} alt="phoneImage"/>
                     </Box>
                     <Box>
