@@ -14,11 +14,7 @@ import { Box } from '@mui/material'
 function App() {
     {console.log(window.innerWidth)}
     
-  const {consoleLog} = useStore()
-
-  consoleLog
   
-
 
 return (
 <Box>
