@@ -1,13 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+<<<<<<< HEAD
 
 
 // import App from './reducer'
 
 
 
+=======
+<<<<<<< HEAD
+>>>>>>> main
 // import App from "./todoapp"
+=======
+>>>>>>> refs/remotes/origin/main
 // import App from './appTester'
 import { BrowserRouter} from "react-router-dom"
 import StoreProvider from './util/store/store'
