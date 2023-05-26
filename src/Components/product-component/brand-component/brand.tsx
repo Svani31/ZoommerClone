@@ -1,9 +1,10 @@
+import { Box } from "@mui/material"
 
 
 
 const Brand = () =>{
     return(
-        <h1>This is Brand Section</h1>
+        <Box></Box>
     )
 }
 

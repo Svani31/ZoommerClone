@@ -1,28 +1,51 @@
+import { useEffect, useReducer, useState } from "react";
 // improting Mui Components
 import { Box, Paper, Typography } from "@mui/material";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 // importing Photos
 import h from "../../../Images/Product-Title/hot-proposal.svg";
-import test from "../../../Images/tester image.jpeg";
 // importing Css
 import "./hot-sale.scss";
-import { useEffect, useState } from "react";
+
+// improt ajax api
 import ajax from "../../../util/service/ajax";
+
+// import carousel library
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
+
+// import context API
+import { useStore } from "../../../util/store/store";
+
 const HotSale = () => {
-    
-  const [products,setProducts] = useState<string[]>([])
+  
+  const [products, setProducts] = useState<string[]>([]);
+
+  const {cartItem,dispatch,addProductHandler} = useStore()
 
   useEffect(() => {
     const fetchData = async () => {
       const respons = await ajax.post("/products", {
         page_size: 10,
-        page_number: 1,
+        page_number: 0,
         keyword: "",
       });
-      console.log(respons.data.products)
+      setProducts(respons.data.products);
     };
     fetchData();
   }, []);
+  
 
+  
 
   return (
     <div
@@ -34,46 +57,106 @@ const HotSale = () => {
         style={{
           display: "flex",
           gap: "20px",
-          textAlign:"center",
-          alignContent:"center",
-          justifyContent:"center",
+          textAlign: "center",
+          alignItems: "center",
+          userSelect: "none",
         }}
       >
         <div className="title__image">
           <img src={h} alt="" />
         </div>
-        <h2 className="product__title">ცხელი შეთავაზება</h2>
+        <h2 className="hot__sale">ცხელი შეთავაზება</h2>
       </div>
       <div className="products__container">
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            textAlign: "center",
-            // width:"280px",
-            padding: "15px",
-            cursor: "pointer",
-          }}
-        >
-          <Paper
-            sx={{
-              width: "230px",
-              borderRadius: "12px",
-            }}
-          >
-            <img src={test} alt="Item Photo" />
-            <h4>Apple Watch Ultra 49mm Titanium Starlight Alpin...</h4>
-            <div className="product__price">
-              <h3>
-                1 999 ₾ <span>1 700 ₾</span>
-              </h3>
-              <h5>
-                63 ₾ <span>- დან</span>
-              </h5>
-            </div>
-          </Paper>
-        </Box>
+        {/* there is map  */}
+        {products.map((productEl: any) => {
+          return (
+            <Box
+              key={productEl.id}
+              className="product__box"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                textAlign: "center",
+                // width:"280px",
+                padding: "15px",
+                cursor: "pointer",
+                position:"relative"
+              }}
+            >
+              <Paper
+                sx={{
+                  width: "230px",
+                  borderRadius: "12px",
+                }}
+              >
+                <CarouselProvider
+                  naturalSlideWidth={3}
+                  naturalSlideHeight={2}
+                  totalSlides={productEl.images.length}
+                  infinite={true}
+                  // dragEnabled={false}
+                >
+                  <Slider>
+                    {productEl.images.map((imageEl:string) => {
+                      return (
+                        <>
+                          <Slide key={imageEl.length} index={productEl.id}>
+                            <img className="slider__img" src={imageEl} alt="" />
+                          </Slide>
+                        </>
+                      );
+                    })}
+                  </Slider>
+                  <div className="product__carousel_btn">
+                    <ButtonBack className="prev__btn visable">
+                      <ArrowBackIosNewOutlinedIcon sx={{fontSize:"12px"}}/>
+                    </ButtonBack>
 
+                    <ButtonNext className="next__btn visable">
+                      <ArrowForwardIosOutlinedIcon sx={{fontSize:"12px"}} />
+                    </ButtonNext>
+                  </div>
+                </CarouselProvider>
+
+                <h4>{productEl.title}</h4>
+                <div className="product__price">
+                  <h3>
+                    {Math.round(productEl.price)} ₾{" "}
+                    <span>{Math.round(productEl.price) - 100} ₾</span>
+                  </h3>
+                  <h5>
+                    {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
+                  </h5>
+                </div>
+                <Box
+                  sx={{
+                    borderTop: "1px solid #eff0f2",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    margin: "0px 10px",
+                    textAlign: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      textAlign: "center",
+                      userSelect: "none",
+                    }}
+                  >
+                    <AccessTimeOutlinedIcon />
+                    <span>დრო პროდუქტის</span>
+                  </Box>
+                  <Box className="product__cart_container" onClick={() => addProductHandler(productEl.id)}>
+                    <ShoppingCartOutlinedIcon className="product__cart" />
+                  </Box>
+                </Box>
+              </Paper>
+            </Box>
+          );
+        })}
       </div>
     </div>
   );

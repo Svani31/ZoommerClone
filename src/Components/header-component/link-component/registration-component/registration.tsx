@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import "./registration.scss";
 // Material UI and React Rout Dom
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { TextField, InputLabel, Button, colors } from "@mui/material";
+import { TextField, InputLabel, Button,Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 
 // FireBase PopUp and Redirect Log in
-import { getRedirectResult } from "firebase/auth";
+import { confirmPasswordReset, getRedirectResult } from "firebase/auth";
 import {
   signInWithGooglePopup,
   signInWithgoogleRedirect,
@@ -19,29 +19,40 @@ import {
 import { useFormik } from "formik";
 import { BasicSchema } from "../../../../util/schema/schema.js";
 
-interface formikProps {
-  email: "";
-  password: "";
-  confirmPassword: "";
+// backend helpe
+import axios from "axios";
+import ajax from "../../../../util/service/ajax";
+
+
+type formikProps = {
+  firstName:string
+  lastName: string,
+  phoneNumber:string
+  email: string;
+  password: string;
 }
 
 const initialValues: formikProps = {
+  firstName:"",
+  lastName:"",
+  phoneNumber:"",
   email: "",
   password: "",
-  confirmPassword: "",
 };
+
 const Registration = () => {
   const { values, handleSubmit, handleChange, errors } = useFormik({
     initialValues,
     validationSchema: BasicSchema,
-    onSubmit: (values: formikProps) => {
-      const user = JSON.parse(localStorage.getItem("user")!) || [];
-      localStorage.setItem("user", JSON.stringify([...user, values]));
+    onSubmit: async (values: formikProps) => {
+      const registrationValue = await ajax.post("/register",values)
+      console.log(registrationValue,"this is registration")
     },
   });
 
   const [toggle, setToggle] = useState<boolean>(false);
   const [registration, setRegistration] = useState<boolean>(false);
+  const [loginValue,setLoginValue] = useState({email:"",password:""})
 
   useEffect(() => {
     const getResultFromRedirect = async () => {
@@ -51,22 +62,36 @@ const Registration = () => {
     getResultFromRedirect();
   }, []);
 
+  
+  const loginHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
+    setLoginValue((prev) =>{
+      return {...prev,[e.target.name]:e.target.value}
+    })
+  }
+  
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+      const loginRespons = await ajax.post("/login", loginValue);
+      console.log(loginRespons);
+  };
+
   return (
-    <div className="header__registration">
-      <div className="loggin__onclicked" onClick={() => setToggle(!toggle)}>
+    <Box className="header__registration">
+      <Box className="loggin__onclicked" onClick={() => setToggle(!toggle)}>
         <AccountCircleOutlinedIcon />
         <span>პროფილი</span>
-      </div>
+      </Box>
       {toggle === true ? (
         <>
-          <div
+          <Box
             className={
               registration === true
                 ? "loggin__dropdown hidden"
                 : "loggin__dropdown"
             }
           >
-            <form id="loggin__form">
+            <form id="loggin__form" onSubmit={(e)=>submitHandler(e)}>
               <span>ავტორიზაცია</span>
               <TextField
                 sx={{
@@ -75,6 +100,8 @@ const Registration = () => {
                 label="ელ-ფოსტა"
                 size="small"
                 name="email"
+                value={loginValue.email}
+                onChange={(e) =>loginHandler(e)}
               />
               <TextField
                 sx={{
@@ -83,6 +110,9 @@ const Registration = () => {
                 label="პაროლი"
                 size="small"
                 type="password"
+                name="password"
+                value={loginValue.password}
+                onChange={(e)=>loginHandler(e)}
               />
               <Link to={"/resetpassword"}>
                 <span
@@ -96,13 +126,13 @@ const Registration = () => {
                   დაგავიწყდა პაროლი?
                 </span>
               </Link>
-              <div
+              <Box
                 style={{
                   gap: "15px",
                   display: "inline-flex",
                 }}
               >
-                <Button variant="contained" className="loggin__button">
+                <Button type="submit" variant="contained" className="loggin__button">
                   შესვლა
                 </Button>
                 <Button
@@ -111,7 +141,7 @@ const Registration = () => {
                 >
                   რეგისტრაცია
                 </Button>
-              </div>
+              </Box>
             </form>
             <span className="google__span">Or Login With Gmail</span>
             <Button
@@ -126,12 +156,12 @@ const Registration = () => {
             >
               Google
             </Button>
-          </div>
+          </Box>
         </>
       ) : (
         ""
       )}
-      <div
+      <Box
         className={
           registration === true
             ? "registration transform__onclick"
@@ -157,6 +187,42 @@ const Registration = () => {
             sx={{
               marginTop: "15px",
             }}
+            label="სახელი"
+            size="small"
+            name="firstName"
+            value={values.firstName}
+            onChange={handleChange}
+            error={!!errors.firstName}
+            helperText={errors.firstName}
+          />
+          <TextField
+            sx={{
+              marginTop: "15px",
+            }}
+            label="გვარი"
+            size="small"
+            name="lastName"
+            value={values.lastName}
+            onChange={handleChange}
+            error={!!errors.lastName}
+            helperText={errors.lastName}
+          />
+          <TextField
+            sx={{
+              marginTop: "15px",
+            }}
+            label="ტელეფონის ნომერი"
+            size="small"
+            name="phoneNumber"
+            value={values.phoneNumber}
+            onChange={handleChange}
+            error={!!errors.phoneNumber}
+            helperText={errors.phoneNumber}
+          />
+          <TextField
+            sx={{
+              marginTop: "15px",
+            }}
             label="ელ-ფოსტა"
             size="small"
             name="email"
@@ -178,20 +244,8 @@ const Registration = () => {
             error={!!errors.password}
             helperText={errors.password}
           />
-          <TextField
-            sx={{
-              marginTop: "15px",
-            }}
-            label="დაადასტურე პაროლი"
-            size="small"
-            type="password"
-            name="confirmPassword"
-            value={values.confirmPassword}
-            onChange={handleChange}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword}
-          />
-          <div
+          
+          <Box
             style={{
               gap: "15px",
               display: "inline-flex",
@@ -204,10 +258,10 @@ const Registration = () => {
             >
               რეგისტრაცია
             </Button>
-          </div>
+          </Box>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
