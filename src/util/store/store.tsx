@@ -17,14 +17,9 @@ type StoreContextProps = {
 
 export const StoreContext = createContext({} as StoreContextProps);
 
-<<<<<<< HEAD
+
 export const useStore = (): StoreContextProps => useContext(StoreContext);
-=======
-const StoreProvider = ({ children }) => {
-  
-<<<<<<< HEAD
-  
->>>>>>> main
+
 
 type StoreProps = {
   children: React.ReactNode;
@@ -41,22 +36,11 @@ const StoreProvider = ({ children }: StoreProps) => {
     dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,cartItem:data})
   }
   const store = {
-<<<<<<< HEAD
     ...state,
     dispatch,
     blurBackground,
     setBlurBackground,
     addProductHandler
-=======
-=======
-  const consoleLog = () =>{
-    console.log("dfgd")
-  }
-
-  const store = {
-   
->>>>>>> refs/remotes/origin/main
->>>>>>> main
   };
 
   return (
@@ -67,4 +51,4 @@ const StoreProvider = ({ children }: StoreProps) => {
   );
 };
 
-export default StoreProvider;
+export default StoreProvider
