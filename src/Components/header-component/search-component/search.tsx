@@ -6,10 +6,14 @@ import { useStore } from "../../../util/store/store";
 import ajax from "../../../util/service/ajax";
 import { useState } from "react";
 import { BanckEndItem } from "../../../@types/general";
+import { Link } from "react-router-dom";
 
 const Search = () => {
+
+
   const { setBlurBackground, blurBackground } = useStore();
   const [searchItem, setSearchItem] = useState<BanckEndItem[]>([]);
+  const [getItemById,setGetItemById] = useState("")
 
   const getItem = async (itemName: string) => {
     const {
@@ -33,6 +37,17 @@ const Search = () => {
     "აქსესუარები",
     "Phone Protection",
   ];
+
+  const itemOpenHandler = (itemId:string) =>{
+    setGetItemById(itemId)
+  }
+  
+  // const body = document.getElementById("root")?.addEventListener("click",()=>{
+  //   setBlurBackground(false)
+  //   console.log("GHJ")
+  // })
+
+
 
   const word = "ძებნა...";
   return (
@@ -60,7 +75,7 @@ const Search = () => {
 
       {/* dropDwon */}
 
-      <Box className="search__dropdown">
+      <Box className="search__dropdown" sx={blurBackground === true ? {visibility:"visible"} : {visibility:"hidden"}}>
         <Box className="search__items_inner">
           <Box className="search__categorys">
             {category.map((categoryEl) => {
@@ -75,7 +90,8 @@ const Search = () => {
             {searchItem.map((itemEl) => {
               return (
                 <>
-                  <Box className="item__inner">
+                <Link className="item__link" to={`product`}>
+                <Box onClick={()=> itemOpenHandler(itemEl.id)} className="item__inner">
                     <img src={itemEl.images[0]} alt="" />
                     <Typography className="item__title" variant="subtitle2">
                       {itemEl.title}
@@ -87,6 +103,7 @@ const Search = () => {
                       </span>
                     </Typography>
                   </Box>
+                </Link>
                 </>
               );
             })}

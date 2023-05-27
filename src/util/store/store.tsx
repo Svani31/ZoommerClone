@@ -40,7 +40,7 @@ const StoreProvider = ({ children }: StoreProps) => {
     dispatch,
     blurBackground,
     setBlurBackground,
-    addProductHandler
+    addProductHandler,
   };
 
   return (

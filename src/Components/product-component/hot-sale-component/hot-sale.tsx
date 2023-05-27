@@ -44,8 +44,7 @@ const HotSale = () => {
     fetchData();
   }, []);
   
-
-  
+ 
 
   return (
     <div

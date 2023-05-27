@@ -60,7 +60,7 @@ const Header = () =>{
                         <LinkComponent/>
                 </Box>
             </Box>
-            <AppSlider/>
+            {/* <AppSlider/> */}
         </Box>
     )
 }

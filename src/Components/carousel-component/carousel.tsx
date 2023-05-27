@@ -80,8 +80,6 @@ const AppSlider = () => {
             <ArrowForwardIosOutlinedIcon />
           </ButtonNext>
         </div>
-
-       
       </CarouselProvider>
     </div>
   );
