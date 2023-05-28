@@ -5,9 +5,9 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default ({item}) => (
 
-  <Carousel autoPlay width={360}>
+<Carousel autoPlay width={360}>
     <div>
-      <img alt="" src="/src/Images/Brands/0124554_apple.png"/>
+      <img alt="" src=""/>
     </div>
     <div>
       <img alt="" src="/src/Images/Brands/0125036_google.png" />
