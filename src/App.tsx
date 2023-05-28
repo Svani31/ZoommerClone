@@ -17,6 +17,8 @@ function App() {
     console.log(window.innerWidth);
   }
 
+  const {getItemById} = useStore()
+
   const MainPage = () =>{
    return(
      <>
@@ -31,7 +33,7 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<MainPage/>}></Route>
-      <Route path="product" element={<ProductById/>}></Route>
+      <Route path="product/:id" element={<ProductById/>}></Route>
       </Routes>
     </Box>
   );

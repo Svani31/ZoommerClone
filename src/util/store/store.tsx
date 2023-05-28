@@ -12,6 +12,8 @@ type StoreContextProps = {
   blurBackground?:boolean;
   setBlurBackground:any;
   addProductHandler:any;
+  getItemById:string;
+  setGetItemById:any;
 };
 
 
@@ -30,17 +32,22 @@ const StoreProvider = ({ children }: StoreProps) => {
 
   const [state,dispatch] = useReducer(reducer,initalState)
   const [blurBackground,setBlurBackground] = useState<boolean>(false)
+  const [getItemById,setGetItemById] = useState("")
 
   const addProductHandler = async (id:string) =>{
     const {data} = await ajax.get(`product/${id}`)
     dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,cartItem:data})
   }
+
+
   const store = {
     ...state,
     dispatch,
     blurBackground,
     setBlurBackground,
     addProductHandler,
+    getItemById,
+    setGetItemById
   };
 
   return (

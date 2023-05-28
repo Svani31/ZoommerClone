@@ -6,14 +6,14 @@ import { useStore } from "../../../util/store/store";
 import ajax from "../../../util/service/ajax";
 import { useState } from "react";
 import { BanckEndItem } from "../../../@types/general";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Search = () => {
 
 
-  const { setBlurBackground, blurBackground } = useStore();
+  const { setBlurBackground, blurBackground,setGetItemById } = useStore();
   const [searchItem, setSearchItem] = useState<BanckEndItem[]>([]);
-  const [getItemById,setGetItemById] = useState("")
+  
 
   const getItem = async (itemName: string) => {
     const {
@@ -42,11 +42,7 @@ const Search = () => {
     setGetItemById(itemId)
   }
   
-  // const body = document.getElementById("root")?.addEventListener("click",()=>{
-  //   setBlurBackground(false)
-  //   console.log("GHJ")
-  // })
-
+  
 
 
   const word = "ძებნა...";
@@ -90,7 +86,7 @@ const Search = () => {
             {searchItem.map((itemEl) => {
               return (
                 <>
-                <Link className="item__link" to={`product`}>
+                <Link className="item__link" to={`product/${itemEl.id}`}>
                 <Box onClick={()=> itemOpenHandler(itemEl.id)} className="item__inner">
                     <img src={itemEl.images[0]} alt="" />
                     <Typography className="item__title" variant="subtitle2">

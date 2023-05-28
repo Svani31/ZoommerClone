@@ -22,7 +22,7 @@ categories:string;
 description:string[]; 
 id: string;
 images:string;
-price: string;
+price: string  | Number;
 rating: string;
 title:strin;
 }

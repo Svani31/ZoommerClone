@@ -43,7 +43,7 @@ const HotSale = () => {
     };
     fetchData();
   }, []);
-  
+  console.log(products)
  
 
   return (
