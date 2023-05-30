@@ -14,6 +14,7 @@ type StoreContextProps = {
   addProductHandler:any;
   getItemById:string;
   setGetItemById:any;
+  removeItemHandler: any;
 };
 
 
@@ -39,6 +40,9 @@ const StoreProvider = ({ children }: StoreProps) => {
     dispatch({type:REDUCER_ACTION_TYPES.ADD_PRODUCT_ID,cartItem:data})
   }
 
+  const removeItemHandler = (id: string) => {
+    dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_PRODUCT, id: id });
+  };
 
   const store = {
     ...state,
@@ -47,7 +51,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     setBlurBackground,
     addProductHandler,
     getItemById,
-    setGetItemById
+    setGetItemById,
+    removeItemHandler
   };
 
   return (

@@ -11,13 +11,13 @@ import Product from "./Components/product-component/product";
 import { Box } from "@mui/material";
 import ProductById from "./Components/header-component/search-component/product-by-id-component/product-by-id";
 import AppSlider from "./Components/carousel-component/carousel";
+import Sidebar from "./Components/compare__sidzebar/sidebar";
 
 function App() {
   {
     console.log(window.innerWidth);
   }
 
-  const {getItemById} = useStore()
 
   const MainPage = () =>{
    return(
@@ -35,6 +35,7 @@ function App() {
       <Route path="/" element={<MainPage/>}></Route>
       <Route path="product/:id" element={<ProductById/>}></Route>
       </Routes>
+      <Sidebar/>
     </Box>
   );
 }

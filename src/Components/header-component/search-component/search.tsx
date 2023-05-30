@@ -39,6 +39,7 @@ const Search = () => {
   ];
 
   const itemOpenHandler = (itemId:string) =>{
+
     setGetItemById(itemId)
   }
   
@@ -49,7 +50,7 @@ const Search = () => {
   return (
     <Box className="search__container" onClick={() => setBlurBackground(true)}>
       {/* search */}
-      <form action="" id="header__search">
+      <form action="" id="header__search" onClick={(e) => (e.preventDefault())}>
         <input
           type="text"
           onChange={(e) => getItem(e.target.value)}
@@ -76,7 +77,7 @@ const Search = () => {
           <Box className="search__categorys">
             {category.map((categoryEl) => {
               return (
-                <Typography className="category__text" variant="subtitle2">
+                <Typography key={categoryEl} className="category__text" variant="subtitle2">
                   {categoryEl}
                 </Typography>
               );
@@ -85,7 +86,7 @@ const Search = () => {
           <Box className="search__item">
             {searchItem.map((itemEl) => {
               return (
-                <>
+                <Box key={itemEl.id}>
                 <Link className="item__link" to={`product/${itemEl.id}`}>
                 <Box onClick={()=> itemOpenHandler(itemEl.id)} className="item__inner">
                     <img src={itemEl.images[0]} alt="" />
@@ -100,7 +101,7 @@ const Search = () => {
                     </Typography>
                   </Box>
                 </Link>
-                </>
+                </Box>
               );
             })}
           </Box>

@@ -10,17 +10,13 @@ import { useStore } from "../../../../util/store/store";
 import { BanckEndItem } from "../../../../@types/general";
 
 import "./cart-item.scss";
-import { REDUCER_ACTION_TYPES } from "../../../../util/store/action";
 
 const CartItemSection = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [price, setPrice] = useState(0);
 
-  const { cartItem, dispatch } = useStore();
+  const { cartItem,removeItemHandler} = useStore();
 
-  const removeItemHandler = (id: string) => {
-    dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_PRODUCT, id: id });
-  };
 
   useEffect(() => {
     const number = cartItem.map((cartEl: BanckEndItem) => {

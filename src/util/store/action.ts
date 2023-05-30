@@ -1,6 +1,6 @@
-import { ProductProps, itemProps } from "../../@types/general";
+import {  itemProps } from "../../@types/general";
 
-export const enum REDUCER_ACTION_TYPES {
+export enum REDUCER_ACTION_TYPES {
   ADD_PRODUCT_ID,
   REMOVE_PRODUCT
 }
