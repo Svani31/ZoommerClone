@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import { useStore } from "./util/store/store";
 
@@ -14,10 +14,6 @@ import AppSlider from "./Components/carousel-component/carousel";
 import Sidebar from "./Components/compare__sidzebar/sidebar";
 
 function App() {
-  {
-    console.log(window.innerWidth);
-  }
-
 
   const MainPage = () =>{
    return(
@@ -27,7 +23,7 @@ function App() {
     </>
      )
   }
-
+  
   return (
     <Box>
       <Header />

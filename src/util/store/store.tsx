@@ -5,6 +5,7 @@ import reducer, { initalState } from './redux';
 import { REDUCER_ACTION_TYPES } from './action';
 import { BanckEndItem } from '../../@types/general';
 import ajax from '../service/ajax';
+import { useParams } from 'react-router-dom';
 
 type StoreContextProps = {
   cartItem: BanckEndItem[];
@@ -15,6 +16,7 @@ type StoreContextProps = {
   getItemById:string;
   setGetItemById:any;
   removeItemHandler: any;
+  id:string;
 };
 
 
@@ -44,6 +46,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_PRODUCT, id: id });
   };
 
+  const {id} = useParams()
+
   const store = {
     ...state,
     dispatch,
@@ -52,7 +56,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     addProductHandler,
     getItemById,
     setGetItemById,
-    removeItemHandler
+    removeItemHandler,
+    id
   };
 
   return (

@@ -1,5 +1,87 @@
 @import "./../../mixin.scss";
 
 .compare__sidebar{
-    background-color: red;
+    position: fixed;
+    right: 200px;
+    bottom: 50px;
+    display: flex;
+    border-top-left-radius:10px ;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,.3);
+    .compare__sidebar_title{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #0a3251;
+        transform: rotate(-90deg);
+        border-top-left-radius:10px ;
+        border-top-right-radius: 10px;
+        color: white;
+        padding: 0px 20px;
+        @include primary-text-font;
+        height: 50px;
+    }
+    .compare__sidebar_inner{
+    // background-color: rgba(0,0,0,.3);
+        padding: 8px;
+        .compare__sidebar_hidden{
+            display: flex;
+            text-align: center;
+            padding: 20px;
+            .add__product{
+                padding: 20px 10px;
+                border-radius: 4px;
+                border: 2px dotted white;
+                cursor: pointer;
+                color: white;
+                @include primary-text-font;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                .product__info{
+                    .product__title{
+                        display: flex;
+                        text-align: center;
+                        align-items: center;
+                        flex-direction: column;
+                        @include primary-text-color;
+                    }   
+                    span{
+                        @include primary-text-hover;
+                        font-size: 25px;
+                        @include primary-text-font;
+                    }
+                }
+                img{
+                    width: 75px;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+            .compare__start{
+                border-radius: 4px;
+                background-color: white;
+                @include primary-button-hover;
+                color: white;
+                @include primary-text-font;
+                width: 20%;
+                cursor: pointer;
+            }
+            .clear{
+                display: flex;
+                align-items: center;
+                text-decoration: underline;
+                color: white;
+                @include primary-text-font;
+                cursor: pointer;
+            }
+        }
+
+    }
 }

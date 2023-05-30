@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 // import react route dom
@@ -11,7 +12,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 // import Css
 import "./product-by-id.scss";
-import { useEffect, useState } from "react";
+// improt store context items
 import ajax from "../../../../util/service/ajax";
 import { BanckEndItem } from "../../../../@types/general";
 import { useStore } from "../../../../util/store/store";
@@ -25,7 +26,7 @@ const ProductById = () => {
   
   const { id } = useParams();
   const [item, setItem] = useState<BanckEndItem | null>(null);
-  const { addProductHandler } = useStore();
+  const { addProductHandler,setGetItemById } = useStore();
   const [storageValue,setStorageValue] = useState<Number | string>("128")
   const [titleColor,setColor] = useState<string>("black")
 
@@ -34,6 +35,8 @@ const ProductById = () => {
   const [hours, setHours] = useState('00');
   const [minutes, setMinutes] = useState('00');
   const [seconds, setSeconds] = useState('00');
+
+
   useEffect(() => {
     const getItem = async () => {
       const { data } = await ajax.get(`product/${id}`);
@@ -151,18 +154,18 @@ const ProductById = () => {
         <Box className="product__item">
           <Box className="product__item_inner">
             <Carousel autoPlay width={360}>
-              <div>
+              <Box>
                 <img alt="" src={item?.images[0]} />
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <img alt="" src={item?.images[1]} />
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <img alt="" src={item?.images[2]} />
-              </div>
-              <div>
+              </Box>
+              <Box>
                 <img alt="" src={item?.images[3]} />
-              </div>
+              </Box>
             </Carousel>
           </Box>
           <Box className="product__info">
@@ -170,7 +173,7 @@ const ProductById = () => {
               <Typography sx={{color:`${titleColor}`}} className="title" variant="h4">
                 {item?.title}
               </Typography>
-              <Typography className="comparison" variant="subtitle1">
+              <Typography onClick={()=>setGetItemById(item?.id) } className="comparison" variant="subtitle1">
                 <RepeatIcon /> შედარება
               </Typography>
             </Box>
