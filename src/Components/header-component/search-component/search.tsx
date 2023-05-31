@@ -25,7 +25,7 @@ const Search = () => {
     });
     setSearchItem(products);
   };
-
+// დიბაუნსი
 
   const category = [
     "ტელეფონი",
@@ -43,7 +43,7 @@ const Search = () => {
     setGetItemById(itemId)
   }
   
-  
+  // useOutsideClick
 
 
   const word = "ძებნა...";
