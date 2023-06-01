@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import mui
 import { Box, Button, Typography } from "@mui/material";
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 // import css
 import "./sidebar.scss";
 import { useStore } from "../../util/store/store";
@@ -28,7 +29,7 @@ if(getItemById){
 
   return (
     <Box className="compare__sidebar">
-      <Typography className="compare__sidebar_title" variant="h6">
+     <Typography className="compare__sidebar_title" variant="h6">
         შედარება
       </Typography>
       <Box className="compare__sidebar_inner">

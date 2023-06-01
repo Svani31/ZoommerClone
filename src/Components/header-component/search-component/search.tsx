@@ -4,7 +4,7 @@ import SelectComponentMenu from "./select-categori-component/select-component";
 import SearchIcon from "@mui/icons-material/Search";
 import { useStore } from "../../../util/store/store";
 import ajax from "../../../util/service/ajax";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BanckEndItem } from "../../../@types/general";
 import { Link, useParams } from "react-router-dom";
 
@@ -13,19 +13,28 @@ const Search = () => {
 
   const { setBlurBackground, blurBackground,setGetItemById } = useStore();
   const [searchItem, setSearchItem] = useState<BanckEndItem[]>([]);
-  
+  const formRef = useRef<HTMLFormElement | null>(null);
 
-  const getItem = async (itemName: string) => {
-    const {
-      data: { products },
-    } = await ajax.post(`/products`, {
-      keyword: `${itemName}`,
-      page_size: 4,
-      page_number: 0,
-    });
-    setSearchItem(products);
+
+  let debounceAPICall:NodeJS.Timeout
+
+  const getItem = async (itemName:string) => {
+    clearTimeout(debounceAPICall)
+    debounceAPICall = setTimeout(async ()=>{
+      if(itemName.length > 1){
+        const {
+          data: { products },
+        } = await ajax.post(`/products`, {
+          keyword: `${itemName}`,
+          page_size: 4,
+          page_number: 0,
+        });
+        setSearchItem(products);
+      }else{
+        setSearchItem([])
+      }
+    },500)
   };
-// დიბაუნსი
 
   const category = [
     "ტელეფონი",
@@ -45,12 +54,25 @@ const Search = () => {
   
   // useOutsideClick
 
+  useEffect(()=>{
+    let handler = (event:MouseEvent) =>{
+      if(formRef.current && !formRef.current.contains(event.target as Node)){
+        setBlurBackground(false)
+      }
+    }
+    document.addEventListener("mousedown",handler)
 
+    return () =>{
+      document.removeEventListener("mousedown",handler)
+    }
+  },[setBlurBackground])
+
+  console.log(blurBackground)
   const word = "ძებნა...";
   return (
     <Box className="search__container" onClick={() => setBlurBackground(true)}>
       {/* search */}
-      <form action="" id="header__search" onClick={(e) => (e.preventDefault())}>
+      <form action="" ref={formRef} id="header__search" onClick={(e) => (e.preventDefault())}>
         <input
           type="text"
           onChange={(e) => getItem(e.target.value)}
@@ -83,7 +105,7 @@ const Search = () => {
               );
             })}
           </Box>
-          <Box className="search__item">
+          <Box className="search__item" >
             {searchItem.map((itemEl) => {
               return (
                 <Box key={itemEl.id}>

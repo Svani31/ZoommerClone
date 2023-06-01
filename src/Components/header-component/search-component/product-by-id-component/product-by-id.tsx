@@ -26,7 +26,7 @@ const ProductById = () => {
   
   const { id } = useParams();
   const [item, setItem] = useState<BanckEndItem | null>(null);
-  const { addProductHandler,setGetItemById } = useStore();
+  const { addProductHandler,setGetItemById,setBlurBackground } = useStore();
   const [storageValue,setStorageValue] = useState<Number | string>("128")
   const [titleColor,setColor] = useState<string>("black")
 

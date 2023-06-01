@@ -2,18 +2,15 @@
 
 .compare__sidebar{
     position: fixed;
-    right: 200px;
+    // right: -750px;
+    right: 250px;
     bottom: 50px;
     display: flex;
-    border-top-left-radius:10px ;
-    border-bottom-left-radius: 10px;
-    display: flex;
     align-items: center;
-    background-color: rgba(0,0,0,.3);
     .compare__sidebar_title{
         text-align: center;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         background-color: #0a3251;
         transform: rotate(-90deg);
@@ -23,14 +20,18 @@
         padding: 0px 20px;
         @include primary-text-font;
         height: 50px;
+        cursor: pointer;
     }
     .compare__sidebar_inner{
-    // background-color: rgba(0,0,0,.3);
+    background-color: rgba(0,0,0,.3);
+    // max-width: 50%;
         padding: 8px;
+        display: inline-flex;
+        align-items: center;
         .compare__sidebar_hidden{
             display: flex;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             .add__product{
                 padding: 20px 10px;
                 border-radius: 4px;
