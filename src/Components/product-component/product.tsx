@@ -20,7 +20,7 @@ const Product = () => {
         <NewModel />
         <Brand />
         <Popular/>
-        {/* <VisitedProduct/> */}
+        <VisitedProduct/>
         <TopProduct/>
       </Box>
     </Box>

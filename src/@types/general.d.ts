@@ -16,6 +16,7 @@ export type itemProps = {
 }
 
 export type BanckEndItem = {
+[x: string]: any;
 amount: string;
 brand: string
 categories:string;

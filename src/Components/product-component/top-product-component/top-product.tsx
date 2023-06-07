@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
 // improting Mui Components
 import { Box, Paper, Typography } from "@mui/material";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
@@ -69,10 +70,10 @@ const TopProduct = () => {
       });
       setProducts(respons.data.products);
     };
-    fetchData();
+    fetchData()
   }, []);
   
-
+  // console.log(products)
 
   return (
     <div
@@ -128,9 +129,11 @@ const TopProduct = () => {
                     {productEl.images.map((imageEl: any) => {
                       return (
                         <>
+                        <Link to={`product/${productEl.id}`} >
                           <Slide key={productEl.id} index={productEl.id}>
                             <img className="slider__img" src={imageEl} alt="" />
                           </Slide>
+                        </Link>
                         </>
                       );
                     })}

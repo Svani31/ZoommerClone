@@ -2,7 +2,7 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import "./registration.scss";
 // Material UI and React Rout Dom
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { TextField, InputLabel, Button,Box } from "@mui/material";
+import { TextField, InputLabel, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 
@@ -22,38 +22,41 @@ import { BasicSchema } from "../../../../util/schema/schema.js";
 // backend helpe
 import axios from "axios";
 import ajax from "../../../../util/service/ajax";
-
+import { useStore } from "../../../../util/store/store";
 
 type formikProps = {
-  firstName:string
-  lastName: string,
-  phoneNumber:string
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   email: string;
   password: string;
-}
+};
 
 const initialValues: formikProps = {
-  firstName:"",
-  lastName:"",
-  phoneNumber:"",
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
   email: "",
   password: "",
 };
 
 const Registration = () => {
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [registration, setRegistration] = useState<boolean>(false);
+  const [loginValue, setLoginValue] = useState({ email: "", password: "" });
+  const { setUserToken, userToken } = useStore();
+  const [loginStatus,setLoginStatus] = useState<boolean>(false)
+
   const { values, handleSubmit, handleChange, errors } = useFormik({
     initialValues,
     validationSchema: BasicSchema,
     onSubmit: async (values: formikProps) => {
-      const registrationValue = await ajax.post("/register",values)
-      console.log(registrationValue,"this is registration")
+      const registrationValue = await ajax.post("/register", values);
+      console.log(registrationValue, "this is registration");
     },
   });
 
-  const [toggle, setToggle] = useState<boolean>(false);
-  const [registration, setRegistration] = useState<boolean>(false);
-  const [loginValue,setLoginValue] = useState({email:"",password:""})
-
+  
   useEffect(() => {
     const getResultFromRedirect = async () => {
       const respons = await getRedirectResult(auth);
@@ -62,18 +65,27 @@ const Registration = () => {
     getResultFromRedirect();
   }, []);
 
-  
-  const loginHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
-    setLoginValue((prev) =>{
-      return {...prev,[e.target.name]:e.target.value}
-    })
-  }
-  
+  const loginHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setLoginValue((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    try {
       const loginRespons = await ajax.post("/login", loginValue);
-      console.log(loginRespons);
+      if (loginRespons.data) {
+        setUserToken(loginRespons.data.AccessToken);
+        setLoginStatus(true)
+        console.log(loginRespons, "login Success");
+      }
+    } catch (error) {
+      console.log(error, "cant sign in");
+      
+    }
   };
 
   return (
@@ -91,7 +103,7 @@ const Registration = () => {
                 : "loggin__dropdown"
             }
           >
-            <form id="loggin__form" onSubmit={(e)=>submitHandler(e)}>
+            <form id="loggin__form" onSubmit={(e) => submitHandler(e)}>
               <span>ავტორიზაცია</span>
               <TextField
                 sx={{
@@ -101,7 +113,7 @@ const Registration = () => {
                 size="small"
                 name="email"
                 value={loginValue.email}
-                onChange={(e) =>loginHandler(e)}
+                onChange={(e) => loginHandler(e)}
               />
               <TextField
                 sx={{
@@ -112,7 +124,7 @@ const Registration = () => {
                 type="password"
                 name="password"
                 value={loginValue.password}
-                onChange={(e)=>loginHandler(e)}
+                onChange={(e) => loginHandler(e)}
               />
               <Link to={"/resetpassword"}>
                 <span
@@ -132,7 +144,11 @@ const Registration = () => {
                   display: "inline-flex",
                 }}
               >
-                <Button type="submit" variant="contained" className="loggin__button">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className="loggin__button"
+                >
                   შესვლა
                 </Button>
                 <Button
@@ -244,7 +260,7 @@ const Registration = () => {
             error={!!errors.password}
             helperText={errors.password}
           />
-          
+
           <Box
             style={{
               gap: "15px",

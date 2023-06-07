@@ -9,7 +9,7 @@ import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // import Css
 import "./product-by-id.scss";
 // improt store context items
@@ -22,20 +22,18 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 
 const ProductById = () => {
-
   
   const { id } = useParams();
   const [item, setItem] = useState<BanckEndItem | null>(null);
-  const { addProductHandler,setGetItemById,setBlurBackground } = useStore();
-  const [storageValue,setStorageValue] = useState<Number | string>("128")
-  const [titleColor,setColor] = useState<string>("black")
+  const { addProductHandler, setSliderItem, sliderItem } = useStore();
+  const [storageValue, setStorageValue] = useState<Number | string>("128");
+  const [titleColor, setColor] = useState<string>("black");
 
-  // cooldown 
+  // cooldown
   const [cooldown, setCooldown] = useState(0);
-  const [hours, setHours] = useState('00');
-  const [minutes, setMinutes] = useState('00');
-  const [seconds, setSeconds] = useState('00');
-
+  const [hours, setHours] = useState("00");
+  const [minutes, setMinutes] = useState("00");
+  const [seconds, setSeconds] = useState("00");
 
   useEffect(() => {
     const getItem = async () => {
@@ -45,9 +43,9 @@ const ProductById = () => {
     getItem();
   }, []);
 
-  const getData = (e:any) =>{
-    setStorageValue(e.target.dataset.storage)
-  }
+  const getData = (e: any) => {
+    setStorageValue(e.target.dataset.storage);
+  };
   useEffect(() => {
     // Function to start the cooldown
     const startCooldown = () => {
@@ -56,7 +54,7 @@ const ProductById = () => {
     };
 
     // Check if the cooldown has already been started
-    const storedCooldown = localStorage.getItem('cooldown');
+    const storedCooldown = localStorage.getItem("cooldown");
     if (storedCooldown) {
       const remainingCooldown = parseInt(storedCooldown);
       if (remainingCooldown > 0) {
@@ -71,13 +69,13 @@ const ProductById = () => {
 
   useEffect(() => {
     // Update the localStorage with the remaining cooldown
-    localStorage.setItem('cooldown', cooldown.toString());
+    localStorage.setItem("cooldown", cooldown.toString());
   }, [cooldown]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       // Decrease the cooldown by 1 every second
-      setCooldown((prevCooldown) => prevCooldown > 0 ? prevCooldown - 1 : 0);
+      setCooldown((prevCooldown) => (prevCooldown > 0 ? prevCooldown - 1 : 0));
     }, 1000);
 
     return () => clearInterval(interval);
@@ -88,15 +86,21 @@ const ProductById = () => {
     const remainingMinutes = Math.floor((cooldown % 3600) / 60);
     const remainingSeconds = cooldown % 60;
 
-    setHours(remainingHours.toString().padStart(2, '0'));
-    setMinutes(remainingMinutes.toString().padStart(2, '0'));
-    setSeconds(remainingSeconds.toString().padStart(2, '0'));
+    setHours(remainingHours.toString().padStart(2, "0"));
+    setMinutes(remainingMinutes.toString().padStart(2, "0"));
+    setSeconds(remainingSeconds.toString().padStart(2, "0"));
   }, [cooldown]);
-  
 
-  const changeTitleColor = (e:any) =>{
-    setColor(e.target.dataset.color)
-  }
+  const changeTitleColor = (e: any) => {
+    setColor(e.target.dataset.color);
+  };
+
+  const compareHandler = async (id: string | undefined) => {
+    const { data } = await ajax.get(`product/${id}`);
+    
+    setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
+    console.log(sliderItem)
+  };
 
   return (
     <Box className="product__form">
@@ -117,38 +121,58 @@ const ProductById = () => {
         <aside className="product__sidebar">
           <Box className="product__time">
             <Box className="product__time_info">
-            <Typography variant="subtitle1">დღე <Typography>0</Typography></Typography>
-            <Typography variant="subtitle1">სათ <Typography>{hours[0]}{hours[1]}</Typography></Typography>
-            <Typography variant="subtitle1">წთ <Typography>{minutes[0]}{minutes[1]}</Typography></Typography>
-            <Typography variant="subtitle1">წამი <Typography>{seconds[0]}{seconds[1]}</Typography></Typography>
+              <Typography variant="subtitle1">
+                დღე <Typography>0</Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                სათ{" "}
+                <Typography>
+                  {hours[0]}
+                  {hours[1]}
+                </Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                წთ{" "}
+                <Typography>
+                  {minutes[0]}
+                  {minutes[1]}
+                </Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                წამი{" "}
+                <Typography>
+                  {seconds[0]}
+                  {seconds[1]}
+                </Typography>
+              </Typography>
             </Box>
-            <AccessTimeOutlinedIcon className="mui__time"/>
+            <AccessTimeOutlinedIcon className="mui__time" />
           </Box>
           <Box className="product__sidebar_info">
-          <Typography className="prev__price" variant="h5">
-            {Math.floor(Number(item?.price) - 100) + Number(storageValue)} ₾
-          </Typography>
-          <Typography className="active__price" variant="h5">
-            {Math.floor(Number(item?.price)) + Number(storageValue)} ₾
-          </Typography>
-          <Typography className="price" variant="subtitle2">
-            ფასის კონტროლი
-          </Typography>
-          <Typography className="price" variant="subtitle2">
-            ფასის დაზღვევა
-          </Typography>
-          <Box className="sidebar__buttons">
-            <Button
-              className="sidebar__cartitem border"
-              onClick={() => addProductHandler(item?.id)}
-            >
-              <LocalMallOutlinedIcon />
+            <Typography className="prev__price" variant="h5">
+              {Math.floor(Number(item?.price) - 100) + Number(storageValue)} ₾
+            </Typography>
+            <Typography className="active__price" variant="h5">
+              {Math.floor(Number(item?.price)) + Number(storageValue)} ₾
+            </Typography>
+            <Typography className="price" variant="subtitle2">
+              ფასის კონტროლი
+            </Typography>
+            <Typography className="price" variant="subtitle2">
+              ფასის დაზღვევა
+            </Typography>
+            <Box className="sidebar__buttons">
+              <Button
+                className="sidebar__cartitem border"
+                onClick={() => addProductHandler(item?.id)}
+              >
+                <LocalMallOutlinedIcon />
+              </Button>
+              <Button className="sidebar__buy border">ყიდვა</Button>
+            </Box>
+            <Button className="sidebar__credit border">
+              განვადებით ყიდვა 20 ₾ - დან
             </Button>
-            <Button className="sidebar__buy border">ყიდვა</Button>
-          </Box>
-          <Button className="sidebar__credit border">
-            განვადებით ყიდვა 20 ₾ - დან
-          </Button>
           </Box>
         </aside>
         <Box className="product__item">
@@ -170,10 +194,18 @@ const ProductById = () => {
           </Box>
           <Box className="product__info">
             <Box className="product__title">
-              <Typography sx={{color:`${titleColor}`}} className="title" variant="h4">
+              <Typography
+                sx={{ color: `${titleColor}` }}
+                className="title"
+                variant="h4"
+              >
                 {item?.title}
               </Typography>
-              <Typography onClick={()=>setGetItemById(item?.id) } className="comparison" variant="subtitle1">
+              <Typography
+                onClick={() => compareHandler(item?.id)}
+                className="comparison"
+                variant="subtitle1"
+              >
                 <RepeatIcon /> შედარება
               </Typography>
             </Box>
@@ -184,17 +216,65 @@ const ProductById = () => {
                   ფერი:<strong>Green</strong>
                 </Typography>
                 <Box className="color__buttons">
-                  <Box sx={titleColor === "black" ? {border:"1px solid #ff5000"}: {}} className="border">
-                    <Box className="button" onClick={(e)=> changeTitleColor(e)} sx={{backgroundColor:"black"}} data-color="black"></Box>
+                  <Box
+                    sx={
+                      titleColor === "black"
+                        ? { border: "1px solid #ff5000" }
+                        : {}
+                    }
+                    className="border"
+                  >
+                    <Box
+                      className="button"
+                      onClick={(e) => changeTitleColor(e)}
+                      sx={{ backgroundColor: "black" }}
+                      data-color="black"
+                    ></Box>
                   </Box>
-                  <Box sx={titleColor === "red" ? {border:"1px solid #ff5000"}: {}} className="border">
-                    <Box className="button" onClick={(e)=> changeTitleColor(e)} sx={{backgroundColor:"red"}} data-color="red"></Box>
+                  <Box
+                    sx={
+                      titleColor === "red"
+                        ? { border: "1px solid #ff5000" }
+                        : {}
+                    }
+                    className="border"
+                  >
+                    <Box
+                      className="button"
+                      onClick={(e) => changeTitleColor(e)}
+                      sx={{ backgroundColor: "red" }}
+                      data-color="red"
+                    ></Box>
                   </Box>
-                  <Box sx={titleColor === "purple" ? {border:"1px solid #ff5000"}: {}} className="border">
-                    <Box className="button" onClick={(e)=> changeTitleColor(e)} sx={{backgroundColor:"purple"}} data-color="purple"></Box>
+                  <Box
+                    sx={
+                      titleColor === "purple"
+                        ? { border: "1px solid #ff5000" }
+                        : {}
+                    }
+                    className="border"
+                  >
+                    <Box
+                      className="button"
+                      onClick={(e) => changeTitleColor(e)}
+                      sx={{ backgroundColor: "purple" }}
+                      data-color="purple"
+                    ></Box>
                   </Box>
-                  <Box sx={titleColor === "blue" ? {border:"1px solid #ff5000"}: {}} className="border">
-                    <Box className="button" onClick={(e)=> changeTitleColor(e)} sx={{backgroundColor:"blue"}} data-color="blue"></Box>
+                  <Box
+                    sx={
+                      titleColor === "blue"
+                        ? { border: "1px solid #ff5000" }
+                        : {}
+                    }
+                    className="border"
+                  >
+                    <Box
+                      className="button"
+                      onClick={(e) => changeTitleColor(e)}
+                      sx={{ backgroundColor: "blue" }}
+                      data-color="blue"
+                    ></Box>
                   </Box>
                 </Box>
               </Box>
@@ -217,14 +297,47 @@ const ProductById = () => {
                 </Typography>
               </Box>
             </Box>
-                <Typography variant="subtitle1">მეხსიერება:{Number(storageValue)}GB</Typography>
-              <Box className="storage__side">
-                <Button className={storageValue === "128" ? "active" : ""} onClick={(e)=> getData(e)} data-storage="128">128GB</Button>
-                <Button className={storageValue === "256" ? "active" : ""} onClick={(e)=> getData(e)} data-storage="256">256GB</Button>
-                <Button className={storageValue === "512" ? "active" : ""} onClick={(e)=> getData(e)} data-storage="512">512GB</Button>
-                <Button className={storageValue === "1000" ? "active" : ""} onClick={(e)=> getData(e)} data-storage="1000">1TB</Button>
-              </Box>
+            <Typography variant="subtitle1">
+              მეხსიერება:{Number(storageValue)}GB
+            </Typography>
+            <Box className="storage__side">
+              <Button
+                className={storageValue === "128" ? "active" : ""}
+                onClick={(e) => getData(e)}
+                data-storage="128"
+              >
+                128GB
+              </Button>
+              <Button
+                className={storageValue === "256" ? "active" : ""}
+                onClick={(e) => getData(e)}
+                data-storage="256"
+              >
+                256GB
+              </Button>
+              <Button
+                className={storageValue === "512" ? "active" : ""}
+                onClick={(e) => getData(e)}
+                data-storage="512"
+              >
+                512GB
+              </Button>
+              <Button
+                className={storageValue === "1000" ? "active" : ""}
+                onClick={(e) => getData(e)}
+                data-storage="1000"
+              >
+                1TB
+              </Button>
+            </Box>
           </Box>
+        </Box>
+      </Box>
+      <Box className="together__cheap">
+        <Typography>ერთად იაფად</Typography>
+        <Box>
+          <Box>item</Box>
+          <Box>price</Box>
         </Box>
       </Box>
     </Box>

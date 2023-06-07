@@ -1,113 +1,114 @@
-import { initializeAuth } from "firebase/auth";
-import { MouseEvent, useReducer,useState } from "react";
+import { Button, Paper, TextField } from "@mui/material";
+import { useReducer } from "react";
 
-// const initalState = { count: 0,text:"" };
+type InitialProps = {
+  todos: TodoProps[];
+  inputValue: string;
+};
 
-// const enum REDUCER_ACTION_TYPE {
-//   INCREMENT,
-//   DECREMENT,
-//   USER_VALUE
-// }
+type TodoProps = {
+  id: number;
+  value: string;
+};
 
-// type ReducerAction = {
-//   type: REDUCER_ACTION_TYPE,
-//   payload?:string
-// };
+const initialValue: InitialProps = { todos: [], inputValue: "" };
 
-// const reducer = (state: typeof initalState, action: ReducerAction):typeof initalState => {
-//   switch (action.type) {
-//     case REDUCER_ACTION_TYPE.INCREMENT:
-//       return { ...state, count: state.count + 1 };
-//     case REDUCER_ACTION_TYPE.DECREMENT:
-//       return { ...state, count: state.count - 1 };
-//       case REDUCER_ACTION_TYPE.USER_VALUE:
-//         return {...state,text:action.payload || ""}
-      
-//   }
-// };
-
-// const Todo = () => {
-
-//   const [state,dispatch] = useReducer(reducer,initalState)
-
-//   const increaseHandler = () =>{
-//     dispatch({type:REDUCER_ACTION_TYPE.INCREMENT})
-//   }
-
-//   const decreaseHandler = () =>{
-//     dispatch({type:REDUCER_ACTION_TYPE.DECREMENT})
-//   }
-
-//   const inputHandler = (e: { target: { value: any; }; }) =>{
-//     dispatch({type:REDUCER_ACTION_TYPE.USER_VALUE,payload:e.target.value})
-//   }
-
-//   return (
-//     <div>
-//       <button onClick={increaseHandler}>increase</button>
-//       <span>{state.count}</span>
-//       <button onClick={decreaseHandler}>decrease</button>
-//       <input type="text" onChange={(e)=> inputHandler(e)} />
-//       <span>{state.text}</span>
-//     </div>
-//   )
-// };
-
-// export default Todo;
-
-
-const initalState:InitState = {value:"",todos:[] }
-
-type InitState = {
-  todos:string[],
-  value:string
+enum REDUCER_ACTION_TYPES {
+  ADD_VALUE,
+  ADD_TODO,
+  REMOVE_TODO,
 }
 
-const enum REDUCE_ACTIVE_PROPS {
-  USER_INPUT,
-  ADD_TODO
-}
+type REDUCER_ACTION_PROPS = {
+  type: REDUCER_ACTION_TYPES;
+  value?: any;
+  id?: number;
+};
 
-type ReducerAction = {
-  type:REDUCE_ACTIVE_PROPS,
-  payload?:string 
-}
-
-const reducer = (state = initalState,action:ReducerAction) =>{
-  switch(action.type){
-    case REDUCE_ACTIVE_PROPS.USER_INPUT:
-      return {...state,value:action.payload ?? ""}
-      case REDUCE_ACTIVE_PROPS.ADD_TODO:
-        return {...state,todos:[...state.todos,action.payload as string]}
+const reducer = (state = initialValue, action: REDUCER_ACTION_PROPS) => {
+  switch (action.type) {
+    case REDUCER_ACTION_TYPES.ADD_VALUE:
+      return { ...state, inputValue: action.value || "" };
+    case REDUCER_ACTION_TYPES.ADD_TODO:
+      return { ...state, todos: [...state.todos, action.value] };
+    case REDUCER_ACTION_TYPES.REMOVE_TODO:
+      const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
+      return { ...state, todos: updatedTodos };
+    default:
+      return state;
   }
-}
+};
 
-const Todo = () =>{
+const TodoAppUsingReducer = () => {
+  const [state, dispatch] = useReducer(reducer, initialValue);
 
-  const [state,dispatch] = useReducer(reducer,initalState)
+  const addTodo = () => {
+    const newTodo: TodoProps = {
+      id: Date.now(),
+      value: state.inputValue,
+    };
+    dispatch({ type: REDUCER_ACTION_TYPES.ADD_TODO, value: newTodo });
+    dispatch({ type: REDUCER_ACTION_TYPES.ADD_VALUE, value: "" });
+  };
 
-  const clickHandler = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) =>{
-    e.preventDefault()
-    dispatch({type:REDUCE_ACTIVE_PROPS.ADD_TODO,payload:state.value})
-    console.log(state.todos)
-  }
+  const removeTodo = (id: number) => {
+    dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_TODO, id });
+  };
 
-
-  return(
-    <div>
-      <h1>this is Todo</h1>
-      <form action="submit">
-        <input value={state.value} onChange={(e)=> dispatch({type:REDUCE_ACTIVE_PROPS.USER_INPUT,payload:e.target.value})} type="text" />
-        {state.todos.map((todoEl)=>{
-          return(
-            <h1 key={todoEl}>{todoEl}</h1>
-          )
-        })}
-        <button type="submit" onClick={(e)=> clickHandler(e)}>Enter todos</button>
-      </form>
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        height: "100vh",
+        flexDirection: "column",
+      }}
+    >
+      <h1>
+        <strong>Todo App using Reducer</strong>
+      </h1>
+      <div>
+        <Paper>
+          <TextField
+            value={state.inputValue}
+            onChange={(e) =>
+              dispatch({ type: REDUCER_ACTION_TYPES.ADD_VALUE, value: e.target.value })
+            }
+          />
+          <h2 style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            {state.todos.map((todoEl) => (
+              <div key={todoEl.id}>
+                <Button variant="contained" color="success">
+                  Completed
+                </Button>
+                {todoEl.value}
+                <Button
+                  onClick={() => removeTodo(todoEl.id)}
+                  variant="contained"
+                  color="error"
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+          </h2>
+        </Paper>
+      </div>
+      <Button
+        onClick={addTodo}
+        sx={{
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        Add Todo
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-
-export default Todo
+export default TodoAppUsingReducer;

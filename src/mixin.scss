@@ -44,3 +44,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+@mixin sidebar__title_color{
+    color: #688093;
+}
+
+@mixin grey__border{
+    border: solid 1px #f5f5f5;
+}
