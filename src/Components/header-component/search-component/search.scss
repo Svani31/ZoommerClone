@@ -5,6 +5,7 @@
     border-radius: 6px;
     width: 785px;
     border: solid 1px #eff0f2;
+
     button{
         border: none;
         background-color: transparent;
@@ -31,33 +32,41 @@
     border-radius: 4px;
     height: 350px;
     padding: 30px;
+    box-shadow:0 3px 6px 0 rgba(0,0,0,.16);
     .search__items_inner{
         display: flex;
         font-size: 14px;
-        // background-color: red;
         .search__categorys{
             width: 35%;
+            @include primary-text-font;
+            @include secondary-text-hover;
             .category__text{
-                @include primary-text-font;
                 font-size: 14px;
                 font-weight: 500;
                 margin-top: 10px;
-                @include secondary-text-hover;
+                cursor: pointer;
+                transition: 0.4s;
             }
         }
         .search__item{
             @include primary-text-font;
             font-size: 13px;
             font-weight: 500;
-            @include secondary-text-hover;
             border-left:solid 1px #f5f5f5;
             width: 100%;
+            .item__link{
+                text-decoration: none;
+                @include secondary-text-hover;
+
+            }
             .item__inner{
                 margin-left: 15px;
                 display: flex;
                 justify-content: space-between;
                 padding-bottom: 13px;
                 // margin-bottom: 11px;
+                cursor: pointer;
+                user-select: none;
                 border-bottom: solid 1px #f5f5f5;
                 // text-align: center;
                 align-items: center;
@@ -69,6 +78,7 @@
                     align-items: center;
                     display: flex;
                     width: 260px;
+                    transition: 0.3s;
                 }
                 .item__price{
                     display: flex;
@@ -82,4 +92,10 @@
             }
         }
     }
+}
+.item__title:hover{
+    @include primary-text-color;
+}
+.category__text:hover{
+    @include primary-text-hover;
 }

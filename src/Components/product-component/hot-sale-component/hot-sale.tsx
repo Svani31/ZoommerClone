@@ -25,7 +25,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 // import context API
 import { useStore } from "../../../util/store/store";
-
+import { Link } from "react-router-dom";
 const HotSale = () => {
   
   const [products, setProducts] = useState<string[]>([]);
@@ -41,10 +41,9 @@ const HotSale = () => {
       });
       setProducts(respons.data.products);
     };
-    fetchData();
+    fetchData()
   }, []);
-  
-
+ 
   
 
   return (
@@ -90,6 +89,7 @@ const HotSale = () => {
                   borderRadius: "12px",
                 }}
               >
+                <Link to={`product/${productEl.id}`}>
                 <CarouselProvider
                   naturalSlideWidth={3}
                   naturalSlideHeight={2}
@@ -118,7 +118,6 @@ const HotSale = () => {
                     </ButtonNext>
                   </div>
                 </CarouselProvider>
-
                 <h4>{productEl.title}</h4>
                 <div className="product__price">
                   <h3>
@@ -129,6 +128,7 @@ const HotSale = () => {
                     {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
                   </h5>
                 </div>
+                </Link>
                 <Box
                   sx={{
                     borderTop: "1px solid #eff0f2",

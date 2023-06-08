@@ -1,0 +1,24 @@
+{
+    "en": {
+      "product": "Product",
+      "remove": "Remove",
+      "brand": "Brand",
+      "category": "Category",
+      "quantity": "Quantity",
+      "hotline" : "hotline",
+      "Online installment" : "Online installment",
+      "All promotions" : "All promotions"
+    },
+    "ge": {
+      "product": "პროდუქცია",
+      "remove": "წაშლა",
+      "brand": "ბრენდი",
+      "category": "კატეგორია",
+      "quantity": "რაოდენობა",
+      "hotline" : "ცხელი ხაზი",
+      "Online installment":"ონლაინ განვადება",
+      "Branches":"ფილიალები",
+      "All promotions":"ყველა აქცია"
+    }
+  }
+  

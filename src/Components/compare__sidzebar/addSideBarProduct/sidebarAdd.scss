@@ -1,0 +1,82 @@
+@import "../../../mixin.scss";
+
+.search__side {
+  padding: 20px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 3px 16px 0 rgba(10, 50, 81, 0.3);
+  height: fit-content;
+  width: 50%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  .search__side_title {
+    margin-top: 10px;
+    @include primary-text-color;
+    @include primary-text-font;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: start;
+  }
+  .search {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-top: 30px;
+    background-color: #fcfcfc;
+    outline: none;
+    font-size: 25px;
+    text-align: start;
+  }
+
+  .search::placeholder {
+    font-size: 20px;
+    text-align: start;
+  }
+  .fetch__product_side {
+    padding: 20px;
+    max-height: 160px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .fetch__product_inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #f5f5f5;
+    margin-bottom: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    img {
+      border: 1px solid red;
+      height: 60px;
+      width: 60px;
+      @include grey__border;
+    }
+    .product__title {
+      @include secondary-text-color;
+      width: 250px;
+      overflow: hidden;
+      height: 50px;
+      font-size: 18px;
+      @include primary-text-font;
+      font-weight: bold
+    }
+    .product__price{
+        @include primary-text-font;
+        @include primary-text-color;
+        font-size: 18px;
+        font-weight: bold;
+    }
+  }
+}

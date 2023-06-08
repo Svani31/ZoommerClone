@@ -41,7 +41,7 @@ const Header = () =>{
                         <li>ფილიალები</li>
                     </Link>
                     <Link className="helper__link" to={"/all__promotions"}>
-                    <li className="active">ყველა აქცისა</li>
+                    <li>ყველა აქცისა</li>
                     </Link>
                     </Box>
                            <Lanuage/>              
@@ -60,7 +60,7 @@ const Header = () =>{
                         <LinkComponent/>
                 </Box>
             </Box>
-            <AppSlider/>
+            {/* <AppSlider/> */}
         </Box>
     )
 }

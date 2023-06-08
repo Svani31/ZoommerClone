@@ -1,0 +1,215 @@
+@import "../../../../mixin.scss";
+
+.product__form {
+  width: 1400px;
+  margin: auto;
+  position: relative;
+  .navigation {
+    margin-top: 30px;
+    // background-color: red;
+    display: flex;
+    justify-content: space-between;
+    .nav__left {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      width: 30%;
+      background-color: #0a3251;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+      padding: 15px 10px;
+      color: white;
+      .nav__title {
+        @include primary-text-font;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+    .nav__right {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background-color: #ff5000;
+      width: 100%;
+      // text-align:end;
+      padding: 0px 10px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: flex-end;
+      @include primary-text-font;
+      .nav__directory {
+        color: white;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+  .product {
+    margin-top: 50px;
+    &__time {
+      text-align: center;
+      background-color: #0a3251;
+      padding: 15px 0px 10px 0px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      color: white;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      .mui__time {
+        font-size: 35px;
+        margin-left: 30px;
+      }
+      &_info {
+        display: flex;
+        gap: 15px;
+      }
+    }
+    &__sidebar {
+      border: 3px solid #0a3251;
+      float: right;
+      position: static;
+      text-align: start;
+      // padding: 15px;
+      border-radius: 11px;
+      &_info {
+        padding: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .prev__price {
+        font-size: 20px;
+        text-decoration: line-through;
+        @include secondary-text-hover;
+        @include primary-text-font;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+      .active__price {
+        font-size: 30px;
+        font-weight: 700;
+        @include primary-text-font;
+        margin-top: 10px;
+        color: #f43a40;
+      }
+      .price {
+        @include primary-text-font;
+        color: #a8b1bc;
+        margin-top: 10px;
+      }
+      .sidebar__buttons {
+        display: flex;
+        gap: 7px;
+        margin-top: 10px;
+        .sidebar__cartitem {
+          width: 25%;
+          border: 2px solid #f2f3f5;
+          margin-top: 10px;
+          @include primary-text-color;
+        }
+        .sidebar__buy {
+          @include primary-text-font;
+          width: 100%;
+          @include primary-button-hover;
+          color: white;
+          margin-top: 10px;
+        }
+      }
+      .sidebar__credit {
+        padding: 14px 20px;
+        margin-top: 10px;
+        color: white;
+        background-color: #0a3251;
+        font-size: 12px;
+        @include primary-text-font;
+      }
+    }
+    .product__item {
+      border-radius: 10px;
+      max-width: 80%;
+      padding: 10px;
+      border: solid 2px #eee;
+      display: flex;
+      &_inner {
+        border: 2px solid #f2f3f5;
+        img {
+          border: 2px solid #f2f3f5;
+        }
+        // background-color: red;
+      }
+      .product__info {
+        margin-top: 40px;
+        margin-left: 40px;
+        .product__title {
+          @include primary-text-color;
+          .title {
+            @include primary-text-font;
+            font-weight: 600;
+          }
+          .comparison {
+            @include primary-text-font;
+            font-weight: 600;
+            gap: 5px;
+            cursor: pointer;
+            margin: 20px 0px;
+            @include secondary-text-color;
+            display: flex;
+          }
+        }
+      }
+      .product__data {
+        margin: 20px 20px 0px 0px;
+
+        display: flex;
+        justify-content: space-between;
+        .color_side {
+          .color__buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            .border {
+              padding: 5px;
+            //   border: 1px solid #ff5000;
+              border-radius: 50%;
+            }
+            .button {
+              padding: 10px;
+              border-radius: 50%;
+              cursor: pointer;
+            //   background-color: black;
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+        .data__side {
+          display: flex;
+          flex-direction: column;
+          .data__subtitle {
+            @include product-old-color;
+            @include secondary-text-font;
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+    .storage__side {
+      // background-color: red;
+      max-width: 30%;
+      display: grid;
+      margin-top: 20px;
+      grid-template-columns: auto auto;
+      gap: 15px;
+      .active {
+        border: 1px solid #ff5000;
+      }
+    }
+  }
+}
+.border {
+  border-radius: 10px;
+}

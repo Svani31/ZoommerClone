@@ -27,6 +27,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 // import context API
 import { useStore } from "../../../util/store/store";
 import {REDUCER_ACTION_TYPES} from "../../../util/store/action"
+import { Link } from "react-router-dom";
 
 
 
@@ -45,7 +46,7 @@ const Popular = () => {
       });
       setProducts(respons.data.products);
     };
-    fetchData();
+    fetchData()
   }, []);
   
    
@@ -103,9 +104,11 @@ const Popular = () => {
                     {productEl.images.map((imageEl: any) => {
                       return (
                         <>
+                        <Link to={`product/${productEl.id}`}>
                           <Slide key={productEl.id} index={productEl.id}>
                             <img className="slider__img" src={imageEl} alt="" />
                           </Slide>
+                        </Link>
                         </>
                       );
                     })}
