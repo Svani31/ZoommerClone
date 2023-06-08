@@ -22,10 +22,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 
 const ProductById = () => {
-  
+
   const { id } = useParams();
   const [item, setItem] = useState<BanckEndItem | null>(null);
-  const { addProductHandler, setSliderItem, sliderItem } = useStore();
+  const { addProductHandler, setSliderItem, sliderItem,compareHandler } = useStore();
   const [storageValue, setStorageValue] = useState<Number | string>("128");
   const [titleColor, setColor] = useState<string>("black");
 
@@ -95,12 +95,12 @@ const ProductById = () => {
     setColor(e.target.dataset.color);
   };
 
-  const compareHandler = async (id: string | undefined) => {
-    const { data } = await ajax.get(`product/${id}`);
+  // const compareHandler = async (id: string | undefined) => {
+  //   const { data } = await ajax.get(`product/${id}`);
     
-    setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
-    console.log(sliderItem)
-  };
+  //   setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
+  //   console.log(sliderItem)
+  // };
 
   return (
     <Box className="product__form">

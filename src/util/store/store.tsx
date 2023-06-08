@@ -23,6 +23,7 @@ type StoreContextProps = {
   userToken: string;
   productBar?: boolean;
   setProductBar?: any;
+  compareHandler:any;
 };
 
 export const StoreContext = createContext({} as StoreContextProps);
@@ -34,12 +35,15 @@ type StoreProps = {
 };
 
 const StoreProvider = ({ children }: StoreProps) => {
+  
+  
   const [state, dispatch] = useReducer(reducer, initalState);
   const [blurBackground, setBlurBackground] = useState<boolean>(false);
   const [getItemById, setGetItemById] = useState("");
   const [sliderItem, setSliderItem] = useState<BanckEndItem[]>([]);
   const [userToken, setUserToken] = useState<string>("");
   const [productBar, setProductBar] = useState<boolean>(false);
+  const { id } = useParams();
 
   const addProductHandler = async (id: string) => {
     const { data } = await ajax.get(`product/${id}`);
@@ -50,7 +54,13 @@ const StoreProvider = ({ children }: StoreProps) => {
     dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_PRODUCT, id: id });
   };
 
-  const { id } = useParams();
+  const compareHandler = async (id: string | undefined) => {
+    const { data } = await ajax.get(`product/${id}`);
+    
+    setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
+    console.log(sliderItem)
+  };
+
 
   const store = {
     ...state,
@@ -68,6 +78,7 @@ const StoreProvider = ({ children }: StoreProps) => {
     setUserToken,
     productBar,
     setProductBar,
+    compareHandler
   };
 
   return (

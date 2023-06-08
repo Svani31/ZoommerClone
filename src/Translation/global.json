@@ -1,0 +1,17 @@
+{
+    "en": {
+      "product": "Product",
+      "remove": "Remove",
+      "brand": "Brand",
+      "category": "Category",
+      "quantity": "Quantity"
+    },
+    "ge": {
+      "product": "პროდუქცია",
+      "remove": "წაშლა",
+      "brand": "ბრენდი",
+      "category": "კატეგორია",
+      "quantity": "რაოდენობა"
+    }
+  }
+  

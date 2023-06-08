@@ -3,10 +3,11 @@
 .compare__sidebar {
   position: fixed;
   // right: -750px;
-  right: 250px;
+  right: -2px;
   bottom: 50px;
   display: flex;
   align-items: center;
+  transition: 0.4s ease-in;
   .compare__sidebar_title {
     text-align: center;
     display: flex;
@@ -32,9 +33,9 @@
     .compare__sidebar_hidden {
       display: flex;
       text-align: center;
-      padding: 10px;
+      height: 126px;
       .add__product {
-        padding: 35px 10px;
+        padding: 10px 10px;
         border-radius: 4px;
         border: 3px dotted white;
         cursor: pointer;
@@ -54,11 +55,17 @@
             align-items: center;
             flex-direction: column;
             @include primary-text-color;
-        }
-        &_add{
+          }
+          &_add {
             @include primary-text-font;
-            font-size: 20px
-        }
+            font-size: 20px;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            max-height: 30px;
+            // overflow: hidden;
+          }
           span {
             @include primary-text-hover;
             font-size: 25px;
@@ -66,8 +73,8 @@
           }
         }
         img {
-          width: 75px;
-          height: 60px;
+          width: 80px;
+          height: 80px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -93,4 +100,7 @@
       }
     }
   }
+}
+.active{
+  transform: translateX(90%);
 }

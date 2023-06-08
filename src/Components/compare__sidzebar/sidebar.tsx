@@ -15,14 +15,14 @@ import AddProductBySideBar from "./addSideBarProduct/sidebarAdd";
 
 const Sidebar: React.FC = () => {
 
-  // const [productBar, setProductBar] = useState<boolean>(false);
-  const { sliderItem,productBar, setProductBar} = useStore();
+  const { sliderItem,productBar, setProductBar,setSliderItem} = useStore();
+  const [activeSideBar,setActiveSideBar] = useState(false)
 
   return (
     <Box>
      {productBar === true ? <Box>{<AddProductBySideBar />}</Box> : ""}
-     <Box className="compare__sidebar">
-      <Typography className="compare__sidebar_title" variant="h6">
+     <Box className={activeSideBar === false ? "compare__sidebar" : "compare__sidebar active"}>
+      <Typography onClick={()=> setActiveSideBar(!activeSideBar)} className="compare__sidebar_title" variant="h6">
         შედარება
       </Typography>
       <Box className="compare__sidebar_inner">
@@ -33,10 +33,10 @@ const Sidebar: React.FC = () => {
                 <Box className="add__product">
                   <img src={sliderEl.data.images[0]} />
                   <Box className="product__info">
-                    <Typography className="product__info_add">
-                      პროდუქტის დამატება
+                    <Typography className="product__info_title">
+                      {sliderEl.data.title}
                     </Typography>
-                    <Typography className="product__title"></Typography>
+                    <Typography className="product__price"></Typography>
                     <span>{Number(sliderEl.data.price)} ₾</span>
                   </Box>
                 </Box>
@@ -45,15 +45,15 @@ const Sidebar: React.FC = () => {
             <Box className="add__product" onClick={() => setProductBar(true)}>
               {/* <img alt="" src="" /> */}
               <Box className="product__info">
-                <Typography className="product__info_add">
+                <Typography className="product__info_title">
                   პროდუქტის დამატება
                 </Typography>
-                <Typography className="product__title"></Typography>
+                <Typography className="product__price"></Typography>
                 {/* <span>{Number(sliderEl.data.price)} ₾</span> */}
               </Box>
             </Box>
             <Button className="compare__start">შედარების დაწყება</Button>
-            <Typography className="clear" variant="subtitle1">
+            <Typography onClick={()=> setSliderItem([])} className="clear" variant="subtitle1">
               გასუფთავება
             </Typography>
           </Box>

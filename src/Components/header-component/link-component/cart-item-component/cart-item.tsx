@@ -72,7 +72,7 @@ const CartItemSection = () => {
                       />
                     </span>
                     <span className="quantity__price">
-                      {parseInt(cartItemEl.price) * quantity} ₾
+                      {Number(cartItemEl.price) * quantity} ₾
                     </span>
                   </Box>
                 </Box>
