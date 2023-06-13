@@ -7,10 +7,13 @@ import { useStore } from "../../../util/store/store";
 import ajax from "../../../util/service/ajax";
 import { BanckEndItem } from "../../../@types/general";
 import { Link } from "react-router-dom";
+import {useTranslation} from "react-i18next"
 
 const Search = () => {
   const { setBlurBackground, blurBackground, setGetItemById } = useStore();
   const [searchItem, setSearchItem] = useState<BanckEndItem[]>([]);
+
+  const {t} = useTranslation()
 
   const formRef = useRef<HTMLFormElement | null>(null);
 

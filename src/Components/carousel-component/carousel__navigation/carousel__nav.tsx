@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./carousel__nav.scss";
 
 // mui Links
@@ -10,58 +11,60 @@ import ScreenLockPortraitOutlinedIcon from '@mui/icons-material/ScreenLockPortra
 import HdrStrongOutlinedIcon from '@mui/icons-material/HdrStrongOutlined';
 import AudiotrackOutlinedIcon from '@mui/icons-material/AudiotrackOutlined';
 import PersonalVideoOutlinedIcon from '@mui/icons-material/PersonalVideoOutlined';
-import { useState } from "react";
-
+// import translation
+import { useTranslation } from "react-i18next";
 const CarouselNav = () => {
       
+        const {t} = useTranslation()
+
   return (
     <Box className="content__inner">
       <Box className="carousel__nav">
         <Box className="nav">
-          <ListOutlinedIcon /> ნავიგაცია
-          <Typography className="all__type" variant="subtitle2">ყველა</Typography>
+          <ListOutlinedIcon /> {t(`global.Navigation`)}
+          <Typography className="all__type" variant="subtitle2">{t(`global.All`)}</Typography>
         </Box>
         <Box className="carousel__brands">
             <Box className="brand__list">
                     <PhoneAndroidOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       ტელეფონი
+                    {t(`global.Phone`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <HeadphonesOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       ყურსასმენი
+                    {t(`global.Headphone`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <SportsEsportsOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       Gaming
+                    {t(`global.Gaming`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <ScreenLockPortraitOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       აქსესუარები
+                    {t(`global.Accessories`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <AudiotrackOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       აუდი სისტემ
+                    {t(`global.Audio System`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <PersonalVideoOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       ტელევიზორი
+                    {t(`global.Television`)}
                     </Typography>
             </Box>
             <Box className="brand__list">
                     <HdrStrongOutlinedIcon className="mui__item"/>
                     <Typography variant="subtitle2">
-                       სხვა...
+                    {t(`global.Else`)}...
                     </Typography>
             </Box>
         </Box>

@@ -25,5 +25,5 @@ id: string;
 images:string;
 price: string  | Number;
 rating: string;
-title:strin;
+title:string;
 }
