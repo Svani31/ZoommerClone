@@ -16,6 +16,7 @@ import Product from "./Components/product-component/product"
 // const name = lazy(()=> import(""))
 
 import jwtDecoder from "./util/jwtDecode/jwt";
+import Footer from "./Components/footer/footer";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
      <>
     <AppSlider/>
     <Product/>
+    <Footer/>
     </>
      )
   }

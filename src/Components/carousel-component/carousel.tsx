@@ -38,7 +38,7 @@ const AppSlider = () => {
       <CarouselNav />
       <CarouselProvider
         naturalSlideWidth={15}
-        naturalSlideHeight={3}
+        naturalSlideHeight={4}
         totalSlides={8}
         infinite={true}
         dragEnabled={true}

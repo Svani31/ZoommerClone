@@ -5,14 +5,19 @@ import { useEffect, useRef, useState } from "react";
 import ajax from "../../../util/service/ajax";
 import { BanckEndItem } from "../../../@types/general";
 import { useStore } from "../../../util/store/store";
+import {useTranslation} from "react-i18next"
+
 
 const AddProductBySideBar = () => {
+
   const { setProductBar,compareHandler } = useStore();
   const [product, setProduct] = useState<BanckEndItem[]>([]);
   let sidebarRef = useRef<HTMLFormElement | null>(null);
   let debouncetimer: NodeJS.Timeout;
+  const {t} = useTranslation()
 
   const getProductItem = async (value: string) => {
+
     clearTimeout(debouncetimer);
     debouncetimer = setTimeout(async () => {
       if (value.length > 2) {
@@ -30,7 +35,6 @@ const AddProductBySideBar = () => {
     }, 500);
   };
 
-  console.log(product);
 
   useEffect(() => {
     const outsideHandler = (event: MouseEvent) => {
@@ -51,7 +55,7 @@ const AddProductBySideBar = () => {
 
   return (
     <Box className="search__side" ref={sidebarRef}>
-      <Typography className="search__side_title">პროდუქტის დამატება</Typography>
+      <Typography className="search__side_title">{t(`global.Add-Product`)}</Typography>
       <input
         onChange={(e) => getProductItem(e.target.value)}
         className="search"

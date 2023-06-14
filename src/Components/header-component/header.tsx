@@ -14,10 +14,10 @@ import LinkComponent from "./link-component/link-component"
 
 // import carousel 
 import AppSlider from "../carousel-component/carousel"
-
-
+// import translation libray
+import {useTranslation} from "react-i18next" 
 const Header = () =>{
-    
+    const {t} = useTranslation()
 
     return(
         <Box>
@@ -28,20 +28,20 @@ const Header = () =>{
                         <img src={phoneImage} alt="phoneImage"/>
                     </Box>
                     <Box>
-                         <span>ცხელი ხაზი</span>
+                         <span>{t(`global.hotline`)}</span>
                          <a href="*7007 / +995 (32) 2 60 30 60">*7007 / +995 (32) 2 60 30 60</a>
                     </Box>
                 </Box>
                 <Box className="header__right_padding">
                     <Box className="header__top_helper">
                     <Link className="helper__link" to={"/online__installments"}>
-                        <li>ონლაინ განვადება</li>
+                        <li>{t(`global.Online installment`)}</li>
                     </Link>
                     <Link className="helper__link" to={"/brenchs"}>
-                        <li>ფილიალები</li>
+                        <li>{t(`global.Branches`)}</li>
                     </Link>
                     <Link className="helper__link" to={"/all__promotions"}>
-                    <li>ყველა აქცისა</li>
+                    <li>{t(`global.All promotions`)}</li>
                     </Link>
                     </Box>
                            <Lanuage/>              
@@ -53,7 +53,7 @@ const Header = () =>{
                     <Box className="header__logo">
                         <Link className="logo__link" to={"/"}>
                             <img src={Logo} alt="Logo" />
-                            <span className="zoomer">ზუმერი</span>
+                            <span className="zoomer">{t(`global.Zoomer`)}</span>
                         </Link>
                     </Box>
                         <Search/>

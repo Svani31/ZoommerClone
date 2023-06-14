@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 // improting Mui Components
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
@@ -8,7 +8,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 // importing Photos
 import h from "../../../Images/Product-Title/hot-proposal.svg";
 // importing Css
-import "../hot-sale-component/hot-sale";
+import "../hot-sale-component/hot-sale.scss";
 
 // improt ajax api
 import ajax from "../../../util/service/ajax";
@@ -25,40 +25,50 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 // import context API
 import { useStore } from "../../../util/store/store";
-import {REDUCER_ACTION_TYPES} from "../../../util/store/action"
 import { Link } from "react-router-dom";
+import { BanckEndItem } from "../../../@types/general";
 
+type HotSaleProps = {
+  title: string;
+  page_number: number;
+  page_size: number;
+  increaseProduct:any;
+};
 
-const NewModel = () => {
+const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps) => {
+  const [products, setProducts] = useState<BanckEndItem[]>([]);
   
-  const [products, setProducts] = useState<string[]>([]);
+  const [pageSize,setPageSize] = useState(page_size)
 
-
-  const {addProductHandler} = useStore()
-
+  const { addProductHandler } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
-      const respons = await ajax.post("/products", {
-        page_size: 10,
-        page_number: 10,
+      const { data } = await ajax.post("/products", {
+        page_size: pageSize,
+        page_number: page_number,
         keyword: "",
       });
-      setProducts(respons.data.products);
+      setProducts(
+        data.products.map((productEl: BanckEndItem) => ({
+          productEl,
+          quantity: 0,
+        }))
+      );
     };
-    fetchData()
-  }, []);
+    fetchData();
+  }, [page_size,pageSize]);
   
-   
-  
+
+
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         paddingTop: "30px",
       }}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           gap: "20px",
           textAlign: "center",
@@ -66,14 +76,15 @@ const NewModel = () => {
           userSelect: "none",
         }}
       >
-        <div className="title__image">
+        <Box className="title__image">
           <img src={h} alt="" />
-        </div>
-        <h2 className="hot__sale">ახალი მოდელები</h2>
-      </div>
-      <div className="products__container">
+        </Box>
+        <h2 className="hot__sale">{title}</h2>
+      </Box>
+      <Box className="products__container">
         {/* there is map  */}
-        {products.map((productEl: any) => {
+        {products.map((productItem: any) => {
+          const { productEl, quantity } = productItem;
           return (
             <Box
               key={productEl.id}
@@ -85,7 +96,7 @@ const NewModel = () => {
                 // width:"280px",
                 padding: "15px",
                 cursor: "pointer",
-                position:"relative"
+                position: "relative",
               }}
             >
               <Paper
@@ -94,47 +105,54 @@ const NewModel = () => {
                   borderRadius: "12px",
                 }}
               >
-                <CarouselProvider
-                  naturalSlideWidth={3}
-                  naturalSlideHeight={2}
-                  totalSlides={productEl.images.length}
-                  infinite={true}
-                  // dragEnabled={false}
-                >
-                  <Slider>
-                    {productEl.images.map((imageEl: any) => {
-                      return (
-                        <>
-                        <Link to={`product/${productEl.id}`}>
-                          <Slide key={productEl.id} index={productEl.id}>
-                            <img className="slider__img" src={imageEl} alt="" />
-                          </Slide>
-                        </Link>
-                        </>
-                      );
-                    })}
-                  </Slider>
-                  <div className="product__carousel_btn">
-                    <ButtonBack className="prev__btn visable">
-                      <ArrowBackIosNewOutlinedIcon sx={{fontSize:"12px"}}/>
-                    </ButtonBack>
+                <Link to={`product/${productEl.id}`}>
+                  <CarouselProvider
+                    naturalSlideWidth={3}
+                    naturalSlideHeight={2}
+                    totalSlides={productEl.images.length}
+                    infinite={true}
+                    dragEnabled={true}
+                  >
+                    <Slider>
+                      {productEl.images.map((imageEl: string) => {
+                        return (
+                          <>
+                            <Slide key={imageEl.length} index={productEl.id}>
+                              <img
+                                className="slider__img"
+                                src={imageEl}
+                                alt=""
+                              />
+                            </Slide>
+                          </>
+                        );
+                      })}
+                    </Slider>
+                    <Box className="product__carousel_btn">
+                      <ButtonBack className="prev__btn visable">
+                        <ArrowBackIosNewOutlinedIcon
+                          sx={{ fontSize: "12px" }}
+                        />
+                      </ButtonBack>
 
-                    <ButtonNext className="next__btn visable">
-                      <ArrowForwardIosOutlinedIcon sx={{fontSize:"12px"}} />
-                    </ButtonNext>
-                  </div>
-                </CarouselProvider>
-
-                <h4>{productEl.title}</h4>
-                <div className="product__price">
-                  <h3>
-                    {Math.round(productEl.price)} ₾{" "}
-                    <span>{Math.round(productEl.price) - 100} ₾</span>
-                  </h3>
-                  <h5>
-                    {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
-                  </h5>
-                </div>
+                      <ButtonNext className="next__btn visable">
+                        <ArrowForwardIosOutlinedIcon
+                          sx={{ fontSize: "12px" }}
+                        />
+                      </ButtonNext>
+                    </Box>
+                  </CarouselProvider>
+                  <h4>{productEl.title}</h4>
+                  <Box className="product__price">
+                    <h3>
+                      {Math.round(productEl.price)} ₾{" "}
+                      <span>{Math.round(productEl.price) - 100} ₾</span>
+                    </h3>
+                    <h5>
+                      {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
+                    </h5>
+                  </Box>
+                </Link>
                 <Box
                   sx={{
                     borderTop: "1px solid #eff0f2",
@@ -155,7 +173,10 @@ const NewModel = () => {
                     <AccessTimeOutlinedIcon />
                     <span>დრო პროდუქტის</span>
                   </Box>
-                  <Box className="product__cart_container" onClick={() => addProductHandler(productEl.id)}>
+                  <Box
+                    className="product__cart_container"
+                    onClick={() => addProductHandler(productEl.id)}
+                  >
                     <ShoppingCartOutlinedIcon className="product__cart" />
                   </Box>
                 </Box>
@@ -163,9 +184,10 @@ const NewModel = () => {
             </Box>
           );
         })}
-      </div>
-    </div>
+      <button className="show__more" onClick={()=> increaseProduct(setPageSize)} >მეტის ნახვა <span> ^ </span></button>
+      </Box>
+    </Box>
   );
 };
 
-export default NewModel;
+export default HotSale;

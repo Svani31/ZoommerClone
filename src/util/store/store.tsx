@@ -3,9 +3,10 @@ import { createContext, useContext, useReducer, useState } from "react";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import reducer, { initalState } from "./redux";
 import { REDUCER_ACTION_TYPES } from "./action";
-import { BanckEndItem } from "../../@types/general";
+import { BanckEndItem, UserProps } from "../../@types/general";
 import ajax from "../service/ajax";
 import { useParams } from "react-router-dom";
+
 
 type StoreContextProps = {
   cartItem: BanckEndItem[];
@@ -23,7 +24,9 @@ type StoreContextProps = {
   userToken: string;
   productBar?: boolean;
   setProductBar?: any;
-  compareHandler:any;
+  compareHandler: any;
+  user: UserProps;
+  setUser: any;
 };
 
 export const StoreContext = createContext({} as StoreContextProps);
@@ -35,14 +38,13 @@ type StoreProps = {
 };
 
 const StoreProvider = ({ children }: StoreProps) => {
-  
-  
   const [state, dispatch] = useReducer(reducer, initalState);
   const [blurBackground, setBlurBackground] = useState<boolean>(false);
   const [getItemById, setGetItemById] = useState("");
   const [sliderItem, setSliderItem] = useState<BanckEndItem[]>([]);
   const [userToken, setUserToken] = useState<string>("");
   const [productBar, setProductBar] = useState<boolean>(false);
+  const [user, setUser] = useState({});
   const { id } = useParams();
 
   const addProductHandler = async (id: string) => {
@@ -56,11 +58,10 @@ const StoreProvider = ({ children }: StoreProps) => {
 
   const compareHandler = async (id: string | undefined) => {
     const { data } = await ajax.get(`product/${id}`);
-    
-    setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
-    console.log(sliderItem)
-  };
 
+    setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
+    console.log(sliderItem);
+  };
 
   const store = {
     ...state,
@@ -78,7 +79,9 @@ const StoreProvider = ({ children }: StoreProps) => {
     setUserToken,
     productBar,
     setProductBar,
-    compareHandler
+    compareHandler,
+    user,
+    setUser,
   };
 
   return (
