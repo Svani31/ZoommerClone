@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import "./registration.scss";
 // Material UI and React Rout Dom
@@ -5,7 +6,6 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { TextField, InputLabel, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
-
 // FireBase PopUp and Redirect Log in
 import { confirmPasswordReset, getRedirectResult } from "firebase/auth";
 import {
@@ -41,30 +41,37 @@ const initialValues: formikProps = {
 };
 
 const Registration = () => {
+
   const [toggle, setToggle] = useState<boolean>(false);
   const [registration, setRegistration] = useState<boolean>(false);
   const [loginValue, setLoginValue] = useState({ email: "", password: "" });
-  const { setUserToken, userToken } = useStore();
-  const [loginStatus,setLoginStatus] = useState<boolean>(false)
-
+  
+  const { setUserToken,user,setUser} = useStore();
+  console.log(user,"this is user")
+  // useFormikValidation
   const { values, handleSubmit, handleChange, errors } = useFormik({
     initialValues,
     validationSchema: BasicSchema,
     onSubmit: async (values: formikProps) => {
       const registrationValue = await ajax.post("/register", values);
-      console.log(registrationValue, "this is registration");
+      setRegistration(false)
+      alert("registration success")
     },
   });
 
   
+  
+
+  // getting respons fom google login
   useEffect(() => {
     const getResultFromRedirect = async () => {
       const respons = await getRedirectResult(auth);
-      console.log(respons);
     };
     getResultFromRedirect();
   }, []);
 
+
+  // getting login value
   const loginHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -73,14 +80,15 @@ const Registration = () => {
     });
   };
 
+
+  // submiting login value handler and getting users information in the object
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const loginRespons = await ajax.post("/login", loginValue);
       if (loginRespons.data) {
         setUserToken(loginRespons.data.AccessToken);
-        setLoginStatus(true)
-        console.log(loginRespons, "login Success");
+        setUser(loginRespons.data.User, "login Success");
       }
     } catch (error) {
       console.log(error, "cant sign in");
