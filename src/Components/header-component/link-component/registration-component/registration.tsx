@@ -18,6 +18,8 @@ import {
 // import Formik and Yup here
 import { useFormik } from "formik";
 import { BasicSchema } from "../../../../util/schema/schema.js";
+// impriting translationhook
+import {useTranslation} from "react-i18next"
 
 // backend helpe
 import axios from "axios";
@@ -59,7 +61,7 @@ const Registration = () => {
     },
   });
 
-  
+    const {t} = useTranslation()
   
 
   // getting respons fom google login
@@ -100,7 +102,7 @@ const Registration = () => {
     <Box className="header__registration">
       <Box className="loggin__onclicked" onClick={() => setToggle(!toggle)}>
         <AccountCircleOutlinedIcon />
-        <span>პროფილი</span>
+        <span>{t(`global.Profile`)}</span>
       </Box>
       {toggle === true ? (
         <>
@@ -112,12 +114,12 @@ const Registration = () => {
             }
           >
             <form id="loggin__form" onSubmit={(e) => submitHandler(e)}>
-              <span>ავტორიზაცია</span>
+              <span>{t(`global.sign-in`)}</span>
               <TextField
                 sx={{
                   marginTop: "15px",
                 }}
-                label="ელ-ფოსტა"
+                label={t(`global.Email`)}
                 size="small"
                 name="email"
                 value={loginValue.email}
@@ -127,7 +129,7 @@ const Registration = () => {
                 sx={{
                   marginTop: "15px",
                 }}
-                label="პაროლი"
+                label={t("global.Password")}
                 size="small"
                 type="password"
                 name="password"
@@ -143,7 +145,7 @@ const Registration = () => {
                     fontSize: "12px",
                   }}
                 >
-                  დაგავიწყდა პაროლი?
+                  {t(`global.Forggot-Password`)}?
                 </span>
               </Link>
               <Box
@@ -157,13 +159,13 @@ const Registration = () => {
                   variant="contained"
                   className="loggin__button"
                 >
-                  შესვლა
+                  {t("global.sign-in")}
                 </Button>
                 <Button
                   className="login__button"
                   onClick={() => setRegistration(!registration)}
                 >
-                  რეგისტრაცია
+                  {t(`global.Registration`)}
                 </Button>
               </Box>
             </form>
@@ -205,13 +207,13 @@ const Registration = () => {
                 float: "left",
               }}
             />
-            <span>რეგისტრაცია</span>
+            <span>{t(`global.Registration`)}</span>
           </div>
           <TextField
             sx={{
               marginTop: "15px",
             }}
-            label="სახელი"
+            label={t("global.First-name")}
             size="small"
             name="firstName"
             value={values.firstName}
@@ -223,7 +225,7 @@ const Registration = () => {
             sx={{
               marginTop: "15px",
             }}
-            label="გვარი"
+            label={t("global.Last-name")}
             size="small"
             name="lastName"
             value={values.lastName}
@@ -235,7 +237,7 @@ const Registration = () => {
             sx={{
               marginTop: "15px",
             }}
-            label="ტელეფონის ნომერი"
+            label={t("global.Phone-number")}
             size="small"
             name="phoneNumber"
             value={values.phoneNumber}
@@ -247,7 +249,7 @@ const Registration = () => {
             sx={{
               marginTop: "15px",
             }}
-            label="ელ-ფოსტა"
+            label={t("global.Email")}
             size="small"
             name="email"
             value={values.email}
@@ -259,7 +261,7 @@ const Registration = () => {
             sx={{
               marginTop: "15px",
             }}
-            label="პაროლი"
+            label={t(`global.Password`)}
             size="small"
             type="password"
             name="password"
@@ -280,7 +282,7 @@ const Registration = () => {
               type="submit"
               className="registration__button"
             >
-              რეგისტრაცია
+              {t(`global.Registration`)}
             </Button>
           </Box>
         </form>

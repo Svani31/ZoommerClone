@@ -8,30 +8,29 @@ import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import ajax from "../../../../util/service/ajax";
 import { useStore } from "../../../../util/store/store";
 import { BanckEndItem } from "../../../../@types/general";
-import { useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next";
 import "./cart-item.scss";
 
 const CartItemSection = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [price, setPrice] = useState(0);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
-  const { cartItem,removeItemHandler} = useStore();
-
+  const { cartItem, removeItemHandler } = useStore();
 
   useEffect(() => {
     const number = cartItem.map((cartEl: BanckEndItem) => {
-    return Number(cartEl.price);
+      return Number(cartEl.price);
     });
     if (number.length > 0) {
-      const calculateTotal = number.reduce((price: number, item: number) => price + item);
+      const calculateTotal = number.reduce(
+        (price: number, item: number) => price + item
+      );
       setPrice(calculateTotal);
-    }else{
-      setPrice(0)
+    } else {
+      setPrice(0);
     }
-    }, [cartItem]);
-
-
+  }, [cartItem]);
 
   return (
     <Box className="header__cartitem">
@@ -44,7 +43,7 @@ const CartItemSection = () => {
       </Link>
       <Box className="cartitem__dropdown">
         <Box className="cartitem__inner">
-          <h5>{(t`global.Cart`)}</h5>
+          <h5>{t("global.Cart")}</h5>
           <Box className="cart__items">
             {/* cart item on dropdown Map here */}
             {cartItem?.map((cartItemEl: BanckEndItem) => (
@@ -64,14 +63,14 @@ const CartItemSection = () => {
                   <Box className="quantity">
                     <span className="quantity__buttons">
                       <RemoveOutlinedIcon
-                        onClick={() => setQuantity( quantity - 1)}
+                        onClick={() => setQuantity(quantity - 1)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
                     {quantity}
                     <span className="quantity__buttons">
                       <AddOutlinedIcon
-                        onClick={() => setQuantity(quantity+ 1)}
+                        onClick={() => setQuantity(quantity + 1)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
@@ -84,9 +83,11 @@ const CartItemSection = () => {
             ))}
           </Box>
           <h4>
-           {t(`global.Sub-total`)} : <span> ₾</span>
+            {t("global.Sub-total")}: <span>₾{price}</span>
           </h4>
-          <button>{t(`global.Enter-cart`)}</button>
+          <Link className="cartitem__link" to={"/cart"}>
+          <button>{t("global.Enter-cart")}</button>
+          </Link>
         </Box>
       </Box>
     </Box>

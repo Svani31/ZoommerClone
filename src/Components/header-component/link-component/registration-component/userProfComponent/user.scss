@@ -1,0 +1,51 @@
+@import "../../../../../mixin.scss";
+.user__photo{
+    padding: 14px;
+    margin-right: 10px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 21px 0px
+}
+.user__welcome {
+    display: flex;
+    flex-direction:column;
+    @include secondary-text-font;
+    font-weight: 700;
+    @include product-old-color;
+    span{
+        color: black;
+        font-weight: bold;
+    }
+}
+
+.user__dropdown{
+    border: solid 1px #f5f5f5;
+    border-radius: 5px;
+    position: absolute;
+    top: 50px;
+    z-index: 9999;
+    background-color: white;
+    right: -25px;
+    padding: 5px 25px;
+    .user__types{
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: 15px;
+        text-align: start;
+        font-weight: 600;
+        border-bottom: 1px solid #f5f5f5;
+        padding: 0px 15px;
+        .user__type_link{
+            transition: 0.1s ease-in;
+            @include primary-text-color;
+            @include primary-text-font;
+            text-decoration: none;
+        }
+    }
+    button{
+        margin-top: 10px;
+    }
+}
+
+.user__types:hover > .user__type_link{
+    @include primary-text-hover;
+}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 // import react route dom
 import { Route, Routes, useParams } from "react-router-dom";
 // import material ui
@@ -20,6 +19,7 @@ import { useStore } from "../../../../util/store/store";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import Navigation from "../../../navigation/navigation";
 
 const ProductById = () => {
 
@@ -95,28 +95,11 @@ const ProductById = () => {
     setColor(e.target.dataset.color);
   };
 
-  // const compareHandler = async (id: string | undefined) => {
-  //   const { data } = await ajax.get(`product/${id}`);
-    
-  //   setSliderItem((prev: BanckEndItem[]) => [...prev, { data }]);
-  //   console.log(sliderItem)
-  // };
+
 
   return (
     <Box className="product__form">
-      <Box className="navigation">
-        <Box className="nav__left">
-          <Typography className="nav__title" variant="h6">
-            <ListOutlinedIcon /> ნავიგაცია
-          </Typography>
-          <Typography variant="subtitle2">ყველა</Typography>
-        </Box>
-        <Box className="nav__right">
-          <Typography className="nav__directory">
-            მთავარი <KeyboardArrowRightIcon />
-          </Typography>
-        </Box>
-      </Box>
+      <Navigation/>
       <Box className="product">
         <aside className="product__sidebar">
           <Box className="product__time">
