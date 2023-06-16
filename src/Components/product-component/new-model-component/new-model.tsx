@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 // improting Mui Components
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography,Skeleton } from "@mui/material";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
@@ -8,7 +8,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 // importing Photos
 import h from "../../../Images/Product-Title/hot-proposal.svg";
 // importing Css
-import "../hot-sale-component/hot-sale.scss";
+import "../hot-sale.scss";
 
 // improt ajax api
 import ajax from "../../../util/service/ajax";
@@ -36,9 +36,10 @@ type HotSaleProps = {
 };
 
 const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps) => {
-  const [products, setProducts] = useState<BanckEndItem[]>([]);
   
+  const [products, setProducts] = useState<BanckEndItem[]>([]);  
   const [pageSize,setPageSize] = useState(page_size)
+  const [isLoading,setIsLoading] = useState(true)
 
   const { addProductHandler } = useStore();
 
@@ -49,16 +50,19 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
         page_number: page_number,
         keyword: "",
       });
+      
       setProducts(
         data.products.map((productEl: BanckEndItem) => ({
           productEl,
           quantity: 0,
         }))
-      );
-    };
-    fetchData();
-  }, [page_size,pageSize]);
-  
+        );
+      };
+      fetchData();
+      setTimeout(()=>{
+        setIsLoading(false)
+      },1000)
+    }, [page_size,pageSize]);
 
 
   return (
@@ -83,8 +87,8 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
       </Box>
       <Box className="products__container">
         {/* there is map  */}
-        {products.map((productItem: any) => {
-          const { productEl, quantity } = productItem;
+        {products.map((productItem: BanckEndItem) => {
+          const { productEl, quantity }:BanckEndItem = productItem;
           return (
             <Box
               key={productEl.id}
@@ -105,7 +109,7 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                   borderRadius: "12px",
                 }}
               >
-                <Link to={`product/${productEl.id}`}>
+                <Link className="product__link" to={`product/${productEl.id}`}>
                   <CarouselProvider
                     naturalSlideWidth={3}
                     naturalSlideHeight={2}
@@ -113,16 +117,16 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                     infinite={true}
                     dragEnabled={true}
                   >
-                    <Slider>
+                    <Slider key={productEl.id}>
                       {productEl.images.map((imageEl: string) => {
                         return (
                           <>
                             <Slide key={imageEl.length} index={productEl.id}>
-                              <img
+                             {isLoading ? ( <Skeleton width={300} height={150}/>): ( <img
                                 className="slider__img"
                                 src={imageEl}
                                 alt=""
-                              />
+                              />)}
                             </Slide>
                           </>
                         );
@@ -142,15 +146,15 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                       </ButtonNext>
                     </Box>
                   </CarouselProvider>
-                  <h4>{productEl.title}</h4>
+                  {isLoading ? (<Skeleton />) : (<h4 className="product__title">{productEl.title}</h4>)}
                   <Box className="product__price">
-                    <h3>
+                   {isLoading ? (<Skeleton/>) : ( <h3>
                       {Math.round(productEl.price)} ₾{" "}
                       <span>{Math.round(productEl.price) - 100} ₾</span>
-                    </h3>
-                    <h5>
+                    </h3>)}
+                    {isLoading ? (<Skeleton/>) : (<h5>
                       {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
-                    </h5>
+                    </h5>)}
                   </Box>
                 </Link>
                 <Box
@@ -171,7 +175,7 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                     }}
                   >
                     <AccessTimeOutlinedIcon />
-                    <span>დრო პროდუქტის</span>
+                    <span>Timer</span>
                   </Box>
                   <Box
                     className="product__cart_container"
