@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 // improting Mui Components
-import { Box, Button, Paper, Typography,Skeleton } from "@mui/material";
+import { Box, Button, Paper, Typography, Skeleton } from "@mui/material";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
@@ -32,14 +32,18 @@ type HotSaleProps = {
   title: string;
   page_number: number;
   page_size: number;
-  increaseProduct:any;
+  increaseProduct: any;
 };
 
-const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps) => {
-  
-  const [products, setProducts] = useState<BanckEndItem[]>([]);  
-  const [pageSize,setPageSize] = useState(page_size)
-  const [isLoading,setIsLoading] = useState(true)
+const HotSale = ({
+  title,
+  page_number,
+  page_size,
+  increaseProduct,
+}: HotSaleProps) => {
+  const [products, setProducts] = useState<BanckEndItem[]>([]);
+  const [pageSize, setPageSize] = useState(page_size);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { addProductHandler } = useStore();
 
@@ -50,20 +54,19 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
         page_number: page_number,
         keyword: "",
       });
-      
+
       setProducts(
         data.products.map((productEl: BanckEndItem) => ({
           productEl,
           quantity: 0,
         }))
-        );
-      };
-      fetchData();
-      setTimeout(()=>{
-        setIsLoading(false)
-      },1000)
-    }, [page_size,pageSize]);
-
+      );
+    };
+    fetchData();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [page_size, pageSize]);
 
   return (
     <Box
@@ -88,7 +91,7 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
       <Box className="products__container">
         {/* there is map  */}
         {products.map((productItem: BanckEndItem) => {
-          const { productEl, quantity }:BanckEndItem = productItem;
+          const { productEl, quantity }: BanckEndItem = productItem;
           return (
             <Box
               key={productEl.id}
@@ -122,11 +125,15 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                         return (
                           <>
                             <Slide key={imageEl.length} index={productEl.id}>
-                             {isLoading ? ( <Skeleton width={300} height={150}/>): ( <img
-                                className="slider__img"
-                                src={imageEl}
-                                alt=""
-                              />)}
+                              {isLoading ? (
+                                <Skeleton width={300} height={150} />
+                              ) : (
+                                <img
+                                  className="slider__img"
+                                  src={imageEl}
+                                  alt=""
+                                />
+                              )}
                             </Slide>
                           </>
                         );
@@ -146,15 +153,27 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
                       </ButtonNext>
                     </Box>
                   </CarouselProvider>
-                  {isLoading ? (<Skeleton />) : (<h4 className="product__title">{productEl.title}</h4>)}
+                  {isLoading ? (
+                    <Skeleton />
+                  ) : (
+                    <h4 className="product__title">{productEl.title}</h4>
+                  )}
                   <Box className="product__price">
-                   {isLoading ? (<Skeleton/>) : ( <h3>
-                      {Math.round(productEl.price)} ₾{" "}
-                      <span>{Math.round(productEl.price) - 100} ₾</span>
-                    </h3>)}
-                    {isLoading ? (<Skeleton/>) : (<h5>
-                      {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
-                    </h5>)}
+                    {isLoading ? (
+                      <Skeleton />
+                    ) : (
+                      <h3>
+                        {Math.round(productEl.price)} ₾{" "}
+                        <span>{Math.round(productEl.price) - 100} ₾</span>
+                      </h3>
+                    )}
+                    {isLoading ? (
+                      <Skeleton />
+                    ) : (
+                      <h5>
+                        {Math.round(productEl.price / 12)} ₾ <span>- დან</span>
+                      </h5>
+                    )}
                   </Box>
                 </Link>
                 <Box
@@ -188,7 +207,12 @@ const HotSale = ({ title, page_number, page_size,increaseProduct}: HotSaleProps)
             </Box>
           );
         })}
-      <button className="show__more" onClick={()=> increaseProduct(setPageSize)} >მეტის ნახვა <span> ^ </span></button>
+        <button
+          className="show__more"
+          onClick={() => increaseProduct(setPageSize)}
+        >
+          მეტის ნახვა <span> ^ </span>
+        </button>
       </Box>
     </Box>
   );

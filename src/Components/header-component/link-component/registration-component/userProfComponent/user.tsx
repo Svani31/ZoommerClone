@@ -14,12 +14,13 @@ import {useTranslation} from "react-i18next"
 
 
 const UserInfo = () => {
-  const { user } = useStore();
+  const { user,userToken,isAdmin } = useStore();
   const [showDropdown, setShowDropDown] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLFormElement | null>(null);
 const {t} = useTranslation()
-
-  // useEffect(()=>{
+  console.log(isAdmin)
+  console.log(user)
+// useEffect(()=>{
   //     const getUser = async() =>{
   //         const {data} = await ajax("/me",{
   //             headers:{
@@ -30,6 +31,7 @@ const {t} = useTranslation()
   //     }
   //     getUser()
   // },[])
+
 
     useEffect(()=>{
         const outSideClicke = (event:MouseEvent) =>{

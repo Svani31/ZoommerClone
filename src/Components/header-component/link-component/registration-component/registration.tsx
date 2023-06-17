@@ -49,7 +49,7 @@ const Registration = () => {
   const [loginValue, setLoginValue] = useState({ email: "", password: "" });
   
   const { setUserToken,user,setUser} = useStore();
-  console.log(user,"this is user")
+
   // useFormikValidation
   const { values, handleSubmit, handleChange, errors,touched } = useFormik({
     initialValues,
@@ -58,8 +58,8 @@ const Registration = () => {
       const registrationValue = await ajax.post("/register", values);
       setRegistration(false)
       alert("registration success")
-      console.log(registrationValue,"this is registration value")
-    },
+      console.log(registrationValue)
+    }
   });
 
     const {t} = useTranslation()
