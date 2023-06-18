@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
 import "./registration.scss";
 // Material UI and React Rout Dom
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -47,7 +47,8 @@ const Registration = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [registration, setRegistration] = useState<boolean>(false);
   const [loginValue, setLoginValue] = useState({ email: "", password: "" });
-  
+  const loginRef = useRef()
+
   const { setUserToken,user,setUser} = useStore();
 
   // useFormikValidation
@@ -84,6 +85,22 @@ const Registration = () => {
   };
 
 
+
+  useEffect(() => {
+    const outsideHandler = (event: MouseEvent) => {
+      if (loginRef.current && !loginRef.current.contains(event.target as Node)) {
+        setToggle(false);
+        setRegistration(false)
+      }
+    };
+
+    document.addEventListener("mousedown", outsideHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", outsideHandler);
+    };
+  }, []);
+
   // submiting login value handler and getting users information in the object
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,7 +119,7 @@ const Registration = () => {
   };
 
   return (
-    <Box className="header__registration">
+    <Box ref={loginRef} className="header__registration">
       <Box className="loggin__onclicked" onClick={() => setToggle(!toggle)}>
         <AccountCircleOutlinedIcon />
         <span>{t(`global.Profile`)}</span>
