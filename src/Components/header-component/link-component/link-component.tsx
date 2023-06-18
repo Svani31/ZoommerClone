@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import CartItem from "./cart-item-component/cart-item"
 import Registration from "./registration-component/registration"
 import { useStore } from '../../../util/store/store';
-import UserInfo from './registration-component/userProfComponent/user-menu';
+import UserInfo from './registration-component/userProfComponent/user';
 
 
 const LinkComponent = () =>{

@@ -48,6 +48,7 @@ const StoreProvider = ({ children }: StoreProps) => {
   const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const { id } = useParams();
+  
   const addProductHandler = async (id: string) => {
     const { data } = await ajax.get(`product/${id}`);
     dispatch({ type: REDUCER_ACTION_TYPES.ADD_PRODUCT_ID, cartItem: data });

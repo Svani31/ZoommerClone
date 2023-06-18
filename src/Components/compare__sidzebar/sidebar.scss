@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   transition: 0.4s ease-in;
+  z-index: 9999999999999;
   .compare__sidebar_title {
     text-align: center;
     display: flex;
@@ -47,6 +48,12 @@
         background: rgba(0, 0, 0, 0.3);
         .product__info {
           max-width: 250px;
+          background-color: transparent;
+          height: 70px;
+          align-items: center;
+          text-align: center;
+          display: flex;
+          overflow: hidden;
           .product__title {
             max-height: 30px;
             overflow: hidden;
