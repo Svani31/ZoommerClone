@@ -1,0 +1,48 @@
+@import "../../../../../mixin.scss";
+
+.product{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #f5f5f5;
+    &__info{
+        background-color: white;
+        max-width: 70%;
+        width: 100%;
+        border-radius: 8px;
+        padding: 25px;
+        &_header{
+            margin-top: 10px;
+            padding: 10px;
+        }
+        &_nav{
+            display: flex;
+            justify-content: space-between;
+            .title{
+                max-width: 200px;
+                display: flex;
+                text-align: center;
+                align-items: center;
+                // width: 250px;
+                height: 70px;
+                overflow: hidden;
+                img{
+                    width: 100px;
+                }
+            }
+        }
+        &_inner{
+            padding: 10px;
+            
+        }
+        &_inner{
+            margin-top: 20px;
+        }
+        .btn-clear{
+            background-color: grey;
+            color: white;
+            padding:15px;
+            margin-top: 20px;
+        }
+    }
+}

@@ -14,6 +14,7 @@ import { REDUCER_ACTION_TYPES } from "../../util/store/action";
 import AddProductBySideBar from "./addSideBarProduct/sidebarAdd";
 // import Translation hook
 import { useTranslation } from "react-i18next";
+import { red } from "@mui/material/colors";
 
 const Sidebar: React.FC = () => {
   const { t } = useTranslation();
@@ -42,10 +43,17 @@ const Sidebar: React.FC = () => {
             <Box sx={{ display: "flex", gap: "50px" }}>
               {sliderItem.map((sliderEl) => {
                 return (
-                  <Box className="add__product">
+                  <Box
+                    sx={{ backgroundColor: "white !important" }}
+                    key={sliderEl.id}
+                    className="add__product"
+                  >
                     <img src={sliderEl.data.images[0]} />
                     <Box className="product__info">
-                      <Typography className="product__info_title">
+                      <Typography
+                        sx={{ color: "#0a3251" }}
+                        className="product__info_title"
+                      >
                         {sliderEl.data.title}
                       </Typography>
                       <Typography className="product__price"></Typography>

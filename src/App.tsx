@@ -18,6 +18,7 @@ import Product from "./Components/product-component/product";
 import jwtDecoder from "./util/jwtDecode/jwt";
 import Footer from "./Components/footer/footer";
 import CartItemPage from "./Components/header-component/link-component/cart-item-component/cart-item-page-component/cart-item-page";
+import JwtDecoder from "./util/jwtDecode/jwt";
 
 function App() {
   const MainPage = () => {
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <Box>
+      <JwtDecoder/>
       <Header />
       <Routes>
         <Route

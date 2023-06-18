@@ -1,4 +1,4 @@
-@import "./../../../mixin.scss";
+@import "../../mixin.scss";
 
 .hot__sale {
   float: left;
@@ -59,9 +59,9 @@
     @include primary-text-color
   }
   h4 {
-    font-family: Montserrat, BPGMrgvlovani;
-    font-size: 13px;
-    font-weight: 600;
+    @include primary-text-font;
+    font-size: 14px;
+    font-weight: bolder;
     text-align: center;
     @include primary-text-color;
     margin-bottom: 10px;
@@ -98,6 +98,10 @@
       }
     }
   }
+}
+
+.product__link{
+  text-decoration: none;
 }
 .visable{
   visibility: hidden;

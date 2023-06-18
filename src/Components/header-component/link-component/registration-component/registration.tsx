@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent, useRef } from "react";
 import "./registration.scss";
 // Material UI and React Rout Dom
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -16,7 +16,7 @@ import {
 } from "../../../../util/firebase/firebase.js";
 
 // import Formik and Yup here
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import { BasicSchema } from "../../../../util/schema/schema.js";
 // impriting translationhook
 import {useTranslation} from "react-i18next"
@@ -47,18 +47,20 @@ const Registration = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [registration, setRegistration] = useState<boolean>(false);
   const [loginValue, setLoginValue] = useState({ email: "", password: "" });
-  
+  const loginRef = useRef()
+
   const { setUserToken,user,setUser} = useStore();
-  console.log(user,"this is user")
+
   // useFormikValidation
-  const { values, handleSubmit, handleChange, errors } = useFormik({
+  const { values, handleSubmit, handleChange, errors,touched } = useFormik({
     initialValues,
     validationSchema: BasicSchema,
     onSubmit: async (values: formikProps) => {
       const registrationValue = await ajax.post("/register", values);
       setRegistration(false)
       alert("registration success")
-    },
+      console.log(registrationValue)
+    }
   });
 
     const {t} = useTranslation()
@@ -83,6 +85,22 @@ const Registration = () => {
   };
 
 
+
+  useEffect(() => {
+    const outsideHandler = (event: MouseEvent) => {
+      if (loginRef.current && !loginRef.current.contains(event.target as Node)) {
+        setToggle(false);
+        setRegistration(false)
+      }
+    };
+
+    document.addEventListener("mousedown", outsideHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", outsideHandler);
+    };
+  }, []);
+
   // submiting login value handler and getting users information in the object
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -91,15 +109,17 @@ const Registration = () => {
       if (loginRespons.data) {
         setUserToken(loginRespons.data.AccessToken);
         setUser(loginRespons.data.User, "login Success");
+        alert("Login Success")
       }
     } catch (error) {
-      console.log(error, "cant sign in");
+      alert("Password Or Email is Incorrect")
+      setLoginValue({email:"",password:""})
       
     }
   };
 
   return (
-    <Box className="header__registration">
+    <Box ref={loginRef} className="header__registration">
       <Box className="loggin__onclicked" onClick={() => setToggle(!toggle)}>
         <AccountCircleOutlinedIcon />
         <span>{t(`global.Profile`)}</span>
@@ -218,7 +238,7 @@ const Registration = () => {
             name="firstName"
             value={values.firstName}
             onChange={handleChange}
-            error={!!errors.firstName}
+            error={touched.firstName && !!errors.firstName}
             helperText={errors.firstName}
           />
           <TextField
@@ -230,7 +250,7 @@ const Registration = () => {
             name="lastName"
             value={values.lastName}
             onChange={handleChange}
-            error={!!errors.lastName}
+            error={touched.lastName && !!errors.lastName}
             helperText={errors.lastName}
           />
           <TextField
@@ -242,7 +262,7 @@ const Registration = () => {
             name="phoneNumber"
             value={values.phoneNumber}
             onChange={handleChange}
-            error={!!errors.phoneNumber}
+            error={touched.phoneNumber && !!errors.phoneNumber}
             helperText={errors.phoneNumber}
           />
           <TextField
@@ -254,7 +274,7 @@ const Registration = () => {
             name="email"
             value={values.email}
             onChange={handleChange}
-            error={!!errors.email}
+            error={touched.email && !!errors.email}
             helperText={errors.email}
           />
           <TextField
@@ -267,7 +287,7 @@ const Registration = () => {
             name="password"
             value={values.password}
             onChange={handleChange}
-            error={!!errors.password}
+            error={ touched.password &&!!errors.password}
             helperText={errors.password}
           />
 

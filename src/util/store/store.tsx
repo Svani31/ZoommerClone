@@ -7,7 +7,6 @@ import { BanckEndItem, UserProps } from "../../@types/general";
 import ajax from "../service/ajax";
 import { useParams } from "react-router-dom";
 
-
 type StoreContextProps = {
   cartItem: BanckEndItem[];
   dispatch: REDUCER_ACTION_TYPES;
@@ -27,6 +26,8 @@ type StoreContextProps = {
   compareHandler: any;
   user: UserProps;
   setUser: any;
+  isAdmin: boolean;
+  setIsAdmin: any;
 };
 
 export const StoreContext = createContext({} as StoreContextProps);
@@ -45,8 +46,9 @@ const StoreProvider = ({ children }: StoreProps) => {
   const [userToken, setUserToken] = useState<string>("");
   const [productBar, setProductBar] = useState<boolean>(false);
   const [user, setUser] = useState({});
+  const [isAdmin, setIsAdmin] = useState<Boolean>(false);
   const { id } = useParams();
-
+  
   const addProductHandler = async (id: string) => {
     const { data } = await ajax.get(`product/${id}`);
     dispatch({ type: REDUCER_ACTION_TYPES.ADD_PRODUCT_ID, cartItem: data });
@@ -82,6 +84,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     compareHandler,
     user,
     setUser,
+    isAdmin,
+    setIsAdmin,
   };
 
   return (
