@@ -1,6 +1,12 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 // react router dom
-import { Routes, Route, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 import { useStore } from "./util/store/store";
 
@@ -19,8 +25,19 @@ import jwtDecoder from "./util/jwtDecode/jwt";
 import Footer from "./Components/footer/footer";
 import CartItemPage from "./Components/header-component/link-component/cart-item-component/cart-item-page-component/cart-item-page";
 import JwtDecoder from "./util/jwtDecode/jwt";
+import Profile from "./Components/header-component/link-component/registration-component/userProfComponent/user-info/user-info";
 
 function App() {
+
+  // is user isNot logged take back on main page
+  const { user } = useStore();
+  const navigae = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigae("/");
+    }
+  }, [user]);
+
   const MainPage = () => {
     return (
       <>
@@ -32,7 +49,7 @@ function App() {
 
   return (
     <Box>
-      <JwtDecoder/>
+      <JwtDecoder />
       <Header />
       <Routes>
         <Route
@@ -43,11 +60,12 @@ function App() {
             </Suspense>
           }
         />
-        <Route path="/cart" element={<CartItemPage/>}/>
+        <Route path="/cart" element={<CartItemPage />} />
         <Route path="product/:id" element={<ProductById />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Sidebar />
-      <Footer/>
+      <Footer />
     </Box>
   );
 }

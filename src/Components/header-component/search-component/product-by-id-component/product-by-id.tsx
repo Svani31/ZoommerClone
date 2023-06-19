@@ -101,63 +101,6 @@ const ProductById = () => {
     <Box className="product__form">
       <Navigation/>
       <Box className="product">
-        <aside className="product__sidebar">
-          <Box className="product__time">
-            <Box className="product__time_info">
-              <Typography variant="subtitle1">
-                დღე <Typography>0</Typography>
-              </Typography>
-              <Typography variant="subtitle1">
-                სათ{" "}
-                <Typography>
-                  {hours[0]}
-                  {hours[1]}
-                </Typography>
-              </Typography>
-              <Typography variant="subtitle1">
-                წთ{" "}
-                <Typography>
-                  {minutes[0]}
-                  {minutes[1]}
-                </Typography>
-              </Typography>
-              <Typography variant="subtitle1">
-                წამი{" "}
-                <Typography>
-                  {seconds[0]}
-                  {seconds[1]}
-                </Typography>
-              </Typography>
-            </Box>
-            <AccessTimeOutlinedIcon className="mui__time" />
-          </Box>
-          <Box className="product__sidebar_info">
-            <Typography className="prev__price" variant="h5">
-              {Math.floor(Number(item?.price) - 100) + Number(storageValue)} ₾
-            </Typography>
-            <Typography className="active__price" variant="h5">
-              {Math.floor(Number(item?.price)) + Number(storageValue)} ₾
-            </Typography>
-            <Typography className="price" variant="subtitle2">
-              ფასის კონტროლი
-            </Typography>
-            <Typography className="price" variant="subtitle2">
-              ფასის დაზღვევა
-            </Typography>
-            <Box className="sidebar__buttons">
-              <Button
-                className="sidebar__cartitem border"
-                onClick={() => addProductHandler(item?.id)}
-              >
-                <LocalMallOutlinedIcon />
-              </Button>
-              <Button className="sidebar__buy border">ყიდვა</Button>
-            </Box>
-            <Button className="sidebar__credit border">
-              განვადებით ყიდვა 20 ₾ - დან
-            </Button>
-          </Box>
-        </aside>
         <Box className="product__item">
           <Box className="product__item_inner">
             <Carousel autoPlay width={360}>
@@ -315,13 +258,63 @@ const ProductById = () => {
             </Box>
           </Box>
         </Box>
-      </Box>
-      <Box className="together__cheap">
-        <Typography>ერთად იაფად</Typography>
-        <Box>
-          <Box>item</Box>
-          <Box>price</Box>
-        </Box>
+        <aside className="product__sidebar">
+          <Box className="product__time">
+            <Box className="product__time_info">
+              <Typography variant="subtitle1">
+                დღე <Typography>0</Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                სათ{" "}
+                <Typography>
+                  {hours[0]}
+                  {hours[1]}
+                </Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                წთ{" "}
+                <Typography>
+                  {minutes[0]}
+                  {minutes[1]}
+                </Typography>
+              </Typography>
+              <Typography variant="subtitle1">
+                წამი{" "}
+                <Typography>
+                  {seconds[0]}
+                  {seconds[1]}
+                </Typography>
+              </Typography>
+            </Box>
+            <AccessTimeOutlinedIcon className="mui__time" />
+          </Box>
+          <Box className="product__sidebar_info">
+            <Typography className="prev__price" variant="h5">
+              {Math.floor(Number(item?.price) - 100) + Number(storageValue)} ₾
+            </Typography>
+            <Typography className="active__price" variant="h5">
+              {Math.floor(Number(item?.price)) + Number(storageValue)} ₾
+            </Typography>
+            <Typography className="price" variant="subtitle2">
+              ფასის კონტროლი
+            </Typography>
+            <Typography className="price" variant="subtitle2">
+              ფასის დაზღვევა
+            </Typography>
+            <Box className="sidebar__buttons">
+              <Button
+                className="sidebar__cartitem border"
+                onClick={() => addProductHandler(item?.id)}
+              >
+                <LocalMallOutlinedIcon />
+              </Button>
+              <Button className="sidebar__buy border">ყიდვა</Button>
+            </Box>
+            <Button className="sidebar__credit border">
+              განვადებით ყიდვა 20 ₾ - დან
+            </Button>
+          </Box>
+        </aside>
       </Box>
     </Box>
   );

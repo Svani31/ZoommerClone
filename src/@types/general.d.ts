@@ -34,4 +34,5 @@ export type UserProps = {
   id: string;
   lastName: string;
   phoneNumber: string;
+  password:string;
 };

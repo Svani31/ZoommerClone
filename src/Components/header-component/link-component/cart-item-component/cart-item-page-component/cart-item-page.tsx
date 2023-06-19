@@ -44,10 +44,10 @@ const CartItemPage = () => {
                   </Typography>
                   <Typography variant="subtitle2">123123</Typography>
                   <Typography variant="subtitle2">
-                    {Number(cartEl.price)}
+                    {Math.floor(Number(cartEl.price))}
                   </Typography>
                   <Typography variant="subtitle2">
-                    {Number(cartEl.price)}
+                    {Math.floor(Number(cartEl.price))}
                   </Typography>
                 </Box>{" "}
               </Box>
