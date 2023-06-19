@@ -29,16 +29,7 @@ import Profile from "./Components/header-component/link-component/registration-c
 import Admin from "./Components/header-component/link-component/registration-component/userProfComponent/admin-component/admin";
 
 function App() {
-
-  // is user isNot logged take back on main page
-  const { user } = useStore();
-  const navigae = useNavigate();
-  useEffect(() => {
-    if (user) {
-      navigae("/");
-    }
-  }, [user]);
-
+  
   const MainPage = () => {
     return (
       <>

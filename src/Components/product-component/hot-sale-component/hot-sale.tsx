@@ -158,9 +158,9 @@ const HotSale = ({
                     <Skeleton />
                   ) : (
                     <>
-                    <Link className="product__link" to={`product/${productEl.id}`}>
+                    {/* <Link className="product__link" to={`product/${productEl.id}`}> */}
                     <h4 className="product__title">{productEl.title}</h4>
-                    </Link>
+                    {/* </Link> */}
                     </>
                   )}
                   <Box className="product__price">
@@ -206,7 +206,7 @@ const HotSale = ({
                   >
                     <ShoppingCartOutlinedIcon className="product__cart" />
                   </Box>
-                  {isAdmin ? (<Button>Change</Button>) : ("")}
+                  {/* {isAdmin ? (<Button>Change</Button>) : ("")} */}
                 </Box>
               </Paper>
             </Box>

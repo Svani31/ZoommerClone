@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { useStore } from "../../../../../../util/store/store";
 import { useEffect } from "react";
 import ajax from "../../../../../../util/service/ajax";
+import { useNavigate } from "react-router-dom";
 
 type formikProps = {
   firstName: string;
@@ -48,7 +49,13 @@ const Profile = () => {
     },
   });
   
-
+  const navigae = useNavigate();
+  // is user isNot logged take back on main page
+  useEffect(() => {
+    if (user) {
+      navigae("/");
+    }
+  }, [user]);
  
 
   return (
