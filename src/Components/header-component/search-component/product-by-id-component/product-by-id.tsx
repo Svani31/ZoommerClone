@@ -95,11 +95,11 @@ const ProductById = () => {
     setColor(e.target.dataset.color);
   };
 
-
+  console.log(item?.brand)
 
   return (
     <Box className="product__form">
-      <Navigation/>
+      <Navigation name={`${item?.brand}`}/>
       <Box className="product">
         <Box className="product__item">
           <Box className="product__item_inner">

@@ -53,7 +53,7 @@ const Profile = () => {
 
   return (
     <Box sx={{background:"#f5f5f5"}}>
-      <Navigation />
+      <Navigation name={"User Setting"} />
       <Box className="user__info">
         <form onSubmit={handleSubmit}>
           <Box className="user__textfield">

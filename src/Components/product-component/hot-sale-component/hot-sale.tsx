@@ -45,7 +45,7 @@ const HotSale = ({
   const [pageSize, setPageSize] = useState(page_size);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { addProductHandler } = useStore();
+  const { addProductHandler,isAdmin } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,6 +206,7 @@ const HotSale = ({
                   >
                     <ShoppingCartOutlinedIcon className="product__cart" />
                   </Box>
+                  {isAdmin ? (<Button>Change</Button>) : ("")}
                 </Box>
               </Paper>
             </Box>

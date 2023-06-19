@@ -21,7 +21,7 @@ const CartItemPage = () => {
 
   return (
     <Box>
-      <Navigation />
+      <Navigation name={"Cart Item"} />
       <Box className="product">
         <Box className="product__info">
           <Box className="product__info_header">

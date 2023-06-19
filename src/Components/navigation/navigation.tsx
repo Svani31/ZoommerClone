@@ -4,7 +4,12 @@ import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { useTranslation } from "react-i18next";
 
 import "./navigation.scss";
-const Navigation = () => {
+
+type NavigateProps = {
+  name:string;
+}
+
+const Navigation = ({name}:NavigateProps) => {
 
     const {t} = useTranslation()
 
@@ -19,7 +24,7 @@ const Navigation = () => {
         </Box>
         <Box className="nav__right">
           <Typography className="nav__directory">
-            {t("global.Main")} <KeyboardArrowRightIcon />
+            {t("global.Main")}<KeyboardArrowRightIcon /> {name}
           </Typography>
         </Box>
       </Box>

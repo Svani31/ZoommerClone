@@ -4,6 +4,9 @@
     // background-color: red;
     display: flex;
     justify-content: space-between;
+    max-width: 1400px;
+  margin: 0 auto;
+    width: 100%;
     .nav__left {
       border-top-left-radius: 8px;
       border-bottom-left-radius: 8px;
