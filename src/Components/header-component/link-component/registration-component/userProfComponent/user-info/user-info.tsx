@@ -24,6 +24,7 @@ const Profile = () => {
     email: `${user.email}`,
   };
 
+  // use fromik for userProfile
   const { handleChange, handleSubmit, values } = useFormik({
     initialValues,
     onSubmit: async (values: formikProps) => {

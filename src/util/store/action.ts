@@ -7,6 +7,6 @@ export enum REDUCER_ACTION_TYPES {
 
 export type REDUCER_ACTION_PROPS = {
   type: REDUCER_ACTION_TYPES;
-  id?: string;
-  cartItem?:itemProps[]
+  id: string;
+  cartItem:itemProps
 };

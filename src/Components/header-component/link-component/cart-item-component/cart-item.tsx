@@ -20,8 +20,9 @@ const CartItemSection = () => {
 
   useEffect(() => {
     const number = cartItem.map((cartEl: BanckEndItem) => {
-      return Number(cartEl.price);
+      return Number(cartEl.price) * cartEl.quantity;
     });
+    console.log(number,"this is number")
     if (number.length > 0) {
       const calculateTotal = number.reduce(
         (price: number, item: number) => price + item
@@ -31,6 +32,8 @@ const CartItemSection = () => {
       setPrice(0);
     }
   }, [cartItem]);
+
+  console.log(cartItem,"this si carty item")
 
   return (
     <Box className="header__cartitem">
@@ -67,7 +70,7 @@ const CartItemSection = () => {
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
-                    {quantity}
+                    {cartItemEl.quantity}
                     <span className="quantity__buttons">
                       <AddOutlinedIcon
                         onClick={() => setQuantity(quantity + 1)}
@@ -75,7 +78,7 @@ const CartItemSection = () => {
                       />
                     </span>
                     <span className="quantity__price">
-                      {Math.floor(Number(cartItemEl.price)) * quantity} ₾
+                      {Math.floor(Number(cartItemEl.price)) * cartItemEl.quantity} ₾
                     </span>
                   </Box>
                 </Box>
