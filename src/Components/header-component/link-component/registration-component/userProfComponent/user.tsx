@@ -10,40 +10,35 @@ import "./user.scss";
 // react rout dom
 import { Link } from "react-router-dom";
 // improting translation
-import {useTranslation} from "react-i18next"
-
+import { useTranslation } from "react-i18next";
 
 const UserInfo = () => {
-  const { user,userToken,isAdmin } = useStore();
+  
+  
+  const { user, userToken, isAdmin } = useStore();
   const [showDropdown, setShowDropDown] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLFormElement | null>(null);
-const {t} = useTranslation()
-  console.log(isAdmin)
-  console.log(user)
-// useEffect(()=>{
-  //     const getUser = async() =>{
-  //         const {data} = await ajax("/me",{
-  //             headers:{
-  //                 Authorization:`${userToken}`
-  //             }
-  //         })
-  //         console.log(data)
-  //     }
-  //     getUser()
-  // },[])
+  const { t } = useTranslation();
+  console.log(isAdmin);
+  console.log(user);
 
+  // outSideClickHandler
+  useEffect(() => {
+    const outSideClicke = (event: MouseEvent) => {
+      if (
+        dropDownRef.current &&
+        !dropDownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropDown(false);
+      }
+    };
+    document.addEventListener("mousedown", outSideClicke);
+    return ()=>{
+        document.removeEventListener("mousedown",outSideClicke)
+    }
+  }, []);
 
-    useEffect(()=>{
-        const outSideClicke = (event:MouseEvent) =>{
-            if(dropDownRef.current && !dropDownRef.current.contains(event.target as Node)){
-                setShowDropDown(false)
-            }
-        }
-        document.addEventListener("mousedown",outSideClicke)
-        // return ()=>{
-        //     document.removeEventListener("mousedown",outSideClicke)
-        // }
-    },[])
+  
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -56,26 +51,45 @@ const {t} = useTranslation()
           {t(`global.Welcome`)} <span>{user.firstName}</span>
         </Typography>
       </Box>
-      {showDropdown === true ? <Box  ref={dropDownRef} className="user__dropdown">
-        <Box>
-          <Typography className="user__types">
-            <Link className="user__type_link" to={"/profile"}>{t("global.Profile")}</Link>
-          </Typography>
-          <Typography className="user__types">
-            <Link className="user__type_link" to={""}>{t("global.Orders")}</Link>
-          </Typography>
-          <Typography className="user__types">
-            <Link className="user__type_link" to={""}>{t(`global.Address`)}</Link>
-          </Typography>
-          <Typography className="user__types">
-            <Link className="user__type_link" to={""}>{t(`global.Messages`)}</Link>
-          </Typography>
-          <Typography className="user__types">
-            <Link className="user__type_link" to={"/password"}>{t(`global.Password-change`)}</Link>
-          </Typography>
-          <Button>{t(`global.sign-out`)}</Button>
+      {showDropdown === true ? (
+        <Box ref={dropDownRef} className="user__dropdown">
+          <Box>
+            <Typography className="user__types">
+              <Link className="user__type_link" to={"/profile"}>
+                {t("global.Profile")}
+              </Link>
+            </Typography>
+            <Typography className="user__types">
+              <Link className="user__type_link" to={""}>
+                {t("global.Orders")}
+              </Link>
+            </Typography>
+            <Typography className="user__types">
+              <Link className="user__type_link" to={""}>
+                {t(`global.Address`)}
+              </Link>
+            </Typography>
+            <Typography className="user__types">
+              <Link className="user__type_link" to={""}>
+                {t(`global.Messages`)}
+              </Link>
+            </Typography>
+            <Typography className="user__types">
+              <Link className="user__type_link" to={"/password"}>
+                {t(`global.Password-change`)}
+              </Link>
+            </Typography>
+           {isAdmin ? ( <Typography className="user__types">
+              <Link className="user__type_link" to={"/admin"}>
+                Admin Credential
+              </Link>
+            </Typography>) : ("")}
+            <Button onClick={()=> window.location.reload()} >{t(`global.sign-out`)}</Button>
+          </Box>
         </Box>
-      </Box> : ""}
+      ) : (
+        ""
+      )}
     </Box>
   );
 };

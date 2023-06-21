@@ -1,0 +1,25 @@
+@import "../../../../../../mixin.scss";
+
+.user__info{
+    max-width: 80%;
+    width: 100%;
+    // background-color: red;
+    padding:50px;
+    margin: 0 auto;
+    text-align: center;
+    .user__textfield{
+        background-color: white;
+        border-radius: 12px;
+        gap: 20px;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        .title{
+            @include primary-text-color;
+            @include primary-text-font;
+            font-weight: 900;
+        }
+    }
+}

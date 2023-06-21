@@ -18,14 +18,15 @@ export type itemProps = {
 export type BanckEndItem = {
   [x: string]: any;
   amount: string;
-  brand: string;
-  categories: string;
-  description: string[];
+  brand?: string;
+  categories?: string;
+  description?: string[];
   id: string;
-  images: string;
+  images: string[];
   price: string | Number;
-  rating: string;
+  rating?: string;
   title: string;
+  quantity:number;
 };
 
 export type UserProps = {
@@ -34,4 +35,5 @@ export type UserProps = {
   id: string;
   lastName: string;
   phoneNumber: string;
+  password:string;
 };

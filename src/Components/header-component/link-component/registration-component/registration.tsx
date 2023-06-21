@@ -85,7 +85,7 @@ const Registration = () => {
   };
 
 
-
+  // outsude click handler
   useEffect(() => {
     const outsideHandler = (event: MouseEvent) => {
       if (loginRef.current && !loginRef.current.contains(event.target as Node)) {

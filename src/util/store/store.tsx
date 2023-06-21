@@ -28,6 +28,8 @@ type StoreContextProps = {
   setUser: any;
   isAdmin: boolean;
   setIsAdmin: any;
+  increseQuantityHandler:any;
+  decriseQuantityHandler:any;
 };
 
 export const StoreContext = createContext({} as StoreContextProps);
@@ -65,6 +67,13 @@ const StoreProvider = ({ children }: StoreProps) => {
     console.log(sliderItem);
   };
 
+  const increseQuantityHandler = (productId) =>{
+    dispatch({type:REDUCER_ACTION_TYPES.INCRESE_QUANTITY,cartItem:{id:productId}})
+  }
+  const decriseQuantityHandler = (productId) =>{
+    dispatch({type:REDUCER_ACTION_TYPES.DECRESE_QUANTITY,cartItem:{id:productId}})
+  }
+
   const store = {
     ...state,
     dispatch,
@@ -86,6 +95,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     setUser,
     isAdmin,
     setIsAdmin,
+    increseQuantityHandler,
+    decriseQuantityHandler,
   };
 
   return (

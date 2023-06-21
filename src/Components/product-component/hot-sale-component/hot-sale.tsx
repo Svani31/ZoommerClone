@@ -45,7 +45,7 @@ const HotSale = ({
   const [pageSize, setPageSize] = useState(page_size);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { addProductHandler } = useStore();
+  const { addProductHandler,isAdmin } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,7 +112,6 @@ const HotSale = ({
                   borderRadius: "12px",
                 }}
               >
-                <Link className="product__link" to={`product/${productEl.id}`}>
                   <CarouselProvider
                     naturalSlideWidth={3}
                     naturalSlideHeight={2}
@@ -120,6 +119,7 @@ const HotSale = ({
                     infinite={true}
                     dragEnabled={true}
                   >
+                    <Link className="product__link" to={`product/${productEl.id}`}>
                     <Slider key={productEl.id}>
                       {productEl.images.map((imageEl: string) => {
                         return (
@@ -139,6 +139,7 @@ const HotSale = ({
                         );
                       })}
                     </Slider>
+                    </Link>
                     <Box className="product__carousel_btn">
                       <ButtonBack className="prev__btn visable">
                         <ArrowBackIosNewOutlinedIcon
@@ -156,7 +157,11 @@ const HotSale = ({
                   {isLoading ? (
                     <Skeleton />
                   ) : (
+                    <>
+                    <Link className="product__link" to={`product/${productEl.id}`}>
                     <h4 className="product__title">{productEl.title}</h4>
+                    </Link>
+                    </>
                   )}
                   <Box className="product__price">
                     {isLoading ? (
@@ -175,7 +180,6 @@ const HotSale = ({
                       </h5>
                     )}
                   </Box>
-                </Link>
                 <Box
                   sx={{
                     borderTop: "1px solid #eff0f2",
@@ -202,6 +206,7 @@ const HotSale = ({
                   >
                     <ShoppingCartOutlinedIcon className="product__cart" />
                   </Box>
+                  {isAdmin ? (<Button>Change</Button>) : ("")}
                 </Box>
               </Paper>
             </Box>

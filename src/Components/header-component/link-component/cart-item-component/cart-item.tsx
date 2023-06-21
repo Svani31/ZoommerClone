@@ -16,21 +16,22 @@ const CartItemSection = () => {
   const [price, setPrice] = useState(0);
   const { t } = useTranslation();
 
-  const { cartItem, removeItemHandler } = useStore();
+  const { cartItem, removeItemHandler,increseQuantityHandler,decriseQuantityHandler } = useStore();
 
   useEffect(() => {
     const number = cartItem.map((cartEl: BanckEndItem) => {
-      return Number(cartEl.price);
+      return Number(cartEl.price) * cartEl.quantity;
     });
     if (number.length > 0) {
       const calculateTotal = number.reduce(
         (price: number, item: number) => price + item
       );
-      setPrice(calculateTotal);
+      setPrice(Math.floor(calculateTotal));
     } else {
       setPrice(0);
     }
   }, [cartItem]);
+
 
   return (
     <Box className="header__cartitem">
@@ -63,19 +64,19 @@ const CartItemSection = () => {
                   <Box className="quantity">
                     <span className="quantity__buttons">
                       <RemoveOutlinedIcon
-                        onClick={() => setQuantity(quantity - 1)}
+                        onClick={() => decriseQuantityHandler(cartItemEl.id)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
-                    {quantity}
+                    {cartItemEl.quantity}
                     <span className="quantity__buttons">
                       <AddOutlinedIcon
-                        onClick={() => setQuantity(quantity + 1)}
+                        onClick={() => increseQuantityHandler(cartItemEl.id)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
                     <span className="quantity__price">
-                      {Number(cartItemEl.price) * quantity} ₾
+                      {Math.floor(Number(cartItemEl.price)) * cartItemEl.quantity} ₾
                     </span>
                   </Box>
                 </Box>
