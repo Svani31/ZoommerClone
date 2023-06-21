@@ -12,12 +12,12 @@ import { useStore } from "../../../../../util/store/store";
 import { REDUCER_ACTION_TYPES } from "../../../../../util/store/action";
 
 const CartItemPage = () => {
-  const { cartItem, dispatch } = useStore();
+  const { cartItem, increseQuantityHandler,decriseQuantityHandler} = useStore();
   const { t } = useTranslation();
 
-  const removeItemHandler = () => {
-    dispatch({ type: REDUCER_ACTION_TYPES.ADD_PRODUCT_ID, cartItem: null });
-  };
+  // const removeItemHandler = () => {
+  //   dispatch({ type: REDUCER_ACTION_TYPES.ADD_PRODUCT_ID, cartItem: null });
+  // };
 
   return (
     <Box>
@@ -35,25 +35,25 @@ const CartItemPage = () => {
           </Box>
           {cartItem?.map((cartEl) => {
             return (
-              <Box className="product__info_inner">
+              <Box key={cartEl.id} className="product__info_inner">
                 <Box className="product__info_nav">
                   <input type="checkbox" />
                   <Typography className="title" variant="subtitle2">
                     <img src={cartEl.images[0]} alt="product image" />{" "}
                     {cartEl.title}
                   </Typography>
-                  <Typography variant="subtitle2">123123</Typography>
-                  <Typography variant="subtitle2">
+                  <Typography className="product__quantity" variant="subtitle2"><span onClick={()=> increseQuantityHandler(cartEl.id)}>+</span>   {cartEl.quantity} <span onClick={()=>decriseQuantityHandler(cartEl.id) }>-</span></Typography>
+                  <Typography className="product__price" variant="subtitle2">
                     {Math.floor(Number(cartEl.price))}
                   </Typography>
-                  <Typography variant="subtitle2">
-                    {Math.floor(Number(cartEl.price))}
+                  <Typography className="product__price" variant="subtitle2">
+                    {Math.floor(Number(cartEl.price)* cartEl.quantity)}
                   </Typography>
                 </Box>{" "}
               </Box>
             );
           })}
-          <Button onClick={() => removeItemHandler()} className="btn-clear">
+          <Button  className="btn-clear">
             {t("global.Clear-cart")}
           </Button>
         </Box>

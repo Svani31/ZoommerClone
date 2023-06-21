@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useEffect, useReducer, useState } from "react";
 import ajax from "./util/service/ajax";
@@ -10,6 +11,8 @@ const initalState: initalProps = { cartItem: [] };
 
 enum REDUCER_ACTION {
   ADD_CART,
+  INCREASE_QUANTITY,
+  DEACREASE_QUANTITY
 }
 
 type REDUCER_ACTION_TYPES = {
@@ -28,6 +31,28 @@ const reducer = (state = initalState, action: REDUCER_ACTION_TYPES) => {
       updatedCartItem.push({...action.item,quantity:1})
     }
     return {...state,cartItem:updatedCartItem}
+    case REDUCER_ACTION.INCREASE_QUANTITY:
+      const increasItem = [...state.cartItem]
+      const existringIncrease = increasItem.findIndex((item)=> item.id === action.item.id)
+      if(existringIncrease !== -1){
+        increasItem[existringIncrease].quantity++
+      }
+      return {...state,cartItem:increasItem}
+
+    case REDUCER_ACTION.DEACREASE_QUANTITY:
+      const decreaseItem = [...state.cartItem]
+      const existringDeacrease = decreaseItem.findIndex(
+        (item)=> item.id === action.item.id)
+      if(existringDeacrease !== -1){
+        if(decreaseItem[existringDeacrease].quantity > 1){
+          decreaseItem[existringDeacrease].quantity--
+        }else{
+          decreaseItem.splice(existringDeacrease,1)
+        }
+      }
+      return {...state,cartItem:decreaseItem}
+
+
       default:
         return state
   }
@@ -70,6 +95,15 @@ const Quantity = () => {
     const {data} = await ajax.get(`product/${productId}`)
     dispatch({type:REDUCER_ACTION.ADD_CART,item:data})
   }
+  
+  const increasQuantityHandler = (productId:string) =>{
+    dispatch({type:REDUCER_ACTION.INCREASE_QUANTITY,item:{id:productId}})
+  }
+
+  const deacreaseQuantityHandler = (productId:string) =>{
+    dispatch({type:REDUCER_ACTION.DEACREASE_QUANTITY,item:{id:productId}})
+  }
+
   console.log(state.cartItem,"this is cat item")
   return (
     <Box>
@@ -81,8 +115,6 @@ const Quantity = () => {
               <Paper>
                 {productEl.title}
                 <strong>
-                  this is quantity
-                  {productEl.quantity}
                 </strong>
                 <Button onClick={()=> addCartHandler(productEl.id)}>Add To Cart</Button>
               </Paper>
@@ -99,7 +131,9 @@ const Quantity = () => {
                 <Paper>
                   <Typography variant="h5">{cartEl.title}</Typography>
                   <Typography variant="h5">Price:{Math.floor(Number(cartEl.price))}</Typography>
+                  <h1 onClick={()=> increasQuantityHandler(cartEl.id)} >+</h1>
                   <Typography variant="h5">{cartEl.quantity}</Typography>
+                  <h1 onClick={()=> deacreaseQuantityHandler(cartEl.id)}>-</h1>
                 </Paper>
               </Box>
             )

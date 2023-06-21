@@ -16,24 +16,22 @@ const CartItemSection = () => {
   const [price, setPrice] = useState(0);
   const { t } = useTranslation();
 
-  const { cartItem, removeItemHandler } = useStore();
+  const { cartItem, removeItemHandler,increseQuantityHandler,decriseQuantityHandler } = useStore();
 
   useEffect(() => {
     const number = cartItem.map((cartEl: BanckEndItem) => {
       return Number(cartEl.price) * cartEl.quantity;
     });
-    console.log(number,"this is number")
     if (number.length > 0) {
       const calculateTotal = number.reduce(
         (price: number, item: number) => price + item
       );
-      setPrice(calculateTotal);
+      setPrice(Math.floor(calculateTotal));
     } else {
       setPrice(0);
     }
   }, [cartItem]);
 
-  console.log(cartItem,"this si carty item")
 
   return (
     <Box className="header__cartitem">
@@ -66,14 +64,14 @@ const CartItemSection = () => {
                   <Box className="quantity">
                     <span className="quantity__buttons">
                       <RemoveOutlinedIcon
-                        onClick={() => setQuantity(quantity - 1)}
+                        onClick={() => decriseQuantityHandler(cartItemEl.id)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
                     {cartItemEl.quantity}
                     <span className="quantity__buttons">
                       <AddOutlinedIcon
-                        onClick={() => setQuantity(quantity + 1)}
+                        onClick={() => increseQuantityHandler(cartItemEl.id)}
                         sx={{ fontSize: "12px" }}
                       />
                     </span>
