@@ -26,8 +26,8 @@ import Footer from "./Components/footer/footer";
 import CartItemPage from "./Components/header-component/link-component/cart-item-component/cart-item-page-component/cart-item-page";
 import JwtDecoder from "./util/jwtDecode/jwt";
 import Profile from "./Components/header-component/link-component/registration-component/userProfComponent/user-info/user-info";
-import Admin from "./Components/header-component/link-component/registration-component/userProfComponent/admin-component/admin";
-
+import AddProduct from "./Components/header-component/link-component/registration-component/userProfComponent/admin-component/admin-product-add";
+import UpdateProduct from "./Components/header-component/link-component/registration-component/userProfComponent/admin-component/admin-product-update";
 function App() {
   
   const MainPage = () => {
@@ -55,7 +55,8 @@ function App() {
         <Route path="/cart" element={<CartItemPage />} />
         <Route path="product/:id" element={<ProductById />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<Admin/>} />
+        <Route path="/admin" element={<AddProduct/>} />
+        <Route path="/admin/:id" element={<UpdateProduct/>} />
       </Routes>
       <Sidebar />
       <Footer />

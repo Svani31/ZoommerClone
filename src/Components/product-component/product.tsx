@@ -10,12 +10,11 @@ import { Box } from "@mui/material";
 import ajax from "../../util/service/ajax";
 
 const Product = () => {
-  const { blurBackground } = useStore();
+  const { blurBackground,isAdmin } = useStore();
 
   const increaseProduct = (prevProduct: any) => {
     prevProduct((prev: number) => prev + 5);
   };
-
   return (
     <Box
       sx={

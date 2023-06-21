@@ -1,114 +1,136 @@
-import { Button, Paper, TextField } from "@mui/material";
-import { useReducer } from "react";
+import { useEffect, useState } from "react";
+import ajax from "./util/service/ajax";
+import { useFormik } from "formik";
+import { useStore } from "./util/store/store";
 
-type InitialProps = {
-  todos: TodoProps[];
-  inputValue: string;
-};
-
-type TodoProps = {
-  id: number;
-  value: string;
-};
-
-const initialValue: InitialProps = { todos: [], inputValue: "" };
-
-enum REDUCER_ACTION_TYPES {
-  ADD_VALUE,
-  ADD_TODO,
-  REMOVE_TODO,
-}
-
-type REDUCER_ACTION_PROPS = {
-  type: REDUCER_ACTION_TYPES;
-  value?: any;
-  id?: number;
-};
-
-const reducer = (state = initialValue, action: REDUCER_ACTION_PROPS) => {
-  switch (action.type) {
-    case REDUCER_ACTION_TYPES.ADD_VALUE:
-      return { ...state, inputValue: action.value || "" };
-    case REDUCER_ACTION_TYPES.ADD_TODO:
-      return { ...state, todos: [...state.todos, action.value] };
-    case REDUCER_ACTION_TYPES.REMOVE_TODO:
-      const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
-      return { ...state, todos: updatedTodos };
-    default:
-      return state;
-  }
-};
-
-const TodoAppUsingReducer = () => {
-  const [state, dispatch] = useReducer(reducer, initialValue);
-
-  const addTodo = () => {
-    const newTodo: TodoProps = {
-      id: Date.now(),
-      value: state.inputValue,
+const Rame = () => {
+  const [item, setItem] = useState<any>({});
+  const { userToken } = useStore();
+  useEffect(() => {
+    const getItem = async () => {
+      const { data } = await ajax.get("product/0");
+      setItem(data);
     };
-    dispatch({ type: REDUCER_ACTION_TYPES.ADD_TODO, value: newTodo });
-    dispatch({ type: REDUCER_ACTION_TYPES.ADD_VALUE, value: "" });
-  };
 
-  const removeTodo = (id: number) => {
-    dispatch({ type: REDUCER_ACTION_TYPES.REMOVE_TODO, id });
-  };
+    getItem();
+  }, []);
+
+  // const { handleChange, handleSubmit, values,setValues } = useFormik({
+  //   initialValues: {
+  //     id: item.id || "",
+  //     title: item.title || "",
+  //     description: item.description || "",
+  //     images: item.images || "",
+  //     brand: item.brand || "",
+  //     category: item.category || "",
+  //     price: item.price || "",
+  //     rating:item.rating || "",
+  //     amount: item.amount || "",
+  //   },
+  //   onSubmit: async(values) => {
+  //     try{
+  //       const updateHandler = await ajax.put(`/product/${item.id}`,{
+  //         id: values.id,
+  //         title: values.title,
+  //         description: values.description,
+  //         images: values.images,
+  //         brand: values.brand,
+  //         category: values.category,
+  //         price: values.price,
+  //         rating:values.rating,
+  //         amount: values.amount,
+  //       },
+  // {
+  //   headers:{
+  //     "Content-Type":"aplication/json",
+  //     Authorization:`Bearer ${userToken}`
+  //   }
+  //       },
+  //       )
+  //       console.log(updateHandler)
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //   },
+  // });
+
+  const { handleChange, handleSubmit, values, setValues } = useFormik({
+    initialValues: {
+      id: item.id || "",
+        title: item.title || "",
+        description: item.description || "",
+        images: [`${item.images}`] || "",
+        brand: item.brand || "",
+        category: [`${item.category}`] || "",
+        price: item.price || "",
+        rating: item.rating || "",
+        amount: item.amount || "",
+    },
+    onSubmit: async (values) => {
+      try {
+        const updateHandler = await ajax.put(
+          `/product/${item.id}`,
+          {
+            id: values.id,
+            title: values.title,
+            description: values.description,
+            images: `${values.images}`,
+            brand: values.brand,
+            category: `${values.category}`,
+            price: values.price,
+            rating: values.rating,
+            amount: values.amount,
+          },
+          {
+            headers: {
+              "Content-Type": "aplication/json",
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+        window.location.reload;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  useEffect(() => {
+    // Update form values when `item` changes
+    if (item) {
+      setValues({
+        id: item.id || "",
+        title: item.title || "",
+        description: item.description || "",
+        images: [`${item.images}`] || "",
+        brand: item.brand || "",
+        category: [`${item.category}`] || "",
+        price: item.price || "",
+        rating: item.rating || "",
+        amount: item.amount || "",
+      });
+    }
+  }, [item, handleChange]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        height: "100vh",
-        flexDirection: "column",
-      }}
-    >
-      <h1>
-        <strong>Todo App using Reducer</strong>
-      </h1>
-      <div>
-        <Paper>
-          <TextField
-            value={state.inputValue}
-            onChange={(e) =>
-              dispatch({ type: REDUCER_ACTION_TYPES.ADD_VALUE, value: e.target.value })
-            }
-          />
-          <h2 style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            {state.todos.map((todoEl) => (
-              <div key={todoEl.id}>
-                <Button variant="contained" color="success">
-                  Completed
-                </Button>
-                {todoEl.value}
-                <Button
-                  onClick={() => removeTodo(todoEl.id)}
-                  variant="contained"
-                  color="error"
-                >
-                  Remove
-                </Button>
-              </div>
-            ))}
-          </h2>
-        </Paper>
-      </div>
-      <Button
-        onClick={addTodo}
-        sx={{
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        Add Todo
-      </Button>
+    <div>
+      <form action="submit" onSubmit={handleSubmit}>
+        <input value={values.id} onChange={handleChange} name="id" />
+        <input value={values.title} onChange={handleChange} name="title" />
+        <input value={values.images} onChange={handleChange} name="images" />
+        <input value={values.brand} onChange={handleChange} name="brand" />
+        <input
+          value={values.category}
+          onChange={handleChange}
+          name="category"
+        />
+        <input value={values.price} onChange={handleChange} name="price" />
+        <input value={values.rating} onChange={handleChange} name="rating" />
+        <input value={values.amount} onChange={handleChange} name="amount" />
+        <button type="submit">submit</button>
+      </form>
     </div>
   );
 };
 
-export default TodoAppUsingReducer;
+export default Rame;

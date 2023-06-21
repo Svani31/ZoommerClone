@@ -206,7 +206,7 @@ const HotSale = ({
                   >
                     <ShoppingCartOutlinedIcon className="product__cart" />
                   </Box>
-                  {isAdmin ? (<Button>Change</Button>) : ("")}
+                  {isAdmin ? (<Link to={`/admin/${productEl.id}`}><Button>Change</Button></Link>) : ("")}
                 </Box>
               </Paper>
             </Box>

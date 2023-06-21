@@ -43,13 +43,11 @@ const Profile = () => {
           }
         );
           window.location.reload
-        console.log(response.data, "this is data after login");
       } catch (error) {
         console.error(error);
       }
     },
   });
-  
   const navigae = useNavigate();
   // is user isNot logged take back on main page
   useEffect(() => {

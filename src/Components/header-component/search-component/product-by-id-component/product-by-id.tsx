@@ -25,7 +25,7 @@ const ProductById = () => {
 
   const { id } = useParams();
   const [item, setItem] = useState<BanckEndItem | null>(null);
-  const { addProductHandler, setSliderItem, sliderItem,compareHandler } = useStore();
+  const { addProductHandler,compareHandler } = useStore();
   const [storageValue, setStorageValue] = useState<Number | string>("128");
   const [titleColor, setColor] = useState<string>("black");
 
