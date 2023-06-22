@@ -90,7 +90,7 @@
 
 @media screen and (max-width:1000px) {
     .content__inner{
-      width:900px ;
+      width:1000px ;
     }
     .footer__map{
       display: none;
@@ -158,5 +158,7 @@
         }
       }
     }
-    
+    .footer__title{
+      font-size: 15px !important;
+    }
   }
