@@ -151,3 +151,9 @@
 .cart__items::-webkit-scrollbar {
     width: 10px;
 }
+
+@media screen and (max-width:500px) {
+    .header__cartitem{
+        width: 60px;
+    }
+}

@@ -67,7 +67,7 @@ const Footer = () => {
              Conditions of Use
             </Link>
           </Box>
-          <Box className="footer__nap">
+          <Box className="footer__map">
             <Typography className="footer__title" variant="h5" fontWeight={700}>
               კონტაქტი
             </Typography>

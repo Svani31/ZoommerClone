@@ -14,7 +14,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 // importing csss
 import "../carousel-component/carousel.scss";
-import "../header-component/header.scss"
+// import "../header-component/header.scss"
 
 // improting mui icons
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
@@ -32,7 +32,7 @@ import eightPhotos from "../../Images/CarouselImages/photocamera 8.png";
 
 const AppSlider = () => {
   return (
-    <div style={{
+    <div className="carousel__content" style={{
       position:"relative",
     }}>
       <CarouselNav />

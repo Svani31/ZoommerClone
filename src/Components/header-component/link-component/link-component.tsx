@@ -3,7 +3,7 @@ import CartItem from "./cart-item-component/cart-item"
 import Registration from "./registration-component/registration"
 import { useStore } from '../../../util/store/store';
 import UserInfo from './registration-component/userProfComponent/user';
-
+import "../header.scss"
 
 const LinkComponent = () =>{
 
@@ -11,12 +11,13 @@ const LinkComponent = () =>{
 
 
     return(
-        <Box sx={{
+        <Box className="linkedComponent" sx={{
             display:"flex",
             width:"250px",
             justifyContent:"space-between",
             textAlign:"center",
-            alignItems:"center"
+            alignItems:"center",
+            gap:"50px",
             
         }}>
             {userToken ? <UserInfo/> : <Registration/> }

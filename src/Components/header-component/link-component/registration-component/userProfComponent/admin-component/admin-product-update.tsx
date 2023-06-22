@@ -10,13 +10,15 @@ import { useFormik } from "formik";
 import { init } from "i18next";
 
 type initalValuesProps = {
+  id:string;
   title: string;
-  description: string;
+  description: any;
   images: string[];
   brand: string;
   category: string[];
-  price: string;
+  price: any;
   amount: string;
+  rating:string;
 };
 
 const UpdateProduct = () => {
@@ -31,6 +33,7 @@ const UpdateProduct = () => {
   },[])
 
   const initialValues: initalValuesProps = {
+    id:"",
     title: "",
     description: "",
     images: [""],
@@ -38,13 +41,24 @@ const UpdateProduct = () => {
     category: [""],
     price: "",
     amount: "",
+    rating:"",
   };
 
-  const { handleChange, handleSubmit, values } = useFormik({
+
+  useEffect(()=>{
+    const getItem = async()=>{
+      const {data} = await ajax.get(`/product/${id}`)
+      setItem(data)
+    }
+    getItem()
+  },[])
+  console.log(id)
+
+  const { handleChange, handleSubmit, values,setValues } = useFormik({
     initialValues,
     onSubmit: async (values: initalValuesProps) => {
       try {
-        const response = await ajax.post("/product",{
+        const response = await ajax.put(`/product/${item?.id}`,{
             title: values.title,
             description: values.description,
             images: [`${values.images}`],
@@ -52,6 +66,7 @@ const UpdateProduct = () => {
             category: [`${values.category}`],
             price: values.price,
             amount: values.amount,
+            rating:values.rating
           },
           {
             headers: {
@@ -60,7 +75,6 @@ const UpdateProduct = () => {
             },
           }
         );
-        console.log(response, "this is data after login");
       } catch (error) {
         console.error(error);
       }
@@ -68,9 +82,21 @@ const UpdateProduct = () => {
   });
 
   useEffect(()=>{
-
-  },[])
-
+    if(item){
+      setValues({
+        id: item.id || "",
+        title: item.title || "",
+        description: item.description || "",
+        images: [`${item.images}`] || "",
+        brand: item.brand || "",
+        category: [`${item.category}`] || "",
+        price: item.price || "",
+        rating: item.rating || "",
+        amount: item.amount || "",
+      })
+    }
+    console.log(values.category,"this is category")
+  },[item,])
   return (
     <Box>
       <Navigation name={"admin"} />
@@ -100,7 +126,7 @@ const UpdateProduct = () => {
               onSubmit={handleSubmit}
               action="submit"
             >
-              <img style={{ height: "200px" }} src={values.images[0]} alt="" />
+              <img style={{ height: "200px",width:"200px" }} src={item?.images[0]} alt="" />
               <TextField
                 placeholder="title"
                 name="title"

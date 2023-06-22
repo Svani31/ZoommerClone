@@ -23,3 +23,9 @@
 #dropdown__menu:hover .dropdown__arrow {
     rotate: 180deg;
 }
+
+@media screen and (max-width:1000px){
+    #dropdown__menu{
+        display: none;
+    }
+}

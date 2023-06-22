@@ -50,3 +50,62 @@
       }
     }
   }
+
+
+  @media screen and (max-width:1000px) {
+      .product-form{
+        // width: 950px;
+        display: none;
+        .navigation {
+          margin-top: 30px;
+          // background-color: red;
+          display: flex;
+          justify-content: space-between;
+          max-width: 1000px;
+        margin: 0 auto;
+          width: 100%;
+          .nav__left {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            width: 10%;
+            background-color: #0a3251;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            padding: 15px 10px;
+            color: white;
+            .nav__title {
+              @include primary-text-font;
+              display: flex;
+              align-items: center;
+              gap: 20px;
+            }
+            .nav__subtitle{
+              border-radius: 3px;
+              padding: 2px 5px;
+              background-color: #061a2a;
+            }
+          }
+          .nav__right {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background-color: #ff5000;
+            width: 100%;
+            // text-align:end;
+            padding: 0px 10px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: flex-end;
+            @include primary-text-font;
+            .nav__directory {
+              color: white;
+              display: flex;
+              align-items: center;
+              text-align: center;
+            }
+          }
+        }
+      }
+  }
