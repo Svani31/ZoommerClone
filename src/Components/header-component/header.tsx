@@ -16,11 +16,13 @@ import LinkComponent from "./link-component/link-component"
 import AppSlider from "../carousel-component/carousel"
 // import translation libray
 import {useTranslation} from "react-i18next" 
+import { useStore } from "../../util/store/store"
 const Header = () =>{
+    const {burgerMenu,setBurgerMenu} = useStore()
     const {t} = useTranslation()
-
+    console.log(burgerMenu)
     return(
-        <Box>
+        <Box className="header">
             <Box className="header__top">
                 <Box className="content__inner">
                 <Box className="header__left_padding">
@@ -50,6 +52,11 @@ const Header = () =>{
             </Box>
             <Box className="header__bottom">
                 <Box className="content__inner">
+                <Box onClick={()=> setBurgerMenu(!burgerMenu)} sx={{marginRight:"20px"}}>
+                    <span className="burger__menu"></span>
+                    <span className="burger__menu"></span>
+                    <span className="burger__menu"></span>
+                </Box>
                     <Box className="header__logo">
                         <Link className="logo__link" to={"/"}>
                             <img src={Logo} alt="Logo" />

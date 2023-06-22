@@ -15,44 +15,6 @@ const Rame = () => {
     getItem();
   }, []);
 
-  // const { handleChange, handleSubmit, values,setValues } = useFormik({
-  //   initialValues: {
-  //     id: item.id || "",
-  //     title: item.title || "",
-  //     description: item.description || "",
-  //     images: item.images || "",
-  //     brand: item.brand || "",
-  //     category: item.category || "",
-  //     price: item.price || "",
-  //     rating:item.rating || "",
-  //     amount: item.amount || "",
-  //   },
-  //   onSubmit: async(values) => {
-  //     try{
-  //       const updateHandler = await ajax.put(`/product/${item.id}`,{
-  //         id: values.id,
-  //         title: values.title,
-  //         description: values.description,
-  //         images: values.images,
-  //         brand: values.brand,
-  //         category: values.category,
-  //         price: values.price,
-  //         rating:values.rating,
-  //         amount: values.amount,
-  //       },
-  // {
-  //   headers:{
-  //     "Content-Type":"aplication/json",
-  //     Authorization:`Bearer ${userToken}`
-  //   }
-  //       },
-  //       )
-  //       console.log(updateHandler)
-  //     }catch(error){
-  //       console.log(error)
-  //     }
-  //   },
-  // });
 
   const { handleChange, handleSubmit, values, setValues } = useFormik({
     initialValues: {

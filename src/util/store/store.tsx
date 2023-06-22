@@ -30,6 +30,8 @@ type StoreContextProps = {
   setIsAdmin: any;
   increseQuantityHandler:any;
   decriseQuantityHandler:any;
+  burgerMenu:boolean;
+  setBurgerMenu:any;
 };
 
 export const StoreContext = createContext({} as StoreContextProps);
@@ -45,6 +47,7 @@ const StoreProvider = ({ children }: StoreProps) => {
   const [blurBackground, setBlurBackground] = useState<boolean>(false);
   const [getItemById, setGetItemById] = useState("");
   const [sliderItem, setSliderItem] = useState<BanckEndItem[]>([]);
+  const [burgerMenu,setBurgerMenu] = useState<boolean>(false)
   const [userToken, setUserToken] = useState<string>("");
   const [productBar, setProductBar] = useState<boolean>(false);
   const [user, setUser] = useState({});
@@ -97,6 +100,8 @@ const StoreProvider = ({ children }: StoreProps) => {
     setIsAdmin,
     increseQuantityHandler,
     decriseQuantityHandler,
+    burgerMenu,
+    setBurgerMenu,
   };
 
   return (

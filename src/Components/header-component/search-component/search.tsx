@@ -74,13 +74,14 @@ const Search = () => {
 
   const word = "ძებნა...";
   return (
-    <Box className="search__container" onClick={() => setBlurBackground(true)}>
+    <Box className={blurBackground ? "search__container active__search" : "search__container"} onClick={() => setBlurBackground(true)}>
       <form
         action=""
         id="header__search"
         onClick={(e) => e.preventDefault()}
       >
         <input
+          id="search"
           type="text"
           onChange={(e) => getItem(e.target.value)}
           placeholder={word}

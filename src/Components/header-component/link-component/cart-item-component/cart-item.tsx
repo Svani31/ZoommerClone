@@ -34,7 +34,7 @@ const CartItemSection = () => {
 
 
   return (
-    <Box className="header__cartitem">
+    <Box width={"200px"} className="header__cartitem">
       <Link className="cartitem__link" to={"/cart"}>
         <ShoppingCartOutlinedIcon />
         <span>

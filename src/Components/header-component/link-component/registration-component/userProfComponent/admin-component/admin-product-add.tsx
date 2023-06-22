@@ -21,8 +21,6 @@ type initalValuesProps = {
 
 const AddProduct = () => {
   const { isAdmin, userToken } = useStore();
-  const [item, setItem] = useState<BanckEndItem>();
-  const { id } = useParams();
 
   const navigate = useNavigate();
 

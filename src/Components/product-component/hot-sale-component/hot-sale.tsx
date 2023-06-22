@@ -47,6 +47,12 @@ const HotSale = ({
 
   const { addProductHandler,isAdmin } = useStore();
 
+  useEffect(()=>{
+    if(window.innerWidth < 1000){
+      setPageSize(prev => prev + 2)
+    }
+  },[window.innerWidth])
+
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await ajax.post("/products", {
@@ -107,6 +113,7 @@ const HotSale = ({
               }}
             >
               <Paper
+              className="product__paper"
                 sx={{
                   width: "230px",
                   borderRadius: "12px",
@@ -198,7 +205,7 @@ const HotSale = ({
                     }}
                   >
                     <AccessTimeOutlinedIcon />
-                    <span>Timer</span>
+                    <span></span>
                   </Box>
                   <Box
                     className="product__cart_container"
@@ -212,13 +219,13 @@ const HotSale = ({
             </Box>
           );
         })}
+      </Box>
         <button
           className="show__more"
           onClick={() => increaseProduct(setPageSize)}
         >
           მეტის ნახვა <span> ^ </span>
         </button>
-      </Box>
     </Box>
   );
 };
