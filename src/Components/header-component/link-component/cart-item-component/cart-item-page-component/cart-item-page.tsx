@@ -14,11 +14,23 @@ import { REDUCER_ACTION_TYPES } from "../../../../../util/store/action";
 const CartItemPage = () => {
   const { cartItem, increseQuantityHandler,decriseQuantityHandler} = useStore();
   const { t } = useTranslation();
-
-  // const removeItemHandler = () => {
-  //   dispatch({ type: REDUCER_ACTION_TYPES.ADD_PRODUCT_ID, cartItem: null });
-  // };
-
+  const handleCheckout = async () => {
+    await fetch('http://localhost:4000/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items: cartItem }),
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url) // Forwarding user to Stripe
+        }
+      })
+  }
   return (
     <Box>
       <Navigation name={"Cart Item"} />
@@ -58,8 +70,7 @@ const CartItemPage = () => {
           </Button>
         </Box>
         <Box className="product__pice">
-          <h1>dfgdg</h1>
-          <h1>dfgdg</h1>
+          <Button variant="contained" color="success" onClick={()=> handleCheckout()}>ნივთის ყიდვა</Button>
         </Box>
       </Box>
     </Box>
