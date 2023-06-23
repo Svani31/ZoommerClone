@@ -44,7 +44,7 @@ const Product = () => {
             page_number={90}
             title={"პოპულარულები"}
           />
-          <VisitedProduct />
+          {/* <VisitedProduct /> */}
           <TopProduct
             increaseProduct={increaseProduct}
             page_size={10}

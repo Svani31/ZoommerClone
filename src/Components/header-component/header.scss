@@ -73,6 +73,9 @@
 .header__bottom{
     padding: 8px;
     .content__inner{
+        .burger{
+            display: none;
+        }
         .burger__menu{
             display: none
         }
@@ -121,6 +124,9 @@
                 .content__inner{
                     width: 900px;
                     align-items: center;
+                }
+                .burger{
+                    display: block;
                 }
                 .burger__menu{
                    display: block;

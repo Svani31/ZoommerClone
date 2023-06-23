@@ -52,7 +52,7 @@ const Header = () =>{
             </Box>
             <Box className="header__bottom">
                 <Box className="content__inner">
-                <Box onClick={()=> setBurgerMenu(!burgerMenu)} sx={{marginRight:"20px"}}>
+                <Box className="burger" onClick={()=> setBurgerMenu(!burgerMenu)} sx={{marginRight:"20px"}}>
                     <span className="burger__menu"></span>
                     <span className="burger__menu"></span>
                     <span className="burger__menu"></span>
