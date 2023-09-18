@@ -45,7 +45,12 @@
     "First-name":"First Name",
     "Last-name":"Last Name",
     "Clear-cart":"Clear Cart",
-    "Main":"Main"
+    "Main":"Main",
+    "Hot-sale":"Hot Sale",
+    "New-models":"New-models",
+    "Popular":"Popular",
+    "Top-brand":"Top Brands",
+    "show-more":"show-more"
   },
   "ge": {
     "product": "პროდუქცია",
@@ -91,6 +96,11 @@
     "First-name":"სახელი",
     "Last-name":"გვარი",
     "Clear-cart":"კალათის გასუფთავება",
-    "Main":"მთავარი"
+    "Main":"მთავარი",
+    "Hot-sale":"ცხელი შეთავაზება",
+    "New-models":"ახალი მოდელები",
+    "Popular":"პოპულარულები",
+    "Top-brand":"Top ბრენდები",
+    "show-more":"მეტის ნახვა"
   }
 }

@@ -27,7 +27,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import { useStore } from "../../../util/store/store";
 import { Link } from "react-router-dom";
 import { BanckEndItem } from "../../../@types/general";
-
+import { useTranslation } from "react-i18next";
 type HotSaleProps = {
   title: string;
   page_number: number;
@@ -44,7 +44,7 @@ const HotSale = ({
   const [products, setProducts] = useState<BanckEndItem[]>([]);
   const [pageSize, setPageSize] = useState(page_size);
   const [isLoading, setIsLoading] = useState(true);
-
+  const {t} = useTranslation()
   const { addProductHandler,isAdmin } = useStore();
 
   useEffect(()=>{
@@ -224,7 +224,7 @@ const HotSale = ({
           className="show__more"
           onClick={() => increaseProduct(setPageSize)}
         >
-          მეტის ნახვა <span> ^ </span>
+          {t("global.show-more")} <span> ^ </span>
         </button>
     </Box>
   );

@@ -7,11 +7,12 @@ import Popular from "./popular-component/popular";
 import VisitedProduct from "./seen-product-component/seen-product";
 import TopProduct from "./top-product-component/top-product";
 import { Box } from "@mui/material";
-import ajax from "../../util/service/ajax";
+import { useTranslation } from "react-i18next"; 
+
 
 const Product = () => {
   const { blurBackground,isAdmin } = useStore();
-
+  const {t} = useTranslation()
   const increaseProduct = (prevProduct: any) => {
     prevProduct((prev: number) => prev + 5);
   };
@@ -29,27 +30,27 @@ const Product = () => {
             increaseProduct={increaseProduct}
             page_size={10}
             page_number={0}
-            title={"ცხელი შეთავაზება"}
+            title={t("global.Hot-sale")}
           />
           <NewModel
             increaseProduct={increaseProduct}
             page_size={10}
             page_number={40}
-            title={"ახალი მოდელები"}
+            title={t("global.New-models")}
           />
           <Brand />
           <Popular
             increaseProduct={increaseProduct}
             page_size={10}
             page_number={90}
-            title={"პოპულარულები"}
+            title={t("global.Popular")}
           />
           {/* <VisitedProduct /> */}
           <TopProduct
             increaseProduct={increaseProduct}
             page_size={10}
             page_number={190}
-            title={"Top"}
+            title={t("global.Top-brand")}
           />
         </Box>
       </Box>
